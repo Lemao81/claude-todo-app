@@ -11,7 +11,7 @@ ClaudeTodoApp is a full-stack Todo application with a .NET 10 minimal API backen
 ### Backend (`backend/WebApi/`)
 
 ```powershell
-dotnet run          # Start API server (http://localhost:5152)
+dotnet run          # Start API server (http://localhost:5000)
 dotnet build        # Build
 dotnet test         # Run tests (none yet)
 ```
