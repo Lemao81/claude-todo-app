@@ -1,3 +1,5 @@
+using WebApi.Todos.Endpoints;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
@@ -8,5 +10,7 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+app.MapTodoEndpoints();
 
 app.Run();
