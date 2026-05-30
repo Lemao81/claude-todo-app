@@ -1,12 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using WebApi.Data;
 using WebApi.Todos.Endpoints;
+using WebApi.Todos.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<TodoService>();
 
 var app = builder.Build();
 

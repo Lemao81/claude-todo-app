@@ -6,9 +6,8 @@ public class CreateTodoDto
 {
     public string Text { get; set; } = string.Empty;
 
-    public Todo ToTodo(int id) => new()
+    public Todo ToTodo() => new()
     {
-        Id = id,
         Text = Text,
         Done = false,
     };
