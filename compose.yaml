@@ -6,12 +6,14 @@
       dockerfile: backend/WebApi/Dockerfile
     environment:
       - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=claudetodo;Username=postgres;Password=postgres
+    ports:
+      - "8080:8080"
     depends_on:
       postgres:
         condition: service_healthy
 
   postgres:
-    image: postgres:18
+    image: postgres:17
     environment:
       POSTGRES_DB: claudetodo
       POSTGRES_USER: postgres
@@ -19,7 +21,7 @@
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - claudetodo_postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -27,5 +29,5 @@
       retries: 5
 
 volumes:
-  postgres_data:
+  claudetodo_postgres_data:
 
