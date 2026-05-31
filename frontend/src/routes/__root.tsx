@@ -52,7 +52,7 @@ function RootComponent() {
         <Box sx={{ overflow: 'auto' }}>
           <List>
             <ListItem disablePadding>
-              <ListItemButton component={Link} to="/">
+              <ListItemButton component={Link} to="/todos">
                 <ListItemIcon>
                   <ChecklistIcon />
                 </ListItemIcon>
