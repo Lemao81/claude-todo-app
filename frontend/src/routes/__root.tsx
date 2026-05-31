@@ -1,4 +1,5 @@
 import ChecklistIcon from '@mui/icons-material/Checklist';
+import InfoIcon from '@mui/icons-material/Info';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,7 +12,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { TanStackDevtools } from '@tanstack/react-devtools';
-import { createRootRoute, Outlet } from '@tanstack/react-router';
+import { createRootRoute, Link, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 
 const DRAWER_WIDTH = 240;
@@ -51,11 +52,19 @@ function RootComponent() {
         <Box sx={{ overflow: 'auto' }}>
           <List>
             <ListItem disablePadding>
-              <ListItemButton>
+              <ListItemButton component={Link} to="/">
                 <ListItemIcon>
                   <ChecklistIcon />
                 </ListItemIcon>
                 <ListItemText primary="Todos" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/about">
+                <ListItemIcon>
+                  <InfoIcon />
+                </ListItemIcon>
+                <ListItemText primary="About" />
               </ListItemButton>
             </ListItem>
           </List>
