@@ -16,4 +16,18 @@ public class TodoService(AppDbContext db)
 
         return todo;
     }
+
+    public async Task<bool> DeleteAsync(int id)
+    {
+        var todo = await db.Todos.FindAsync(id);
+        if (todo is null)
+        {
+            return false;
+        }
+
+        db.Todos.Remove(todo);
+        await db.SaveChangesAsync();
+
+        return true;
+    }
 }

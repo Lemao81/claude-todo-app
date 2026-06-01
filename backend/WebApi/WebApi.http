@@ -13,3 +13,7 @@ Content-Type: application/json
 }
 
 ###
+
+DELETE {{baseUrl}}/api/todos/1
+
+###
