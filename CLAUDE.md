@@ -62,3 +62,7 @@ docker compose up   # Build and run the backend container
 | `src/routes/todos/$id.tsx` | `/todos/:id` |
 
 Use `Link` from `@tanstack/react-router` for client-side navigation. Use `Route.useLoaderData()` to access data loaded by a route's `loader`.
+
+# Code style
+- insert new line before return keyword if not first line of block
+- put single line statements in curly braces to separate line

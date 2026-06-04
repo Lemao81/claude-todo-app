@@ -1,19 +1,22 @@
-import { createLazyFileRoute } from '@tanstack/react-router'
+import { createLazyFileRoute, getRouteApi } from "@tanstack/react-router";
 
-export const Route = createLazyFileRoute('/todos/')({
+export const Route = createLazyFileRoute("/todos/")({
 	component: RouteComponent,
-})
+});
+
+const routeApi = getRouteApi("/todos/");
 
 function RouteComponent() {
+	const todos = routeApi.useLoaderData();
+
 	return (
 		<div>
 			<h1>My Todos</h1>
 			<ul>
-				<li>Buy groceries</li>
-				<li>Walk the dog</li>
-				<li>Read a book</li>
-				<li>Write some code</li>
+				{todos.map((todo) => (
+					<li key={todo.id}>{todo.text}</li>
+				))}
 			</ul>
 		</div>
-	)
+	);
 }
