@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WebApi.Data;
+using WebApi.Data.Seed;
 using WebApi.Todos.Endpoints;
 using WebApi.Todos.Services;
 
@@ -14,7 +15,10 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    await scope.ServiceProvider.GetRequiredService<AppDbContext>().Database.MigrateAsync();
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await db.Database.MigrateAsync();
+
+    await SeedHelper.SeedAsync(db);
 }
 
 if (app.Environment.IsDevelopment())
