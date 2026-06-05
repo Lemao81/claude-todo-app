@@ -19,7 +19,7 @@ export function useColorMode() {
 
 export function AppThemeProvider({ children }: { children: React.ReactNode }) {
 	const [mode, setMode] = useState<ColorMode>(
-		() => (localStorage.getItem("colorMode") as ColorMode) ?? "light",
+		() => (localStorage.getItem("colorMode") as ColorMode) ?? "dark",
 	);
 
 	const toggleColorMode = () => {
