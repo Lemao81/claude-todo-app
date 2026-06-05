@@ -32,10 +32,7 @@ function RootComponent() {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
 
-      <AppBar
-        position="fixed"
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      >
+      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar>
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             Claude Todo App
@@ -87,9 +84,7 @@ function RootComponent() {
 
       <TanStackDevtools
         config={{ position: 'bottom-right' }}
-        plugins={[
-          { name: 'TanStack Router', render: <TanStackRouterDevtoolsPanel /> },
-        ]}
+        plugins={[{ name: 'TanStack Router', render: <TanStackRouterDevtoolsPanel /> }]}
       />
     </Box>
   );
