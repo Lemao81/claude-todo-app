@@ -38,7 +38,7 @@ export function AppThemeProvider({ children }: { children: React.ReactNode }) {
           primary: { main: '#ba9d36' },
           secondary: { main: '#41922a' },
           mode,
-          background: { default: '#1a1c2e', paper: '#1a1c2e' },
+          background: { default: '#272a42', paper: '#1a1c2e' },
         },
         typography: {
           fontFamily: 'SUSE',
