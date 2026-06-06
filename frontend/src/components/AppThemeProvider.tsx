@@ -31,7 +31,30 @@ export function AppThemeProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const theme = useMemo(() => createTheme({ palette: { mode } }), [mode]);
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          primary: { main: '#ba9d36' },
+          secondary: { main: '#41922a' },
+          mode,
+          background: { default: '#1a1c2e', paper: '#1a1c2e' },
+        },
+        typography: {
+          fontFamily: 'SUSE',
+          fontSize: 15,
+          fontWeightLight: 100,
+          fontWeightRegular: 200,
+          fontWeightMedium: 300,
+          fontWeightBold: 500,
+        },
+        spacing: 7,
+        shape: {
+          borderRadius: 14,
+        },
+      }),
+    [mode],
+  );
 
   return (
     <ColorModeContext.Provider value={{ mode, toggleColorMode }}>
