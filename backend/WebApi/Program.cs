@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using WebApi.Auth.Endpoints;
 using WebApi.Data;
 using WebApi.Data.Seed;
 using WebApi.Todos.Endpoints;
@@ -57,6 +58,7 @@ if (app.Environment.IsDevelopment())
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapAuthEndpoints();
 app.MapTodoEndpoints();
 
 app.Run();
