@@ -7,8 +7,10 @@ public static class TodoEndpoints
 {
     public static IEndpointRouteBuilder MapTodoEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet(
-            "/api/todos", async (TodoService todoService) =>
+        var group = app.MapGroup("/api/todos").RequireAuthorization();
+
+        group.MapGet(
+            "", async (TodoService todoService) =>
             {
                 var todos = await todoService.GetAsync();
                 var dtos = todos.Select(TodoDto.FromTodo);
@@ -16,24 +18,24 @@ public static class TodoEndpoints
                 return Results.Ok(dtos);
             });
 
-        app.MapPost(
-            "/api/todos", async (CreateTodoDto dto, TodoService todoService) =>
+        group.MapPost(
+            "", async (CreateTodoDto dto, TodoService todoService) =>
             {
                 var todo = await todoService.AddAsync(dto.ToTodo());
 
                 return Results.Created($"/api/todos/{todo.Id}", TodoDto.FromTodo(todo));
             });
 
-        app.MapPatch(
-            "/api/todos/{id:int}", async (int id, UpdateTodoDoneDto dto, TodoService todoService) =>
+        group.MapPatch(
+            "/{id:int}", async (int id, UpdateTodoDoneDto dto, TodoService todoService) =>
             {
                 var todo = await todoService.SetDoneAsync(id, dto.Done);
 
                 return todo is not null ? Results.Ok(TodoDto.FromTodo(todo)) : Results.NotFound();
             });
 
-        app.MapDelete(
-            "/api/todos/{id:int}", async (int id, TodoService todoService) =>
+        group.MapDelete(
+            "/{id:int}", async (int id, TodoService todoService) =>
             {
                 var deleted = await todoService.DeleteAsync(id);
 
