@@ -1,3 +1,6 @@
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Stack from '@mui/material/Stack';
+import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
 import { createLazyFileRoute, getRouteApi } from '@tanstack/react-router';
 import { useState } from 'react';
@@ -13,6 +16,7 @@ const routeApi = getRouteApi('/todos/');
 
 function RouteComponent() {
   const [todos, setTodos] = useState<TodoDto[]>(routeApi.useLoaderData());
+  const [showDone, setShowDone] = useState(true);
 
   async function handleToggleDone(id: number, done: boolean) {
     setTodos((prev) => prev.map((todo) => (todo.id === id ? { ...todo, done } : todo)));
@@ -30,12 +34,18 @@ function RouteComponent() {
     }
   }
 
+  const visibleTodos = showDone ? todos : todos.filter((todo) => !todo.done);
+
   return (
     <div style={{ maxWidth: 640 }}>
-      <Typography variant="h5" sx={{ mb: 3 }}>
-        My Todos
-      </Typography>
-      {todos.map((todo) => (
+      <Stack direction="row" sx={{ alignItems: 'center', justifyContent: 'space-between', mb: 3 }}>
+        <Typography variant="h5">My Todos</Typography>
+        <FormControlLabel
+          control={<Switch checked={showDone} onChange={(e) => setShowDone(e.target.checked)} />}
+          label="Show done"
+        />
+      </Stack>
+      {visibleTodos.map((todo) => (
         <TodoCard key={todo.id} todo={todo} onToggleDone={handleToggleDone} />
       ))}
     </div>
