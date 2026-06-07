@@ -3,6 +3,7 @@ import { createLazyFileRoute, getRouteApi } from '@tanstack/react-router';
 import { useState } from 'react';
 import { TodoCard } from '#/components/TodoCard';
 import type { TodoDto } from '#/routes/todos/index';
+import { logFetchError } from '#/utils/logHelper';
 
 export const Route = createLazyFileRoute('/todos/')({
   component: RouteComponent,
@@ -23,8 +24,7 @@ function RouteComponent() {
     });
 
     if (!res.ok) {
-      const body = await res.text();
-      console.error(`Failed to update todo ${id}: ${res.status} ${res.statusText}`, body);
+      await logFetchError(res, `Failed to update todo ${id}`);
 
       setTodos((prev) => prev.map((todo) => (todo.id === id ? { ...todo, done: !done } : todo)));
     }
