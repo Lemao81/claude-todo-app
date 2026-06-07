@@ -42,7 +42,15 @@ export function TodoCard({ todo, onToggleDone }: TodoCardProps) {
             {todo.text}
           </Typography>
           {todo.description && (
-            <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{
+                mt: 0.5,
+                textDecoration: todo.done ? 'line-through' : 'none',
+                opacity: todo.done ? 0.5 : 1,
+              }}
+            >
               {todo.description}
             </Typography>
           )}
