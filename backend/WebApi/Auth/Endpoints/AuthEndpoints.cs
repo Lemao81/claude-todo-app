@@ -28,6 +28,14 @@ public static class AuthEndpoints
                 return Results.Ok();
             });
 
+        group.MapPost(
+            "/logout", async (HttpContext httpContext) =>
+            {
+                await httpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+                return Results.Ok();
+            });
+
         return app;
     }
 

@@ -11,6 +11,10 @@ Content-Type: application/json
 
 ###
 
+POST {{baseUrl}}/api/auth/logout
+
+###
+
 GET {{baseUrl}}/api/todos
 
 ###
