@@ -8,9 +8,10 @@ import type { TodoDto } from '#/routes/todos/index';
 
 interface TodoCardProps {
   todo: TodoDto;
+  onToggleDone: (id: number, done: boolean) => void;
 }
 
-export function TodoCard({ todo }: TodoCardProps) {
+export function TodoCard({ todo, onToggleDone }: TodoCardProps) {
   return (
     <Card variant="outlined" sx={{ mb: 1.5 }}>
       <CardContent
@@ -24,6 +25,7 @@ export function TodoCard({ todo }: TodoCardProps) {
       >
         <Checkbox
           checked={todo.done}
+          onChange={(e) => onToggleDone(todo.id, e.target.checked)}
           icon={<RadioButtonUncheckedIcon />}
           checkedIcon={<CheckCircleOutlineIcon />}
           color="primary"

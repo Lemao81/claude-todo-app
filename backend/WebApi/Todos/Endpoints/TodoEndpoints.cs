@@ -24,6 +24,14 @@ public static class TodoEndpoints
                 return Results.Created($"/api/todos/{todo.Id}", TodoDto.FromTodo(todo));
             });
 
+        app.MapPatch(
+            "/api/todos/{id:int}", async (int id, UpdateTodoDoneDto dto, TodoService todoService) =>
+            {
+                var todo = await todoService.SetDoneAsync(id, dto.Done);
+
+                return todo is not null ? Results.Ok(TodoDto.FromTodo(todo)) : Results.NotFound();
+            });
+
         app.MapDelete(
             "/api/todos/{id:int}", async (int id, TodoService todoService) =>
             {

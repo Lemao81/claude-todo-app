@@ -17,6 +17,20 @@ public class TodoService(AppDbContext db)
         return todo;
     }
 
+    public async Task<Todo?> SetDoneAsync(int id, bool done)
+    {
+        var todo = await db.Todos.FindAsync(id);
+        if (todo is null)
+        {
+            return null;
+        }
+
+        todo.Done = done;
+        await db.SaveChangesAsync();
+
+        return todo;
+    }
+
     public async Task<bool> DeleteAsync(int id)
     {
         var todo = await db.Todos.FindAsync(id);
