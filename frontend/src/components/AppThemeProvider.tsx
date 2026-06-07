@@ -41,7 +41,7 @@ export function AppThemeProvider({ children }: { children: React.ReactNode }) {
           background: { default: '#272a42', paper: '#1a1c2e' },
         },
         typography: {
-          fontFamily: 'SUSE',
+          fontFamily: 'Comic Sans MS',
           fontSize: 15,
           fontWeightLight: 100,
           fontWeightRegular: 200,
