@@ -14,9 +14,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Link } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import type { ReactNode } from 'react';
 import { useColorMode } from '#/components/AppThemeProvider';
+import { logFetchError } from '#/utils/logHelper';
 
 const DRAWER_WIDTH = 240;
 
@@ -26,6 +27,19 @@ interface MainLayoutProps {
 
 export function MainLayout({ children }: MainLayoutProps) {
   const { mode, toggleColorMode } = useColorMode();
+  const navigate = useNavigate();
+
+  async function handleLogout() {
+    const res = await fetch('/api/auth/logout', { method: 'POST' });
+
+    if (!res.ok) {
+      await logFetchError(res, 'Failed to log out');
+
+      return;
+    }
+
+    navigate({ to: '/login' });
+  }
 
   return (
     <>
@@ -39,6 +53,9 @@ export function MainLayout({ children }: MainLayoutProps) {
           </IconButton>
           <Button color="inherit" component={Link} to="/login" sx={{ ml: 2 }}>
             Login
+          </Button>
+          <Button color="inherit" onClick={handleLogout} sx={{ ml: 1 }}>
+            Logout
           </Button>
         </Toolbar>
       </AppBar>
