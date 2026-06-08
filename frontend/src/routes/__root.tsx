@@ -4,6 +4,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
@@ -40,6 +41,9 @@ function RootComponent() {
           <IconButton color="inherit" onClick={toggleColorMode}>
             {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
           </IconButton>
+          <Button color="inherit" component={Link} to="/login" sx={{ ml: 2 }}>
+            Login
+          </Button>
         </Toolbar>
       </AppBar>
 
