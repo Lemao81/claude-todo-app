@@ -1,6 +1,6 @@
-using WebApi.Todos.Models;
+using WebApi.Features.Todos.Models;
 
-namespace WebApi.Todos.Models.Dtos;
+namespace WebApi.Features.Todos.Models.Dtos;
 
 public class CreateTodoDto
 {

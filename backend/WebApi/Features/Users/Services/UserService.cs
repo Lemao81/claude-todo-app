@@ -1,7 +1,7 @@
 using WebApi.Data;
-using WebApi.Users.Models;
+using WebApi.Features.Users.Models;
 
-namespace WebApi.Users.Services;
+namespace WebApi.Features.Users.Services;
 
 public class UserService(AppDbContext db)
 {

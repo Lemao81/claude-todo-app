@@ -25,7 +25,7 @@ namespace WebApi.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("WebApi.Todos.Models.Todo", b =>
+            modelBuilder.Entity("WebApi.Features.Todos.Models.Todo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -48,7 +48,7 @@ namespace WebApi.Migrations
                     b.ToTable("Todos");
                 });
 
-            modelBuilder.Entity("WebApi.Users.Models.User", b =>
+            modelBuilder.Entity("WebApi.Features.Users.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

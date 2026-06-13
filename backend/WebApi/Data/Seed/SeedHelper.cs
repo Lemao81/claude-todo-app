@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using WebApi.Todos.Models;
+using WebApi.Features.Todos.Models;
 
 namespace WebApi.Data.Seed;
 

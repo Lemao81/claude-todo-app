@@ -1,6 +1,6 @@
-using WebApi.Users.Models;
+using WebApi.Features.Users.Models;
 
-namespace WebApi.Users.Models.Dtos;
+namespace WebApi.Features.Users.Models.Dtos;
 
 public class UserDto
 {

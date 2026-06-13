@@ -1,4 +1,4 @@
-namespace WebApi.Auth.Models.Dtos;
+namespace WebApi.Features.Auth.Models.Dtos;
 
 public class LoginDto
 {

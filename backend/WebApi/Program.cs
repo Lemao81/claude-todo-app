@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using WebApi.Auth.Endpoints;
+using WebApi.Features.Auth.Endpoints;
 using WebApi.Data;
 using WebApi.Data.Seed;
-using WebApi.Todos.Endpoints;
-using WebApi.Todos.Services;
-using WebApi.Users.Endpoints;
-using WebApi.Users.Services;
+using WebApi.Features.Todos.Endpoints;
+using WebApi.Features.Todos.Services;
+using WebApi.Features.Users.Endpoints;
+using WebApi.Features.Users.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

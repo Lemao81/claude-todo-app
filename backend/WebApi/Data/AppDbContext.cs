@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using WebApi.Todos.Models;
-using WebApi.Users.Models;
+using WebApi.Features.Todos.Models;
+using WebApi.Features.Users.Models;
 
 namespace WebApi.Data;
 

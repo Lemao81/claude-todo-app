@@ -1,7 +1,7 @@
-using WebApi.Todos.Models.Dtos;
-using WebApi.Todos.Services;
+using WebApi.Features.Todos.Models.Dtos;
+using WebApi.Features.Todos.Services;
 
-namespace WebApi.Todos.Endpoints;
+namespace WebApi.Features.Todos.Endpoints;
 
 public static class TodoEndpoints
 {

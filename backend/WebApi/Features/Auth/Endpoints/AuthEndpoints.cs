@@ -1,9 +1,9 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using WebApi.Auth.Models.Dtos;
+using WebApi.Features.Auth.Models.Dtos;
 
-namespace WebApi.Auth.Endpoints;
+namespace WebApi.Features.Auth.Endpoints;
 
 public static class AuthEndpoints
 {

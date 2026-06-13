@@ -1,4 +1,4 @@
-namespace WebApi.Todos.Models;
+namespace WebApi.Features.Todos.Models;
 
 public class Todo
 {

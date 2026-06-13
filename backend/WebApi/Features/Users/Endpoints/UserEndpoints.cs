@@ -1,7 +1,7 @@
-using WebApi.Users.Models.Dtos;
-using WebApi.Users.Services;
+using WebApi.Features.Users.Models.Dtos;
+using WebApi.Features.Users.Services;
 
-namespace WebApi.Users.Endpoints;
+namespace WebApi.Features.Users.Endpoints;
 
 public static class UserEndpoints
 {

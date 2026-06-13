@@ -1,4 +1,4 @@
-namespace WebApi.Todos.Models.Dtos;
+namespace WebApi.Features.Todos.Models.Dtos;
 
 public class UpdateTodoDoneDto
 {

@@ -1,4 +1,4 @@
-namespace WebApi.Users.Models;
+namespace WebApi.Features.Users.Models;
 
 public class User
 {

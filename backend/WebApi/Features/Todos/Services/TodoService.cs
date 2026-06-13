@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using WebApi.Data;
-using WebApi.Todos.Models;
+using WebApi.Features.Todos.Models;
 
-namespace WebApi.Todos.Services;
+namespace WebApi.Features.Todos.Services;
 
 public class TodoService(AppDbContext db)
 {
