@@ -5,6 +5,8 @@ using WebApi.Data;
 using WebApi.Data.Seed;
 using WebApi.Todos.Endpoints;
 using WebApi.Todos.Services;
+using WebApi.Users.Endpoints;
+using WebApi.Users.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<TodoService>();
+builder.Services.AddScoped<UserService>();
 
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -60,5 +63,6 @@ app.UseAuthorization();
 
 app.MapAuthEndpoints();
 app.MapTodoEndpoints();
+app.MapUserEndpoints();
 
 app.Run();

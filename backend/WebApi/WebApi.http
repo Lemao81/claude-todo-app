@@ -31,3 +31,7 @@ Content-Type: application/json
 DELETE {{baseUrl}}/api/todos/1
 
 ###
+
+GET {{baseUrl}}/api/users/00000000-0000-0000-0000-000000000000
+
+###
