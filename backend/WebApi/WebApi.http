@@ -32,6 +32,6 @@ DELETE {{baseUrl}}/api/todos/1
 
 ###
 
-GET {{baseUrl}}/api/users/00000000-0000-0000-0000-000000000000
+GET {{baseUrl}}/api/users/cc6aead7-855c-4410-bb4b-2067f5738528
 
 ###

@@ -1,11 +1,19 @@
 using Microsoft.EntityFrameworkCore;
+using WebApi.Features.Auth.Services;
 using WebApi.Features.Todos.Models;
+using WebApi.Features.Users.Models;
 
 namespace WebApi.Data.Seed;
 
 public static class SeedHelper
 {
-    public static async Task SeedAsync(AppDbContext db)
+    public static async Task SeedAsync(AppDbContext db, IPasswordHasher passwordHasher)
+    {
+        await SeedTodosAsync(db);
+        await SeedUsersAsync(db, passwordHasher);
+    }
+
+    private static async Task SeedTodosAsync(AppDbContext db)
     {
         if (await db.Todos.AnyAsync())
         {
@@ -34,6 +42,45 @@ public static class SeedHelper
             new Todo { Text = "Do laundry", Done = true },
             new Todo { Text = "Update resume", Done = false }
         );
+
         await db.SaveChangesAsync();
     }
+
+    private static async Task SeedUsersAsync(AppDbContext db, IPasswordHasher passwordHasher)
+    {
+        if (await db.Users.AnyAsync())
+        {
+            return;
+        }
+
+        db.Users.AddRange(
+            CreateUser(new Guid("cc6aead7-855c-4410-bb4b-2067f5738528"), "admin", "admin@example.com", "Ada", "Admin", "password", passwordHasher),
+            CreateUser(new Guid("298c7978-451b-469a-8fdd-ca1f672c300e"), "jdoe", "john.doe@example.com", "John", "Doe", "password", passwordHasher),
+            CreateUser(new Guid("d0f35cb0-3722-4bb9-a383-0653ea0c6453"), "asmith", "alice.smith@example.com", "Alice", "Smith", "password", passwordHasher),
+            CreateUser(new Guid("6f5a1105-e94d-4080-ba21-d3eda369512f"), "bwayne", "bruce.wayne@example.com", "Bruce", "Wayne", "password", passwordHasher),
+            CreateUser(new Guid("d69caa5f-7295-4850-be6d-d636671934c0"), "cjones", "carol.jones@example.com", "Carol", "Jones", "password", passwordHasher)
+        );
+
+        await db.SaveChangesAsync();
+    }
+
+    private static User CreateUser(
+        Guid id,
+        string userName,
+        string email,
+        string firstName,
+        string lastName,
+        string password,
+        IPasswordHasher passwordHasher) =>
+        new()
+        {
+            Id = id,
+            UserName = userName,
+            Email = email,
+            EmailNormalized = email.ToUpperInvariant(),
+            EmailConfirmed = true,
+            FirstName = firstName,
+            LastName = lastName,
+            PasswordHash = passwordHasher.Hash(password),
+        };
 }

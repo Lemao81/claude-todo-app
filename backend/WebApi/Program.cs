@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Features.Auth.Endpoints;
+using WebApi.Features.Auth.Services;
 using WebApi.Data;
 using WebApi.Data.Seed;
 using WebApi.Features.Todos.Endpoints;
@@ -15,6 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<TodoService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasherV1>();
 
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -50,7 +52,8 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await db.Database.MigrateAsync();
 
-    await SeedHelper.SeedAsync(db);
+    var passwordHasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
+    await SeedHelper.SeedAsync(db, passwordHasher);
 }
 
 if (app.Environment.IsDevelopment())
