@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using WebApi.Data;
 using WebApi.Features.Users.Models;
 
@@ -7,4 +8,16 @@ public class UserService(AppDbContext db)
 {
     public async Task<User?> GetByIdAsync(Guid id) =>
         await db.Users.FindAsync(id);
+
+    public async Task<User?> GetByUsernameOrEmailAsync(string usernameOrEmail)
+    {
+        var emailNormalized = usernameOrEmail.ToUpperInvariant();
+        var user = await db.Users.FirstOrDefaultAsync(u => u.EmailNormalized == emailNormalized);
+        if (user is not null)
+        {
+            return user;
+        }
+
+        return await db.Users.FirstOrDefaultAsync(u => u.UserName == usernameOrEmail);
+    }
 }

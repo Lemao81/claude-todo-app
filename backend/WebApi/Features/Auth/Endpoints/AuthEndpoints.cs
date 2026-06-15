@@ -2,6 +2,9 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using WebApi.Features.Auth.Models.Dtos;
+using WebApi.Features.Auth.Services;
+using WebApi.Features.Users.Models.Dtos;
+using WebApi.Features.Users.Services;
 
 namespace WebApi.Features.Auth.Endpoints;
 
@@ -12,20 +15,27 @@ public static class AuthEndpoints
         var group = app.MapGroup("/api/auth");
 
         group.MapPost(
-            "/login", async (LoginDto dto, HttpContext httpContext) =>
+            "/login",
+            async (LoginDto dto, HttpContext httpContext, UserService userService, IPasswordHasher passwordHasher) =>
             {
-                if (!IsValidCredentials(dto.Username, dto.Password))
+                var user = await userService.GetByUsernameOrEmailAsync(dto.UsernameOrEmail);
+                if (user is null)
+                {
+                    return Results.NotFound();
+                }
+
+                if (!passwordHasher.Verify(dto.Password, user.PasswordHash))
                 {
                     return Results.Unauthorized();
                 }
 
-                var claims = new[] { new Claim(ClaimTypes.Name, dto.Username) };
+                var claims = new[] { new Claim(ClaimTypes.Name, user.UserName) };
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);
 
                 await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                return Results.Ok();
+                return Results.Ok(UserDto.FromUser(user));
             });
 
         group.MapPost(
@@ -37,11 +47,5 @@ public static class AuthEndpoints
             });
 
         return app;
-    }
-
-    private static bool IsValidCredentials(string username, string password)
-    {
-        // TODO: replace with a real check against a user store once one exists
-        return true;
     }
 }
