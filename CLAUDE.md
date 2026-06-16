@@ -13,7 +13,7 @@ ClaudeTodoApp is a full-stack Todo application with a .NET 10 minimal API backen
 ```powershell
 dotnet run          # Start API server (http://localhost:5000)
 dotnet build        # Build
-dotnet test         # Run tests (none yet)
+dotnet test         # Run tests
 ```
 
 ### Frontend (`frontend/`)
@@ -25,7 +25,8 @@ pnpm build          # Production build
 pnpm test           # Run Vitest tests
 pnpm check          # Biome lint + format check (run before committing)
 pnpm lint           # Lint only
-pnpm format         # Format only
+pnpm format         # Format check only
+pnpm format-write   # Format check + apply fixes
 ```
 
 ### Docker
@@ -63,6 +64,18 @@ docker compose up   # Build and run the backend container
 
 Use `Link` from `@tanstack/react-router` for client-side navigation. Use `Route.useLoaderData()` to access data loaded by a route's `loader`.
 
-# Code style
-- insert new line before return keyword if not first line of block
-- put single line statements in curly braces to separate line
+## Code Style
+- General:
+  - insert new line before return keyword if not first line of block
+  - put single line statements in curly braces to separate line
+- C#:
+  - Tests:
+    - Arrange, Act, Assert pattern (comment each section in method)
+
+## Workflows
+
+### Creating/Modifying API endpoints
+
+When creating or modifying API endpoints:
+
+1. Add/update endpoint in the .http file, use a sample payload for POST/PUT/PATCH method
