@@ -46,7 +46,13 @@ export function MainLayout({ children }: MainLayoutProps) {
     <>
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+          <Typography
+            variant="h6"
+            noWrap
+            component={Link}
+            to="/"
+            sx={{ flexGrow: 1, color: 'inherit', textDecoration: 'none' }}
+          >
             Claude Todo App
           </Typography>
           <IconButton color="inherit" onClick={toggleColorMode}>
