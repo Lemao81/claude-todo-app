@@ -1,5 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { apiFetch } from '#/utils/apiClient';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 import { logFetchError } from '#/utils/logHelper';
 
 export type TodoDto = {
@@ -11,7 +10,11 @@ export type TodoDto = {
 
 export const Route = createFileRoute('/todos/')({
   loader: async (): Promise<TodoDto[]> => {
-    const res = await apiFetch('/api/todos');
+    const res = await fetch('/api/todos');
+    if (res.status === 401) {
+      throw redirect({ to: '/login' });
+    }
+
     if (!res.ok) {
       await logFetchError(res, 'Failed to fetch todos');
 
