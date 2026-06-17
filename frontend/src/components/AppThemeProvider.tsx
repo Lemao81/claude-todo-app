@@ -22,14 +22,13 @@ export function AppThemeProvider({ children }: { children: React.ReactNode }) {
     () => (localStorage.getItem('colorMode') as ColorMode) ?? 'dark',
   );
 
-  const toggleColorMode = () => {
+  const toggleColorMode = () =>
     setMode((prev) => {
       const next = prev === 'light' ? 'dark' : 'light';
       localStorage.setItem('colorMode', next);
 
       return next;
     });
-  };
 
   const theme = useMemo(
     () =>
