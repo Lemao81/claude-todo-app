@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { AddTodoDialog } from '#/components/AddTodoDialog';
 import { TodoCard } from '#/components/TodoCard';
 import type { TodoDto } from '#/routes/todos/index';
+import { apiFetch } from '#/utils/apiClient';
 import { logFetchError } from '#/utils/logHelper';
 
 export const Route = createLazyFileRoute('/todos/')({
@@ -24,7 +25,7 @@ function RouteComponent() {
   async function handleToggleDone(id: number, done: boolean) {
     setTodos((prev) => prev.map((todo) => (todo.id === id ? { ...todo, done } : todo)));
 
-    const res = await fetch(`/api/todos/${id}`, {
+    const res = await apiFetch(`/api/todos/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ done }),
@@ -38,7 +39,7 @@ function RouteComponent() {
   }
 
   async function handleCreate(text: string, description: string | null) {
-    const res = await fetch('/api/todos', {
+    const res = await apiFetch('/api/todos', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text, description }),

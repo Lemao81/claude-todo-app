@@ -17,6 +17,7 @@ import Typography from '@mui/material/Typography';
 import { Link, useNavigate } from '@tanstack/react-router';
 import type { ReactNode } from 'react';
 import { useColorMode } from '#/components/AppThemeProvider';
+import { apiFetch } from '#/utils/apiClient';
 import { logFetchError } from '#/utils/logHelper';
 
 const DRAWER_WIDTH = 240;
@@ -30,7 +31,7 @@ export function MainLayout({ children }: MainLayoutProps) {
   const navigate = useNavigate();
 
   async function handleLogout() {
-    const res = await fetch('/api/auth/logout', { method: 'POST' });
+    const res = await apiFetch('/api/auth/logout', { method: 'POST' });
 
     if (!res.ok) {
       await logFetchError(res, 'Failed to log out');
