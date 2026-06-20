@@ -82,7 +82,3 @@ Use `Link` from `@tanstack/react-router` for client-side navigation. Use `Route.
 When creating or modifying API endpoints:
 
 1. Add/update endpoint in the .http file, use a sample payload for POST/PUT/PATCH method
-
-When changing files in the frontend:
-
-1. run format-write to format the frontend files
