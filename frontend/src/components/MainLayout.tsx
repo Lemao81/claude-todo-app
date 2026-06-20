@@ -31,7 +31,7 @@ interface MainLayoutProps {
 export function MainLayout({ children }: MainLayoutProps) {
   const { mode, toggleColorMode } = useColorMode();
   const navigate = useNavigate();
-  const { clear: clearUserInfo } = usePersistedState<UserInfo>('userInfo');
+  const { value: userInfo, clear: clearUserInfo } = usePersistedState<UserInfo>('userInfo');
 
   async function handleLogout() {
     const res = await apiFetch('/api/auth/logout', { method: 'POST' });
@@ -62,12 +62,37 @@ export function MainLayout({ children }: MainLayoutProps) {
           <IconButton color="inherit" onClick={toggleColorMode}>
             {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
           </IconButton>
-          <Button color="inherit" component={Link} to="/login" sx={{ ml: 2 }}>
-            Login
-          </Button>
-          <Button color="inherit" onClick={handleLogout} sx={{ ml: 1 }}>
-            Logout
-          </Button>
+          {userInfo ? (
+            <>
+              <Typography sx={{ ml: 4 }}>{userInfo.userName}</Typography>
+              <Button
+                color="inherit"
+                variant="contained"
+                onClick={handleLogout}
+                sx={{
+                  ml: 3,
+                  bgcolor: 'rgba(255, 255, 255, 0.15)',
+                  '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.25)' },
+                }}
+              >
+                Logout
+              </Button>
+            </>
+          ) : (
+            <Button
+              color="inherit"
+              variant="contained"
+              component={Link}
+              to="/login"
+              sx={{
+                ml: 4,
+                bgcolor: 'rgba(255, 255, 255, 0.15)',
+                '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.25)' },
+              }}
+            >
+              Login
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
 

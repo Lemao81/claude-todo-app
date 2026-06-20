@@ -9,7 +9,10 @@ export function usePersistedState<T>(
 
   useEffect(() => setItem(key, value), [key, value]);
 
-  const clear = useCallback(() => removeItem(key), [key]);
+  const clear = useCallback(() => {
+    removeItem(key);
+    setValue(undefined);
+  }, [key]);
 
   return { value, setValue, clear };
 }
