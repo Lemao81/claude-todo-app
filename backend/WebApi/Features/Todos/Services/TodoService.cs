@@ -7,10 +7,18 @@ namespace WebApi.Features.Todos.Services;
 public class TodoService(AppDbContext db)
 {
     public async Task<List<Todo>> GetAsync() =>
-        await db.Todos.ToListAsync();
+        await db.Todos
+            .OrderBy(todo => todo.Order)
+            .ToListAsync();
 
     public async Task<Todo> AddAsync(Todo todo)
     {
+        var maxOrder = await db.Todos
+            .Where(existing => existing.TodoListId == todo.TodoListId)
+            .MaxAsync(existing => (int?)existing.Order) ?? 0;
+
+        todo.Order = maxOrder + 1;
+
         db.Todos.Add(todo);
         await db.SaveChangesAsync();
 

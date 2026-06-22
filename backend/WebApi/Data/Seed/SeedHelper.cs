@@ -20,7 +20,8 @@ public static class SeedHelper
             return;
         }
 
-        db.TodoLists.AddRange(
+        TodoList[] todoLists =
+        [
             new TodoList
             {
                 Name = "General",
@@ -58,7 +59,18 @@ public static class SeedHelper
                     new Todo { Text = "Do laundry", Done = true }
                 ]
             }
-        );
+        ];
+
+        foreach (var todoList in todoLists)
+        {
+            var order = 1;
+            foreach (var todo in todoList.Todos)
+            {
+                todo.Order = order++;
+            }
+        }
+
+        db.TodoLists.AddRange(todoLists);
 
         await db.SaveChangesAsync();
     }
