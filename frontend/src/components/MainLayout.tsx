@@ -17,8 +17,7 @@ import Typography from '@mui/material/Typography';
 import { Link, useNavigate } from '@tanstack/react-router';
 import type { ReactNode } from 'react';
 import { useColorMode } from '#/components/AppThemeProvider';
-import { usePersistedState } from '#/hooks/usePersistedState';
-import type { UserInfo } from '#/types/userInfo';
+import { useUserInfo } from '#/components/UserInfoProvider';
 import { apiFetch } from '#/utils/apiClient';
 import { logFetchError } from '#/utils/logHelper';
 
@@ -31,7 +30,7 @@ interface MainLayoutProps {
 export function MainLayout({ children }: MainLayoutProps) {
   const { mode, toggleColorMode } = useColorMode();
   const navigate = useNavigate();
-  const { value: userInfo, clear: clearUserInfo } = usePersistedState<UserInfo>('userInfo');
+  const { userInfo, clearUserInfo } = useUserInfo();
 
   async function handleLogout() {
     const res = await apiFetch('/api/auth/logout', { method: 'POST' });

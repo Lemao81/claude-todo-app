@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
-import { usePersistedState } from '#/hooks/usePersistedState';
+import { useUserInfo } from '#/components/UserInfoProvider';
 import type { UserInfo } from '#/types/userInfo';
 import { logFetchError } from '#/utils/logHelper';
 
@@ -18,7 +18,7 @@ function RouteComponent() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
-  const { setValue: setUserInfo } = usePersistedState<UserInfo | null>('userInfo', null);
+  const { setUserInfo } = useUserInfo();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

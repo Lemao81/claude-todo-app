@@ -74,6 +74,7 @@ Use `Link` from `@tanstack/react-router` for client-side navigation. Use `Route.
     - Arrange, Act, Assert pattern (comment each section in method)
 - Typescript:
   - Remove braces around arrow function with single-statements
+  - Add the return type to all functions, except component functions
 
 ## Workflows
 
