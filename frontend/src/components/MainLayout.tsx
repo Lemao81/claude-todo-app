@@ -1,15 +1,11 @@
 import ChecklistIcon from '@mui/icons-material/Checklist';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import InfoIcon from '@mui/icons-material/Info';
-import LightModeIcon from '@mui/icons-material/LightMode';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Collapse from '@mui/material/Collapse';
 import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -17,9 +13,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Link, useMatchRoute, useNavigate } from '@tanstack/react-router';
+import { Link, useMatchRoute } from '@tanstack/react-router';
 import { type ReactNode, useEffect, useState } from 'react';
-import { useColorMode } from '#/components/AppThemeProvider';
+import { ToolbarActions } from '#/components/ToolbarActions';
 import { useUserInfo } from '#/components/UserInfoProvider';
 import type { TodoListDto } from '#/types/todoList';
 import { apiFetch } from '#/utils/apiClient';
@@ -32,10 +28,8 @@ interface MainLayoutProps {
 }
 
 export function MainLayout({ children }: MainLayoutProps) {
-  const { mode, toggleColorMode } = useColorMode();
-  const navigate = useNavigate();
   const matchRoute = useMatchRoute();
-  const { userInfo, clearUserInfo } = useUserInfo();
+  const { userInfo } = useUserInfo();
   const [todoLists, setTodoLists] = useState<TodoListDto[]>([]);
   const [todosOpen, setTodosOpen] = useState(true);
 
@@ -60,19 +54,6 @@ export function MainLayout({ children }: MainLayoutProps) {
     loadTodoLists();
   }, [userInfo]);
 
-  async function handleLogout() {
-    const res = await apiFetch('/api/auth/logout', { method: 'POST' });
-
-    if (!res.ok) {
-      await logFetchError(res, 'Failed to log out');
-
-      return;
-    }
-
-    clearUserInfo();
-    navigate({ to: '/login' });
-  }
-
   return (
     <>
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
@@ -86,40 +67,7 @@ export function MainLayout({ children }: MainLayoutProps) {
           >
             Claude Todo App
           </Typography>
-          <IconButton color="inherit" onClick={toggleColorMode}>
-            {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
-          </IconButton>
-          {userInfo ? (
-            <>
-              <Typography sx={{ ml: 4 }}>{userInfo.userName}</Typography>
-              <Button
-                color="inherit"
-                variant="contained"
-                onClick={handleLogout}
-                sx={{
-                  ml: 3,
-                  bgcolor: 'rgba(255, 255, 255, 0.15)',
-                  '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.25)' },
-                }}
-              >
-                Logout
-              </Button>
-            </>
-          ) : (
-            <Button
-              color="inherit"
-              variant="contained"
-              component={Link}
-              to="/login"
-              sx={{
-                ml: 4,
-                bgcolor: 'rgba(255, 255, 255, 0.15)',
-                '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.25)' },
-              }}
-            >
-              Login
-            </Button>
-          )}
+          <ToolbarActions />
         </Toolbar>
       </AppBar>
 

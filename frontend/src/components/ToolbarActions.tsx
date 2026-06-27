@@ -1,0 +1,68 @@
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import { Link, useNavigate } from '@tanstack/react-router';
+import { useColorMode } from '#/components/AppThemeProvider';
+import { useUserInfo } from '#/components/UserInfoProvider';
+import { apiFetch } from '#/utils/apiClient';
+import { logFetchError } from '#/utils/logHelper';
+
+export function ToolbarActions() {
+  const { mode, toggleColorMode } = useColorMode();
+  const navigate = useNavigate();
+  const { userInfo, clearUserInfo } = useUserInfo();
+
+  async function handleLogout() {
+    const res = await apiFetch('/api/auth/logout', { method: 'POST' });
+
+    if (!res.ok) {
+      await logFetchError(res, 'Failed to log out');
+
+      return;
+    }
+
+    clearUserInfo();
+    navigate({ to: '/login' });
+  }
+
+  return (
+    <>
+      <IconButton color="inherit" onClick={toggleColorMode}>
+        {mode === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+      </IconButton>
+      {userInfo ? (
+        <>
+          <Typography sx={{ ml: 4 }}>{userInfo.userName}</Typography>
+          <Button
+            color="inherit"
+            variant="contained"
+            onClick={handleLogout}
+            sx={{
+              ml: 3,
+              bgcolor: 'rgba(255, 255, 255, 0.15)',
+              '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.25)' },
+            }}
+          >
+            Logout
+          </Button>
+        </>
+      ) : (
+        <Button
+          color="inherit"
+          variant="contained"
+          component={Link}
+          to="/login"
+          sx={{
+            ml: 4,
+            bgcolor: 'rgba(255, 255, 255, 0.15)',
+            '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.25)' },
+          }}
+        >
+          Login
+        </Button>
+      )}
+    </>
+  );
+}
