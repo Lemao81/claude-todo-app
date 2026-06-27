@@ -1,10 +1,13 @@
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import InfoIcon from '@mui/icons-material/Info';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Collapse from '@mui/material/Collapse';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
@@ -14,10 +17,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Link, useNavigate } from '@tanstack/react-router';
-import type { ReactNode } from 'react';
+import { Link, useMatchRoute, useNavigate } from '@tanstack/react-router';
+import { type ReactNode, useEffect, useState } from 'react';
 import { useColorMode } from '#/components/AppThemeProvider';
 import { useUserInfo } from '#/components/UserInfoProvider';
+import type { TodoListDto } from '#/types/todoList';
 import { apiFetch } from '#/utils/apiClient';
 import { logFetchError } from '#/utils/logHelper';
 
@@ -30,7 +34,31 @@ interface MainLayoutProps {
 export function MainLayout({ children }: MainLayoutProps) {
   const { mode, toggleColorMode } = useColorMode();
   const navigate = useNavigate();
+  const matchRoute = useMatchRoute();
   const { userInfo, clearUserInfo } = useUserInfo();
+  const [todoLists, setTodoLists] = useState<TodoListDto[]>([]);
+  const [todosOpen, setTodosOpen] = useState(true);
+
+  useEffect(() => {
+    if (!userInfo) {
+      setTodoLists([]);
+
+      return;
+    }
+
+    async function loadTodoLists() {
+      const res = await apiFetch('/api/todolists');
+      if (!res.ok) {
+        await logFetchError(res, 'Failed to fetch todo lists');
+
+        return;
+      }
+
+      setTodoLists(await res.json());
+    }
+
+    loadTodoLists();
+  }, [userInfo]);
 
   async function handleLogout() {
     const res = await apiFetch('/api/auth/logout', { method: 'POST' });
@@ -110,13 +138,33 @@ export function MainLayout({ children }: MainLayoutProps) {
         <Box sx={{ overflow: 'auto' }}>
           <List>
             <ListItem disablePadding>
-              <ListItemButton component={Link} to="/todos">
+              <ListItemButton onClick={() => setTodosOpen((open) => !open)}>
                 <ListItemIcon>
                   <ChecklistIcon />
                 </ListItemIcon>
                 <ListItemText primary="Todos" />
+                {todosOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
               </ListItemButton>
             </ListItem>
+            <Collapse in={todosOpen} timeout="auto" unmountOnExit>
+              <List disablePadding>
+                {todoLists.map((list) => (
+                  <ListItem key={list.id} disablePadding>
+                    <ListItemButton
+                      component={Link}
+                      to="/todos/$listId"
+                      params={{ listId: String(list.id) }}
+                      selected={
+                        !!matchRoute({ to: '/todos/$listId', params: { listId: String(list.id) } })
+                      }
+                      sx={{ pl: 4 }}
+                    >
+                      <ListItemText primary={list.name} />
+                    </ListItemButton>
+                  </ListItem>
+                ))}
+              </List>
+            </Collapse>
             <ListItem disablePadding>
               <ListItemButton component={Link} to="/about">
                 <ListItemIcon>

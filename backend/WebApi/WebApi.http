@@ -15,7 +15,19 @@ POST {{baseUrl}}/api/auth/logout
 
 ###
 
+GET {{baseUrl}}/api/todolists
+
+###
+
+GET {{baseUrl}}/api/todolists/1
+
+###
+
 GET {{baseUrl}}/api/todos
+
+###
+
+GET {{baseUrl}}/api/todos?todoListId=1
 
 ###
 
@@ -23,7 +35,8 @@ POST {{baseUrl}}/api/todos
 Content-Type: application/json
 
 {
-  "text": "Buy groceries"
+  "text": "Buy groceries",
+  "todoListId": 1
 }
 
 ###

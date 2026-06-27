@@ -6,8 +6,17 @@ namespace WebApi.Features.Todos.Services;
 
 public class TodoService(AppDbContext db)
 {
-    public async Task<List<Todo>> GetAsync() =>
+    public async Task<List<TodoList>> GetListsAsync() =>
+        await db.TodoLists
+            .OrderBy(list => list.Id)
+            .ToListAsync();
+
+    public async Task<TodoList?> GetListAsync(int id) =>
+        await db.TodoLists.FindAsync(id);
+
+    public async Task<List<Todo>> GetAsync(int? todoListId = null) =>
         await db.Todos
+            .Where(todo => todoListId == null || todo.TodoListId == todoListId)
             .OrderBy(todo => todo.Order)
             .ToListAsync();
 

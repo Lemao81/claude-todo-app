@@ -66,6 +66,7 @@ app.UseAuthorization();
 
 app.MapAuthEndpoints();
 app.MapTodoEndpoints();
+app.MapTodoListEndpoints();
 app.MapUserEndpoints();
 
 app.Run();

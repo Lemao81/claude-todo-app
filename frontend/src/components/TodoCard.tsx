@@ -5,7 +5,7 @@ import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
-import type { TodoDto } from '#/routes/todos/index';
+import type { TodoDto } from '#/types/todo';
 
 interface TodoCardProps {
   todo: TodoDto;

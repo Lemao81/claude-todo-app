@@ -10,9 +10,9 @@ public static class TodoEndpoints
         var group = app.MapGroup("/api/todos").RequireAuthorization();
 
         group.MapGet(
-            "", async (TodoService todoService) =>
+            "", async (int? todoListId, TodoService todoService) =>
             {
-                var todos = await todoService.GetAsync();
+                var todos = await todoService.GetAsync(todoListId);
                 var dtos = todos.Select(TodoDto.FromTodo);
 
                 return Results.Ok(dtos);
