@@ -12,10 +12,10 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import { Link, useMatchRoute } from '@tanstack/react-router';
 import { type ReactNode, useEffect, useState } from 'react';
 import { ToolbarActions } from '#/components/ToolbarActions';
+import { ToolbarTitle } from '#/components/ToolbarTitle';
 import { useUserInfo } from '#/components/UserInfoProvider';
 import type { TodoListDto } from '#/types/todoList';
 import { apiFetch } from '#/utils/apiClient';
@@ -58,15 +58,7 @@ export function MainLayout({ children }: MainLayoutProps) {
     <>
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar>
-          <Typography
-            variant="h6"
-            noWrap
-            component={Link}
-            to="/"
-            sx={{ flexGrow: 1, color: 'inherit', textDecoration: 'none' }}
-          >
-            Claude Todo App
-          </Typography>
+          <ToolbarTitle />
           <ToolbarActions />
         </Toolbar>
       </AppBar>
