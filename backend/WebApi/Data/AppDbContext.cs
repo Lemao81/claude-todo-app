@@ -22,5 +22,11 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             .WithOne(todo => todo.TodoList)
             .HasForeignKey(todo => todo.TodoListId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<User>()
+            .HasMany(user => user.TodoLists)
+            .WithOne(todoList => todoList.User)
+            .HasForeignKey(todoList => todoList.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

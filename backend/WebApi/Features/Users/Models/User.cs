@@ -1,3 +1,5 @@
+using WebApi.Features.Todos.Models;
+
 namespace WebApi.Features.Users.Models;
 
 public class User
@@ -13,4 +15,5 @@ public class User
     public bool IsActive { get; set; } = true;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? LastLogin { get; set; }
+    public ICollection<TodoList> TodoLists { get; set; } = [];
 }

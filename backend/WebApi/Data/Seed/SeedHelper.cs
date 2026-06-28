@@ -7,10 +7,12 @@ namespace WebApi.Data.Seed;
 
 public static class SeedHelper
 {
+    private static readonly Guid AdminUserId = new("cc6aead7-855c-4410-bb4b-2067f5738528");
+
     public static async Task SeedAsync(AppDbContext db, IPasswordHasher passwordHasher)
     {
-        await SeedTodosAsync(db);
         await SeedUsersAsync(db, passwordHasher);
+        await SeedTodosAsync(db);
     }
 
     private static async Task SeedTodosAsync(AppDbContext db)
@@ -63,6 +65,7 @@ public static class SeedHelper
 
         foreach (var todoList in todoLists)
         {
+            todoList.UserId = AdminUserId;
             var order = 1;
             foreach (var todo in todoList.Todos)
             {
@@ -83,7 +86,7 @@ public static class SeedHelper
         }
 
         db.Users.AddRange(
-            CreateUser(new Guid("cc6aead7-855c-4410-bb4b-2067f5738528"), "admin", "admin@example.com", "Ada", "Admin", "password", passwordHasher),
+            CreateUser(AdminUserId, "admin", "admin@example.com", "Ada", "Admin", "password", passwordHasher),
             CreateUser(new Guid("298c7978-451b-469a-8fdd-ca1f672c300e"), "jdoe", "john.doe@example.com", "John", "Doe", "password", passwordHasher),
             CreateUser(new Guid("d0f35cb0-3722-4bb9-a383-0653ea0c6453"), "asmith", "alice.smith@example.com", "Alice", "Smith", "password", passwordHasher),
             CreateUser(new Guid("6f5a1105-e94d-4080-ba21-d3eda369512f"), "bwayne", "bruce.wayne@example.com", "Bruce", "Wayne", "password", passwordHasher),
