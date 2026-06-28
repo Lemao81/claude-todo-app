@@ -29,7 +29,11 @@ public static class AuthEndpoints
                     return Results.Unauthorized();
                 }
 
-                var claims = new[] { new Claim(ClaimTypes.Name, user.UserName) };
+                var claims = new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.UserName)
+                };
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);
 

@@ -6,13 +6,14 @@ namespace WebApi.Features.Todos.Services;
 
 public class TodoService(AppDbContext db)
 {
-    public async Task<List<TodoList>> GetListsAsync() =>
+    public async Task<List<TodoList>> GetListsAsync(Guid userId) =>
         await db.TodoLists
+            .Where(list => list.UserId == userId)
             .OrderBy(list => list.Id)
             .ToListAsync();
 
-    public async Task<TodoList?> GetListAsync(int id) =>
-        await db.TodoLists.FindAsync(id);
+    public async Task<TodoList?> GetListAsync(int id, Guid userId) =>
+        await db.TodoLists.FirstOrDefaultAsync(list => list.Id == id && list.UserId == userId);
 
     public async Task<List<Todo>> GetAsync(int? todoListId = null) =>
         await db.Todos
