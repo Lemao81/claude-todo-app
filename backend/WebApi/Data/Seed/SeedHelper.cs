@@ -118,11 +118,11 @@ public static class SeedHelper
         }
 
         db.Users.AddRange(
-            CreateUser(AdminUserId, "admin", "admin@example.com", "Ada", "Admin", "password", passwordHasher),
-            CreateUser(JohnDoeUserId, "jdoe", "john.doe@example.com", "John", "Doe", "password", passwordHasher),
-            CreateUser(new Guid("d0f35cb0-3722-4bb9-a383-0653ea0c6453"), "asmith", "alice.smith@example.com", "Alice", "Smith", "password", passwordHasher),
-            CreateUser(new Guid("6f5a1105-e94d-4080-ba21-d3eda369512f"), "bwayne", "bruce.wayne@example.com", "Bruce", "Wayne", "password", passwordHasher),
-            CreateUser(new Guid("d69caa5f-7295-4850-be6d-d636671934c0"), "cjones", "carol.jones@example.com", "Carol", "Jones", "password", passwordHasher)
+            CreateUser(AdminUserId, "admin", "admin@test.com", "Ada", "Admin", "password", passwordHasher),
+            CreateUser(JohnDoeUserId, "jdoe", "jdoe@test.com", "John", "Doe", "password", passwordHasher),
+            CreateUser(new Guid("d0f35cb0-3722-4bb9-a383-0653ea0c6453"), "asmith", "alice.smith@test.com", "Alice", "Smith", "password", passwordHasher),
+            CreateUser(new Guid("6f5a1105-e94d-4080-ba21-d3eda369512f"), "bwayne", "bruce.wayne@test.com", "Bruce", "Wayne", "password", passwordHasher),
+            CreateUser(new Guid("d69caa5f-7295-4850-be6d-d636671934c0"), "cjones", "carol.jones@test.com", "Carol", "Jones", "password", passwordHasher)
         );
 
         await db.SaveChangesAsync();
