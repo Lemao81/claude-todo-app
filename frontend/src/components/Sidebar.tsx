@@ -19,14 +19,17 @@ export function Sidebar() {
   const matchRoute = useMatchRoute();
   const { userInfo } = useUserInfo();
   const [todoLists, setTodoLists] = useState<TodoListDto[]>([]);
-  const [todosOpen, setTodosOpen] = useState(true);
+  const [todosOpen, setTodosOpen] = useState(false);
 
   useEffect(() => {
     if (!userInfo) {
       setTodoLists([]);
+      setTodosOpen(false);
 
       return;
     }
+
+    setTodosOpen(true);
 
     async function loadTodoLists() {
       const res = await apiFetch('/api/todolists');
@@ -45,7 +48,7 @@ export function Sidebar() {
   return (
     <List>
       <ListItem disablePadding>
-        <ListItemButton onClick={() => setTodosOpen((open) => !open)}>
+        <ListItemButton disabled={!userInfo} onClick={() => setTodosOpen((open) => !open)}>
           <ListItemIcon>
             <ChecklistIcon />
           </ListItemIcon>
