@@ -8,6 +8,7 @@ namespace WebApi.Data.Seed;
 public static class SeedHelper
 {
     private static readonly Guid AdminUserId = new("cc6aead7-855c-4410-bb4b-2067f5738528");
+    private static readonly Guid JohnDoeUserId = new("298c7978-451b-469a-8fdd-ca1f672c300e");
 
     public static async Task SeedAsync(AppDbContext db, IPasswordHasher passwordHasher)
     {
@@ -22,7 +23,7 @@ public static class SeedHelper
             return;
         }
 
-        TodoList[] todoLists =
+        TodoList[] adminTodoLists =
         [
             new TodoList
             {
@@ -63,19 +64,50 @@ public static class SeedHelper
             }
         ];
 
+        TodoList[] johnDoeTodoLists =
+        [
+            new TodoList
+            {
+                Name = "Work",
+                Todos =
+                [
+                    new Todo { Text = "Prepare quarterly report", Description = "Include sales figures for Q2", Done = false },
+                    new Todo { Text = "Reply to client emails", Done = true },
+                    new Todo { Text = "Book flight for conference", Description = "Conference is the first week of August", Done = false }
+                ]
+            },
+            new TodoList
+            {
+                Name = "Home",
+                Todos =
+                [
+                    new Todo { Text = "Mow the lawn", Done = false },
+                    new Todo { Text = "Assemble new bookshelf", Description = "Tools are in the garage", Done = false },
+                    new Todo { Text = "Pay electricity bill", Done = true }
+                ]
+            }
+        ];
+
+        AssignSeedData(adminTodoLists, AdminUserId);
+        AssignSeedData(johnDoeTodoLists, JohnDoeUserId);
+
+        db.TodoLists.AddRange(adminTodoLists);
+        db.TodoLists.AddRange(johnDoeTodoLists);
+
+        await db.SaveChangesAsync();
+    }
+
+    private static void AssignSeedData(TodoList[] todoLists, Guid userId)
+    {
         foreach (var todoList in todoLists)
         {
-            todoList.UserId = AdminUserId;
+            todoList.UserId = userId;
             var order = 1;
             foreach (var todo in todoList.Todos)
             {
                 todo.Order = order++;
             }
         }
-
-        db.TodoLists.AddRange(todoLists);
-
-        await db.SaveChangesAsync();
     }
 
     private static async Task SeedUsersAsync(AppDbContext db, IPasswordHasher passwordHasher)
@@ -87,7 +119,7 @@ public static class SeedHelper
 
         db.Users.AddRange(
             CreateUser(AdminUserId, "admin", "admin@example.com", "Ada", "Admin", "password", passwordHasher),
-            CreateUser(new Guid("298c7978-451b-469a-8fdd-ca1f672c300e"), "jdoe", "john.doe@example.com", "John", "Doe", "password", passwordHasher),
+            CreateUser(JohnDoeUserId, "jdoe", "john.doe@example.com", "John", "Doe", "password", passwordHasher),
             CreateUser(new Guid("d0f35cb0-3722-4bb9-a383-0653ea0c6453"), "asmith", "alice.smith@example.com", "Alice", "Smith", "password", passwordHasher),
             CreateUser(new Guid("6f5a1105-e94d-4080-ba21-d3eda369512f"), "bwayne", "bruce.wayne@example.com", "Bruce", "Wayne", "password", passwordHasher),
             CreateUser(new Guid("d69caa5f-7295-4850-be6d-d636671934c0"), "cjones", "carol.jones@example.com", "Carol", "Jones", "password", passwordHasher)
