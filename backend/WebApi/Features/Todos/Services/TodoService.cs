@@ -35,6 +35,20 @@ public class TodoService(AppDbContext db)
         return todo;
     }
 
+    public async Task ReorderAsync(int[] orderedIds)
+    {
+        var todos = await db.Todos
+            .Where(todo => orderedIds.Contains(todo.Id))
+            .ToListAsync();
+
+        foreach (var todo in todos)
+        {
+            todo.Order = Array.IndexOf(orderedIds, todo.Id) + 1;
+        }
+
+        await db.SaveChangesAsync();
+    }
+
     public async Task<Todo?> SetDoneAsync(int id, bool done)
     {
         var todo = await db.Todos.FindAsync(id);

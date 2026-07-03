@@ -27,6 +27,14 @@ public static class TodoEndpoints
             });
 
         group.MapPatch(
+            "/reorder", async (ReorderTodosDto dto, TodoService todoService) =>
+            {
+                await todoService.ReorderAsync(dto.OrderedIds);
+
+                return Results.NoContent();
+            });
+
+        group.MapPatch(
             "/{id:int}", async (int id, UpdateTodoDoneDto dto, TodoService todoService) =>
             {
                 var todo = await todoService.SetDoneAsync(id, dto.Done);

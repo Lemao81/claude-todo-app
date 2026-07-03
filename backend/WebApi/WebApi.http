@@ -41,6 +41,15 @@ Content-Type: application/json
 
 ###
 
+PATCH {{baseUrl}}/api/todos/reorder
+Content-Type: application/json
+
+{
+  "orderedIds": [3, 1, 2]
+}
+
+###
+
 DELETE {{baseUrl}}/api/todos/1
 
 ###
