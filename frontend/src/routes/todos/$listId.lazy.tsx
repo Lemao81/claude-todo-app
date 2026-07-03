@@ -1,15 +1,11 @@
 import { DragDropProvider } from '@dnd-kit/react';
 import type { DragEndEvent } from '@dnd-kit/react';
 import { isSortable } from '@dnd-kit/react/sortable';
-import Button from '@mui/material/Button';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Stack from '@mui/material/Stack';
-import Switch from '@mui/material/Switch';
-import Typography from '@mui/material/Typography';
 import { createLazyFileRoute, getRouteApi } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { AddTodoDialog } from '#/components/AddTodoDialog';
 import { TodoCard } from '#/components/TodoCard';
+import { TodoListHeader } from '#/components/TodoListHeader';
 import type { TodoDto } from '#/types/todo';
 import { apiFetch } from '#/utils/apiClient';
 import { arrayMove } from '#/utils/arrayMove';
@@ -100,18 +96,12 @@ function RouteComponent() {
 
   return (
     <div style={{ maxWidth: 640 }}>
-      <Stack direction="row" sx={{ alignItems: 'center', justifyContent: 'space-between', mb: 3 }}>
-        <Typography variant="h5">My Todos - {list.name}</Typography>
-        <Stack direction="row" sx={{ alignItems: 'center', gap: 1 }}>
-          <FormControlLabel
-            control={<Switch checked={showDone} onChange={(e) => setShowDone(e.target.checked)} />}
-            label="Show done"
-          />
-          <Button variant="contained" onClick={() => setAddDialogOpen(true)}>
-            Add ToDo
-          </Button>
-        </Stack>
-      </Stack>
+      <TodoListHeader
+        listName={list.name}
+        showDone={showDone}
+        onShowDoneChange={setShowDone}
+        onAddClick={() => setAddDialogOpen(true)}
+      />
       <DragDropProvider onDragEnd={handleDragEnd}>
         {visibleTodos.map((todo, index) => (
           <TodoCard key={todo.id} todo={todo} index={index} onToggleDone={handleToggleDone} />
