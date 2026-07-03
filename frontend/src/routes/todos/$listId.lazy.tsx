@@ -1,14 +1,10 @@
-import { DragDropProvider } from '@dnd-kit/react';
-import type { DragEndEvent } from '@dnd-kit/react';
-import { isSortable } from '@dnd-kit/react/sortable';
 import { createLazyFileRoute, getRouteApi } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { AddTodoDialog } from '#/components/AddTodoDialog';
-import { TodoCard } from '#/components/TodoCard';
+import { TodoList } from '#/components/TodoList';
 import { TodoListHeader } from '#/components/TodoListHeader';
 import type { TodoDto } from '#/types/todo';
 import { apiFetch } from '#/utils/apiClient';
-import { arrayMove } from '#/utils/arrayMove';
 import { logFetchError } from '#/utils/logHelper';
 
 export const Route = createLazyFileRoute('/todos/$listId')({
@@ -42,39 +38,6 @@ function RouteComponent() {
     }
   }
 
-  async function handleDragEnd(event: DragEndEvent) {
-    const { source } = event.operation;
-    if (event.canceled || !isSortable(source)) {
-      return;
-    }
-
-    const oldIndex = source.initialIndex;
-    const newIndex = source.index;
-    if (oldIndex === newIndex) {
-      return;
-    }
-
-    const previous = todos;
-    const reorderedVisible = arrayMove(visibleTodos, oldIndex, newIndex);
-    let visibleCursor = 0;
-    const reordered = todos.map((todo) =>
-      showDone || !todo.done ? reorderedVisible[visibleCursor++] : todo,
-    );
-    setTodos(reordered);
-
-    const res = await apiFetch('/api/todos/reorder', {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ orderedIds: reordered.map((todo) => todo.id) }),
-    });
-
-    if (!res.ok) {
-      await logFetchError(res, 'Failed to reorder todos');
-
-      setTodos(previous);
-    }
-  }
-
   async function handleCreate(text: string, description: string | null) {
     const res = await apiFetch('/api/todos', {
       method: 'POST',
@@ -92,8 +55,6 @@ function RouteComponent() {
     setTodos((prev) => [...prev, todo]);
   }
 
-  const visibleTodos = showDone ? todos : todos.filter((todo) => !todo.done);
-
   return (
     <div style={{ maxWidth: 640 }}>
       <TodoListHeader
@@ -102,11 +63,12 @@ function RouteComponent() {
         onShowDoneChange={setShowDone}
         onAddClick={() => setAddDialogOpen(true)}
       />
-      <DragDropProvider onDragEnd={handleDragEnd}>
-        {visibleTodos.map((todo, index) => (
-          <TodoCard key={todo.id} todo={todo} index={index} onToggleDone={handleToggleDone} />
-        ))}
-      </DragDropProvider>
+      <TodoList
+        todos={todos}
+        showDone={showDone}
+        setTodos={setTodos}
+        onToggleDone={handleToggleDone}
+      />
       <AddTodoDialog
         open={addDialogOpen}
         onClose={() => setAddDialogOpen(false)}
