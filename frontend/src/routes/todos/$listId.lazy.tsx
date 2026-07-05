@@ -1,5 +1,6 @@
 import { createLazyFileRoute, getRouteApi } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
+import { createTodo } from '#/api/todoApi';
 import { AddTodoDialog } from '#/components/AddTodoDialog';
 import { TodoList } from '#/components/TodoList';
 import { TodoListHeader } from '#/components/TodoListHeader';
@@ -39,19 +40,7 @@ function RouteComponent() {
   }
 
   async function handleCreate(text: string, description: string | null) {
-    const res = await apiFetch('/api/todos', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text, description, todoListId: Number(listId) }),
-    });
-
-    if (!res.ok) {
-      await logFetchError(res, 'Failed to create todo');
-
-      throw new Error('Failed to create todo');
-    }
-
-    const todo: TodoDto = await res.json();
+    const todo = await createTodo(text, description, Number(listId));
     setTodos((prev) => [...prev, todo]);
   }
 
