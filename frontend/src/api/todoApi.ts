@@ -23,3 +23,19 @@ export async function createTodo(
 
   return todo;
 }
+
+export async function updateTodoDone(id: number, done: boolean): Promise<boolean> {
+  const res = await apiFetch(`/api/todos/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ done }),
+  });
+
+  if (!res.ok) {
+    await logFetchError(res, `Failed to update todo ${id}`);
+
+    return false;
+  }
+
+  return true;
+}

@@ -1,12 +1,10 @@
 import { createLazyFileRoute, getRouteApi } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
-import { createTodo } from '#/api/todoApi';
+import { createTodo, updateTodoDone } from '#/api/todoApi';
 import { AddTodoDialog } from '#/components/AddTodoDialog';
 import { TodoList } from '#/components/TodoList';
 import { TodoListHeader } from '#/components/TodoListHeader';
 import type { TodoDto } from '#/types/todo';
-import { apiFetch } from '#/utils/apiClient';
-import { logFetchError } from '#/utils/logHelper';
 
 export const Route = createLazyFileRoute('/todos/$listId')({
   component: RouteComponent,
@@ -26,15 +24,8 @@ function RouteComponent() {
   async function handleToggleDone(id: number, done: boolean) {
     setTodos((prev) => prev.map((todo) => (todo.id === id ? { ...todo, done } : todo)));
 
-    const res = await apiFetch(`/api/todos/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ done }),
-    });
-
-    if (!res.ok) {
-      await logFetchError(res, `Failed to update todo ${id}`);
-
+    const success = await updateTodoDone(id, done);
+    if (!success) {
       setTodos((prev) => prev.map((todo) => (todo.id === id ? { ...todo, done: !done } : todo)));
     }
   }
