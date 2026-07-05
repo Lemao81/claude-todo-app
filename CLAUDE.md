@@ -75,6 +75,7 @@ Use `Link` from `@tanstack/react-router` for client-side navigation. Use `Route.
 - Typescript:
   - Remove braces around arrow function with single-statements
   - Add the return type to all functions, except component functions
+  - for react components props declarations, use typescript type, not interface
 
 ## Workflows
 

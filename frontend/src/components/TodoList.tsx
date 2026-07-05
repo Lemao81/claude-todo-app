@@ -8,12 +8,12 @@ import { apiFetch } from '#/utils/apiClient';
 import { arrayMove } from '#/utils/arrayMove';
 import { logFetchError } from '#/utils/logHelper';
 
-interface TodoListProps {
+type TodoListProps = {
   todos: TodoDto[];
   showDone: boolean;
   setTodos: Dispatch<SetStateAction<TodoDto[]>>;
   onToggleDone: (id: number, done: boolean) => void;
-}
+};
 
 export function TodoList({ todos, showDone, setTodos, onToggleDone }: TodoListProps) {
   const visibleTodos = showDone ? todos : todos.filter((todo) => !todo.done);

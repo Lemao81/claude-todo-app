@@ -4,12 +4,12 @@ import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
 
-interface TodoListHeaderProps {
+type TodoListHeaderProps = {
   listName: string;
   showDone: boolean;
   onShowDoneChange: (showDone: boolean) => void;
   onAddClick: () => void;
-}
+};
 
 export function TodoListHeader({
   listName,

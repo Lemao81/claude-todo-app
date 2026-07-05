@@ -6,11 +6,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import { type FormEvent, useState } from 'react';
 
-interface AddTodoDialogProps {
+type AddTodoDialogProps = {
   open: boolean;
   onClose: () => void;
   onCreate: (text: string, description: string | null) => Promise<void>;
-}
+};
 
 export function AddTodoDialog({ open, onClose, onCreate }: AddTodoDialogProps) {
   const [text, setText] = useState('');

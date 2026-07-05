@@ -9,9 +9,9 @@ import { ToolbarTitle } from '#/components/ToolbarTitle';
 
 const DRAWER_WIDTH = 240;
 
-interface MainLayoutProps {
+type MainLayoutProps = {
   children: ReactNode;
-}
+};
 
 export function MainLayout({ children }: MainLayoutProps) {
   return (

@@ -10,11 +10,11 @@ import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
 import type { TodoDto } from '#/types/todo';
 
-interface TodoCardProps {
+type TodoCardProps = {
   todo: TodoDto;
   index: number;
   onToggleDone: (id: number, done: boolean) => void;
-}
+};
 
 export function TodoCard({ todo, index, onToggleDone }: TodoCardProps) {
   const { ref, handleRef, isDragging } = useSortable({ id: todo.id, index });
