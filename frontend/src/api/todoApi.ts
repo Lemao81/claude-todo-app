@@ -39,3 +39,19 @@ export async function updateTodoDone(id: number, done: boolean): Promise<boolean
 
   return true;
 }
+
+export async function reorderTodos(orderedIds: number[]): Promise<boolean> {
+  const res = await apiFetch('/api/todos/reorder', {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ orderedIds }),
+  });
+
+  if (!res.ok) {
+    await logFetchError(res, 'Failed to reorder todos');
+
+    return false;
+  }
+
+  return true;
+}

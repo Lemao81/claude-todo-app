@@ -2,11 +2,10 @@ import { DragDropProvider } from '@dnd-kit/react';
 import type { DragEndEvent } from '@dnd-kit/react';
 import { isSortable } from '@dnd-kit/react/sortable';
 import type { Dispatch, SetStateAction } from 'react';
+import { reorderTodos } from '#/api/todoApi';
 import { TodoCard } from '#/components/TodoCard';
 import type { TodoDto } from '#/types/todo';
-import { apiFetch } from '#/utils/apiClient';
 import { arrayMove } from '#/utils/arrayMove';
-import { logFetchError } from '#/utils/logHelper';
 
 type TodoListProps = {
   todos: TodoDto[];
@@ -38,15 +37,8 @@ export function TodoList({ todos, showDone, setTodos, onToggleDone }: TodoListPr
     );
     setTodos(reordered);
 
-    const res = await apiFetch('/api/todos/reorder', {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ orderedIds: reordered.map((todo) => todo.id) }),
-    });
-
-    if (!res.ok) {
-      await logFetchError(res, 'Failed to reorder todos');
-
+    const success = await reorderTodos(reordered.map((todo) => todo.id));
+    if (!success) {
       setTodos(previous);
     }
   }
