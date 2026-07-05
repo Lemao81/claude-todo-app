@@ -4,10 +4,9 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { Link, useNavigate } from '@tanstack/react-router';
+import { logout } from '#/api/authApi';
 import { useColorMode } from '#/components/AppThemeProvider';
 import { useUserInfo } from '#/components/UserInfoProvider';
-import { apiFetch } from '#/utils/apiClient';
-import { logFetchError } from '#/utils/logHelper';
 
 export function ToolbarActions() {
   const { mode, toggleColorMode } = useColorMode();
@@ -15,11 +14,8 @@ export function ToolbarActions() {
   const { userInfo, clearUserInfo } = useUserInfo();
 
   async function handleLogout() {
-    const res = await apiFetch('/api/auth/logout', { method: 'POST' });
-
-    if (!res.ok) {
-      await logFetchError(res, 'Failed to log out');
-
+    const success = await logout();
+    if (!success) {
       return;
     }
 
