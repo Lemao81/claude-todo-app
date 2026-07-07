@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { SidebarAboutItem } from '#/components/sidebar/SidebarAboutItem';
 import { SidebarTodoLists } from '#/components/sidebar/SidebarTodoLists';
 import { SidebarTodosItem } from '#/components/sidebar/SidebarTodosItem';
-import { useUserInfo } from '#/components/UserInfoProvider';
+import { useUserInfo } from '#/components/provider/UserInfoProvider';
 import type { TodoListDto } from '#/types/todoList';
 import { apiFetch } from '#/utils/apiClient';
 import { logFetchError } from '#/utils/logHelper';

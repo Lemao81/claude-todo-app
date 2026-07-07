@@ -5,8 +5,8 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { Link, useNavigate } from '@tanstack/react-router';
 import { logout } from '#/api/authApi';
-import { useColorMode } from '#/components/AppThemeProvider';
-import { useUserInfo } from '#/components/UserInfoProvider';
+import { useColorMode } from '#/components/provider/AppThemeProvider';
+import { useUserInfo } from '#/components/provider/UserInfoProvider';
 
 export function ToolbarActions() {
   const { mode, toggleColorMode } = useColorMode();

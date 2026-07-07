@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { login } from '#/api/authApi';
-import { useUserInfo } from '#/components/UserInfoProvider';
+import { useUserInfo } from '#/components/provider/UserInfoProvider';
 
 export const Route = createLazyFileRoute('/login')({
   component: RouteComponent,
