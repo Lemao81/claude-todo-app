@@ -89,7 +89,7 @@ export function TodoCard({ todo, index, onToggleDone, onDelete }: TodoCardProps)
         </CardContent>
       </CardActionArea>
       <Box sx={{ display: 'flex', alignItems: 'center', px: 0.5 }}>
-        <Tooltip title="Delete Todo">
+        <Tooltip title="Delete Todo" enterDelay={500} enterNextDelay={500}>
           <IconButton aria-label="Delete todo" onClick={() => onDelete(todo.id)} size="small">
             <DeleteOutlineIcon fontSize="small" />
           </IconButton>
