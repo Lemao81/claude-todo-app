@@ -1,6 +1,6 @@
 import { createLazyFileRoute, getRouteApi } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
-import { createTodo, updateTodoDone } from '#/api/todoApi';
+import { createTodo, deleteTodo, updateTodoDone } from '#/api/todoApi';
 import { AddTodoDialog } from '#/components/todolist/AddTodoDialog';
 import { TodoList } from '#/components/todolist/TodoList';
 import { TodoListHeader } from '#/components/todolist/TodoListHeader';
@@ -30,6 +30,16 @@ function RouteComponent() {
     }
   }
 
+  async function handleDelete(id: number) {
+    const previous = todos;
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+
+    const success = await deleteTodo(id);
+    if (!success) {
+      setTodos(previous);
+    }
+  }
+
   async function handleCreate(text: string, description: string | null) {
     const todo = await createTodo(text, description, Number(listId));
     setTodos((prev) => [...prev, todo]);
@@ -48,6 +58,7 @@ function RouteComponent() {
         showDone={showDone}
         setTodos={setTodos}
         onToggleDone={handleToggleDone}
+        onDelete={handleDelete}
       />
       <AddTodoDialog
         open={addDialogOpen}

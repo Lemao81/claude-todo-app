@@ -12,9 +12,10 @@ type TodoListProps = {
   showDone: boolean;
   setTodos: Dispatch<SetStateAction<TodoDto[]>>;
   onToggleDone: (id: number, done: boolean) => void;
+  onDelete: (id: number) => void;
 };
 
-export function TodoList({ todos, showDone, setTodos, onToggleDone }: TodoListProps) {
+export function TodoList({ todos, showDone, setTodos, onToggleDone, onDelete }: TodoListProps) {
   const visibleTodos = showDone ? todos : todos.filter((todo) => !todo.done);
 
   async function handleDragEnd(event: DragEndEvent) {
@@ -46,7 +47,13 @@ export function TodoList({ todos, showDone, setTodos, onToggleDone }: TodoListPr
   return (
     <DragDropProvider onDragEnd={handleDragEnd}>
       {visibleTodos.map((todo, index) => (
-        <TodoCard key={todo.id} todo={todo} index={index} onToggleDone={onToggleDone} />
+        <TodoCard
+          key={todo.id}
+          todo={todo}
+          index={index}
+          onToggleDone={onToggleDone}
+          onDelete={onDelete}
+        />
       ))}
     </DragDropProvider>
   );

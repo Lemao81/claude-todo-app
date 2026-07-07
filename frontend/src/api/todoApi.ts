@@ -40,6 +40,17 @@ export async function updateTodoDone(id: number, done: boolean): Promise<boolean
   return true;
 }
 
+export async function deleteTodo(id: number): Promise<boolean> {
+  const res = await apiFetch(`/api/todos/${id}`, { method: 'DELETE' });
+  if (!res.ok) {
+    await logFetchError(res, `Failed to delete todo ${id}`);
+
+    return false;
+  }
+
+  return true;
+}
+
 export async function reorderTodos(orderedIds: number[]): Promise<boolean> {
   const res = await apiFetch('/api/todos/reorder', {
     method: 'PATCH',
