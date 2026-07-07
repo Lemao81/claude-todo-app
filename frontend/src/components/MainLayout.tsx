@@ -4,8 +4,8 @@ import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import type { ReactNode } from 'react';
 import { Sidebar } from '#/components/sidebar/Sidebar';
-import { ToolbarActions } from '#/components/ToolbarActions';
-import { ToolbarTitle } from '#/components/ToolbarTitle';
+import { ToolbarActions } from '#/components/toolbar/ToolbarActions';
+import { ToolbarTitle } from '#/components/toolbar/ToolbarTitle';
 
 const DRAWER_WIDTH = 240;
 
