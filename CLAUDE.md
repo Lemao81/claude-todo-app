@@ -69,6 +69,7 @@ Use `Link` from `@tanstack/react-router` for client-side navigation. Use `Route.
   - insert new line before return keyword if not first line of block
   - put single line statements in curly braces to separate line
   - never add comments
+  - leave edited files with CRLF line ending
 - C#:
   - Tests:
     - Arrange, Act, Assert pattern (comment each section in method)
