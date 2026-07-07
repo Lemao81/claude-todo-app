@@ -46,6 +46,7 @@ function RouteComponent() {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           autoComplete="username"
+          autoFocus
           fullWidth
         />
         <TextField
@@ -61,7 +62,7 @@ function RouteComponent() {
             {error}
           </Typography>
         )}
-        <Button type="submit" variant="contained">
+        <Button type="submit" variant="contained" disabled={!username || !password}>
           Log in
         </Button>
       </Stack>
