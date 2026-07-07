@@ -46,7 +46,7 @@ function RouteComponent() {
   }
 
   return (
-    <div style={{ maxWidth: 640 }}>
+    <div style={{ maxWidth: 800 }}>
       <TodoListHeader
         listName={list.name}
         showDone={showDone}
