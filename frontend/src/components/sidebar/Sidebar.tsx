@@ -1,9 +1,9 @@
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
 import { useEffect, useState } from 'react';
-import { SidebarAboutItem } from '#/components/SidebarAboutItem';
-import { SidebarTodoLists } from '#/components/SidebarTodoLists';
-import { SidebarTodosItem } from '#/components/SidebarTodosItem';
+import { SidebarAboutItem } from '#/components/sidebar/SidebarAboutItem';
+import { SidebarTodoLists } from '#/components/sidebar/SidebarTodoLists';
+import { SidebarTodosItem } from '#/components/sidebar/SidebarTodosItem';
 import { useUserInfo } from '#/components/UserInfoProvider';
 import type { TodoListDto } from '#/types/todoList';
 import { apiFetch } from '#/utils/apiClient';

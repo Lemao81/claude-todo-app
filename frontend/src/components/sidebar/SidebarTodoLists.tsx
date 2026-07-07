@@ -1,5 +1,5 @@
 import List from '@mui/material/List';
-import { SidebarTodoListItem } from '#/components/SidebarTodoListItem';
+import { SidebarTodoListItem } from '#/components/sidebar/SidebarTodoListItem';
 import type { TodoListDto } from '#/types/todoList';
 
 type SidebarTodoListsProps = {

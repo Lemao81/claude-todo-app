@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import type { ReactNode } from 'react';
-import { Sidebar } from '#/components/Sidebar';
+import { Sidebar } from '#/components/sidebar/Sidebar';
 import { ToolbarActions } from '#/components/ToolbarActions';
 import { ToolbarTitle } from '#/components/ToolbarTitle';
 
