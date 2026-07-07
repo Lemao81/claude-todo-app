@@ -15,9 +15,15 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as TodosIndexRouteImport } from './routes/todos/index'
 import { Route as TodosListIdRouteImport } from './routes/todos/$listId'
 
+const ProfileLazyRouteImport = createFileRoute('/profile')()
 const LoginLazyRouteImport = createFileRoute('/login')()
 const AboutLazyRouteImport = createFileRoute('/about')()
 
+const ProfileLazyRoute = ProfileLazyRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/profile.lazy').then((d) => d.Route))
 const LoginLazyRoute = LoginLazyRouteImport.update({
   id: '/login',
   path: '/login',
@@ -48,6 +54,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutLazyRoute
   '/login': typeof LoginLazyRoute
+  '/profile': typeof ProfileLazyRoute
   '/todos/$listId': typeof TodosListIdRoute
   '/todos/': typeof TodosIndexRoute
 }
@@ -55,6 +62,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutLazyRoute
   '/login': typeof LoginLazyRoute
+  '/profile': typeof ProfileLazyRoute
   '/todos/$listId': typeof TodosListIdRoute
   '/todos': typeof TodosIndexRoute
 }
@@ -63,27 +71,49 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutLazyRoute
   '/login': typeof LoginLazyRoute
+  '/profile': typeof ProfileLazyRoute
   '/todos/$listId': typeof TodosListIdRoute
   '/todos/': typeof TodosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/login' | '/todos/$listId' | '/todos/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/login'
+    | '/profile'
+    | '/todos/$listId'
+    | '/todos/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/login' | '/todos/$listId' | '/todos'
-  id: '__root__' | '/' | '/about' | '/login' | '/todos/$listId' | '/todos/'
+  to: '/' | '/about' | '/login' | '/profile' | '/todos/$listId' | '/todos'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/login'
+    | '/profile'
+    | '/todos/$listId'
+    | '/todos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutLazyRoute: typeof AboutLazyRoute
   LoginLazyRoute: typeof LoginLazyRoute
+  ProfileLazyRoute: typeof ProfileLazyRoute
   TodosListIdRoute: typeof TodosListIdRoute
   TodosIndexRoute: typeof TodosIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileLazyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -126,6 +156,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutLazyRoute: AboutLazyRoute,
   LoginLazyRoute: LoginLazyRoute,
+  ProfileLazyRoute: ProfileLazyRoute,
   TodosListIdRoute: TodosListIdRoute,
   TodosIndexRoute: TodosIndexRoute,
 }
