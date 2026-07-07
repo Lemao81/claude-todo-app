@@ -4,39 +4,15 @@ import { useEffect, useState } from 'react';
 import { SidebarAboutItem } from '#/components/sidebar/SidebarAboutItem';
 import { SidebarTodoLists } from '#/components/sidebar/SidebarTodoLists';
 import { SidebarTodosItem } from '#/components/sidebar/SidebarTodosItem';
+import { useTodoLists } from '#/components/provider/TodoListsProvider';
 import { useUserInfo } from '#/components/provider/UserInfoProvider';
-import type { TodoListDto } from '#/types/todoList';
-import { apiFetch } from '#/utils/apiClient';
-import { logFetchError } from '#/utils/logHelper';
 
 export function Sidebar() {
   const { userInfo } = useUserInfo();
-  const [todoLists, setTodoLists] = useState<TodoListDto[]>([]);
+  const { todoLists } = useTodoLists();
   const [todosOpen, setTodosOpen] = useState(false);
 
-  useEffect(() => {
-    if (!userInfo) {
-      setTodoLists([]);
-      setTodosOpen(false);
-
-      return;
-    }
-
-    setTodosOpen(true);
-
-    async function loadTodoLists() {
-      const res = await apiFetch('/api/todolists');
-      if (!res.ok) {
-        await logFetchError(res, 'Failed to fetch todo lists');
-
-        return;
-      }
-
-      setTodoLists(await res.json());
-    }
-
-    loadTodoLists();
-  }, [userInfo]);
+  useEffect(() => setTodosOpen(Boolean(userInfo)), [userInfo]);
 
   return (
     <List>

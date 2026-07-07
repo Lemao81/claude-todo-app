@@ -1,7 +1,10 @@
-import { createLazyFileRoute, getRouteApi } from '@tanstack/react-router';
+import { createLazyFileRoute, getRouteApi, useNavigate } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { createTodo, deleteTodo, updateTodoDone } from '#/api/todoApi';
+import { deleteTodoList } from '#/api/todoListApi';
+import { useTodoLists } from '#/components/provider/TodoListsProvider';
 import { AddTodoDialog } from '#/components/todolist/AddTodoDialog';
+import { DeleteTodoListDialog } from '#/components/todolist/DeleteTodoListDialog';
 import { TodoList } from '#/components/todolist/TodoList';
 import { TodoListHeader } from '#/components/todolist/TodoListHeader';
 import type { TodoDto } from '#/types/todo';
@@ -13,11 +16,14 @@ export const Route = createLazyFileRoute('/todos/$listId')({
 const routeApi = getRouteApi('/todos/$listId');
 
 function RouteComponent() {
+  const navigate = useNavigate();
+  const { refreshTodoLists } = useTodoLists();
   const { listId } = routeApi.useParams();
   const { list, todos: loadedTodos } = routeApi.useLoaderData();
   const [todos, setTodos] = useState<TodoDto[]>(loadedTodos);
   const [showDone, setShowDone] = useState(true);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   useEffect(() => setTodos(loadedTodos), [loadedTodos]);
 
@@ -45,6 +51,16 @@ function RouteComponent() {
     setTodos((prev) => [...prev, todo]);
   }
 
+  async function handleDeleteList() {
+    const success = await deleteTodoList(Number(listId));
+    if (!success) {
+      return;
+    }
+
+    await refreshTodoLists();
+    navigate({ to: '/todos' });
+  }
+
   return (
     <div style={{ maxWidth: 800 }}>
       <TodoListHeader
@@ -52,6 +68,7 @@ function RouteComponent() {
         showDone={showDone}
         onShowDoneChange={setShowDone}
         onAddClick={() => setAddDialogOpen(true)}
+        onDeleteClick={() => setDeleteDialogOpen(true)}
       />
       <TodoList
         todos={todos}
@@ -64,6 +81,12 @@ function RouteComponent() {
         open={addDialogOpen}
         onClose={() => setAddDialogOpen(false)}
         onCreate={handleCreate}
+      />
+      <DeleteTodoListDialog
+        open={deleteDialogOpen}
+        listName={list.name}
+        onClose={() => setDeleteDialogOpen(false)}
+        onConfirm={handleDeleteList}
       />
     </div>
   );

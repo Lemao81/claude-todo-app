@@ -15,6 +15,20 @@ public class TodoService(AppDbContext db)
     public async Task<TodoList?> GetListAsync(int id, Guid userId) =>
         await db.TodoLists.FirstOrDefaultAsync(list => list.Id == id && list.UserId == userId);
 
+    public async Task<bool> DeleteListAsync(int id, Guid userId)
+    {
+        var list = await db.TodoLists.FirstOrDefaultAsync(list => list.Id == id && list.UserId == userId);
+        if (list is null)
+        {
+            return false;
+        }
+
+        db.TodoLists.Remove(list);
+        await db.SaveChangesAsync();
+
+        return true;
+    }
+
     public async Task<List<Todo>> GetAsync(int? todoListId = null) =>
         await db.Todos
             .Where(todo => todoListId == null || todo.TodoListId == todoListId)

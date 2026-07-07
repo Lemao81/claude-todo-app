@@ -23,6 +23,10 @@ GET {{baseUrl}}/api/todolists/1
 
 ###
 
+DELETE {{baseUrl}}/api/todolists/1
+
+###
+
 GET {{baseUrl}}/api/todos
 
 ###

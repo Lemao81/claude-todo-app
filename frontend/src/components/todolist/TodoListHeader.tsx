@@ -1,7 +1,10 @@
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlined';
 import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 
 type TodoListHeaderProps = {
@@ -9,6 +12,7 @@ type TodoListHeaderProps = {
   showDone: boolean;
   onShowDoneChange: (showDone: boolean) => void;
   onAddClick: () => void;
+  onDeleteClick: () => void;
 };
 
 export function TodoListHeader({
@@ -16,6 +20,7 @@ export function TodoListHeader({
   showDone,
   onShowDoneChange,
   onAddClick,
+  onDeleteClick,
 }: TodoListHeaderProps) {
   return (
     <Stack direction="row" sx={{ alignItems: 'center', justifyContent: 'space-between', mb: 3 }}>
@@ -30,6 +35,11 @@ export function TodoListHeader({
         <Button variant="contained" onClick={onAddClick}>
           Add ToDo
         </Button>
+        <Tooltip title="Delete Todo List" enterDelay={500} enterNextDelay={500}>
+          <IconButton color="error" aria-label="Delete todo list" onClick={onDeleteClick}>
+            <DeleteOutlineIcon />
+          </IconButton>
+        </Tooltip>
       </Stack>
     </Stack>
   );

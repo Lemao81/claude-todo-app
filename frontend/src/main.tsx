@@ -1,6 +1,7 @@
 import { RouterProvider } from '@tanstack/react-router';
 import ReactDOM from 'react-dom/client';
 import { AppThemeProvider } from './components/provider/AppThemeProvider';
+import { TodoListsProvider } from './components/provider/TodoListsProvider';
 import { UserInfoProvider } from './components/provider/UserInfoProvider';
 import { router } from './router';
 
@@ -11,7 +12,9 @@ if (!rootElement.innerHTML) {
   root.render(
     <AppThemeProvider>
       <UserInfoProvider>
-        <RouterProvider router={router} />
+        <TodoListsProvider>
+          <RouterProvider router={router} />
+        </TodoListsProvider>
       </UserInfoProvider>
     </AppThemeProvider>,
   );

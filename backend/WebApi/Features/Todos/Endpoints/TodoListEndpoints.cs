@@ -37,6 +37,19 @@ public static class TodoListEndpoints
                 return list is not null ? Results.Ok(TodoListDto.FromTodoList(list)) : Results.NotFound();
             });
 
+        group.MapDelete(
+            "/{id:int}", async (int id, ClaimsPrincipal user, TodoService todoService) =>
+            {
+                if (!TryGetUserId(user, out var userId))
+                {
+                    return Results.Unauthorized();
+                }
+
+                var deleted = await todoService.DeleteListAsync(id, userId);
+
+                return deleted ? Results.NoContent() : Results.NotFound();
+            });
+
         return app;
     }
 
