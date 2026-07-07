@@ -37,6 +37,19 @@ public static class TodoListEndpoints
                 return list is not null ? Results.Ok(TodoListDto.FromTodoList(list)) : Results.NotFound();
             });
 
+        group.MapPost(
+            "", async (CreateTodoListDto dto, ClaimsPrincipal user, TodoService todoService) =>
+            {
+                if (!TryGetUserId(user, out var userId))
+                {
+                    return Results.Unauthorized();
+                }
+
+                var list = await todoService.AddListAsync(dto.Name, userId);
+
+                return Results.Created($"/api/todolists/{list.Id}", TodoListDto.FromTodoList(list));
+            });
+
         group.MapDelete(
             "/{id:int}", async (int id, ClaimsPrincipal user, TodoService todoService) =>
             {

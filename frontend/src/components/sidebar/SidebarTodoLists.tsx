@@ -1,4 +1,5 @@
 import List from '@mui/material/List';
+import { SidebarAddTodoListItem } from '#/components/sidebar/SidebarAddTodoListItem';
 import { SidebarTodoListItem } from '#/components/sidebar/SidebarTodoListItem';
 import type { TodoListDto } from '#/types/todoList';
 
@@ -12,6 +13,7 @@ export function SidebarTodoLists({ todoLists }: SidebarTodoListsProps) {
       {todoLists.map((list) => (
         <SidebarTodoListItem key={list.id} todoList={list} />
       ))}
+      <SidebarAddTodoListItem />
     </List>
   );
 }

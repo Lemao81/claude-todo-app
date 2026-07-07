@@ -20,6 +20,24 @@ export async function fetchTodoLists(): Promise<TodoListDto[]> {
   return lists;
 }
 
+export async function createTodoList(name: string): Promise<TodoListDto> {
+  const res = await apiFetch('/api/todolists', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name }),
+  });
+
+  if (!res.ok) {
+    await logFetchError(res, 'Failed to create todo list');
+
+    throw new Error('Failed to create todo list');
+  }
+
+  const list: TodoListDto = await res.json();
+
+  return list;
+}
+
 export async function deleteTodoList(id: number): Promise<boolean> {
   const res = await apiFetch(`/api/todolists/${id}`, { method: 'DELETE' });
   if (!res.ok) {

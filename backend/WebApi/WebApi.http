@@ -23,6 +23,15 @@ GET {{baseUrl}}/api/todolists/1
 
 ###
 
+POST {{baseUrl}}/api/todolists
+Content-Type: application/json
+
+{
+  "name": "Hobby"
+}
+
+###
+
 DELETE {{baseUrl}}/api/todolists/1
 
 ###
