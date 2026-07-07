@@ -25,7 +25,7 @@ public static class SeedHelper
 
         TodoList[] adminTodoLists =
         [
-            new TodoList
+            new()
             {
                 Name = "General",
                 Todos =
@@ -38,7 +38,7 @@ public static class SeedHelper
                     new Todo { Text = "Update resume", Done = false }
                 ]
             },
-            new TodoList
+            new()
             {
                 Name = "Groceries",
                 Todos =
@@ -49,7 +49,7 @@ public static class SeedHelper
                     new Todo { Text = "Get fresh vegetables", Description = "Carrots, spinach, and tomatoes", Done = false }
                 ]
             },
-            new TodoList
+            new()
             {
                 Name = "Chores",
                 Todos =
@@ -66,7 +66,7 @@ public static class SeedHelper
 
         TodoList[] johnDoeTodoLists =
         [
-            new TodoList
+            new()
             {
                 Name = "Work",
                 Todos =
@@ -76,7 +76,7 @@ public static class SeedHelper
                     new Todo { Text = "Book flight for conference", Description = "Conference is the first week of August", Done = false }
                 ]
             },
-            new TodoList
+            new()
             {
                 Name = "Home",
                 Todos =
