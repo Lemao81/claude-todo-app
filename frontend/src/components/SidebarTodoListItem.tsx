@@ -1,8 +1,10 @@
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import { Link, useMatchRoute } from '@tanstack/react-router';
+import { createLink, useMatchRoute } from '@tanstack/react-router';
 import type { TodoListDto } from '#/types/todoList';
+
+const ListItemButtonLink = createLink(ListItemButton);
 
 type SidebarTodoListItemProps = {
   todoList: TodoListDto;
@@ -13,15 +15,14 @@ export function SidebarTodoListItem({ todoList }: SidebarTodoListItemProps) {
 
   return (
     <ListItem disablePadding>
-      <ListItemButton
-        component={Link}
+      <ListItemButtonLink
         to="/todos/$listId"
         params={{ listId: String(todoList.id) }}
         selected={!!matchRoute({ to: '/todos/$listId', params: { listId: String(todoList.id) } })}
         sx={{ pl: 4 }}
       >
         <ListItemText primary={todoList.name} />
-      </ListItemButton>
+      </ListItemButtonLink>
     </ListItem>
   );
 }
