@@ -1,11 +1,14 @@
 import { createContext, useContext, useState } from 'react';
 import type { UserInfo } from '#/types/userInfo';
+import { getItem, setItem } from '#/utils/localStorage';
 
 interface UserInfoContextValue {
   userInfo: UserInfo | null;
   setUserInfo: (userInfo: UserInfo | null) => void;
   clearUserInfo: () => void;
 }
+
+const STORAGE_KEY = 'userInfo';
 
 const UserInfoContext = createContext<UserInfoContextValue | null>(null);
 
@@ -19,7 +22,14 @@ export function useUserInfo(): UserInfoContextValue {
 }
 
 export function UserInfoProvider({ children }: { children: React.ReactNode }) {
-  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [userInfo, setUserInfoState] = useState<UserInfo | null>(() =>
+    getItem<UserInfo>(STORAGE_KEY),
+  );
+
+  const setUserInfo = (userInfo: UserInfo | null): void => {
+    setItem(STORAGE_KEY, userInfo);
+    setUserInfoState(userInfo);
+  };
 
   const clearUserInfo = (): void => setUserInfo(null);
 
