@@ -1,9 +1,9 @@
 import { createLazyFileRoute, getRouteApi } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { createTodo, updateTodoDone } from '#/api/todoApi';
-import { AddTodoDialog } from '#/components/AddTodoDialog';
-import { TodoList } from '#/components/TodoList';
-import { TodoListHeader } from '#/components/TodoListHeader';
+import { AddTodoDialog } from '#/components/todolist/AddTodoDialog';
+import { TodoList } from '#/components/todolist/TodoList';
+import { TodoListHeader } from '#/components/todolist/TodoListHeader';
 import type { TodoDto } from '#/types/todo';
 
 export const Route = createLazyFileRoute('/todos/$listId')({
