@@ -70,3 +70,15 @@ DELETE {{baseUrl}}/api/todos/1
 GET {{baseUrl}}/api/users/cc6aead7-855c-4410-bb4b-2067f5738528
 
 ###
+
+POST {{baseUrl}}/api/users/avatar
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="avatar.png"
+Content-Type: image/png
+
+< ./avatar.png
+--WebAppBoundary--
+
+###
