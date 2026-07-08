@@ -2,6 +2,7 @@ import { createLazyFileRoute, getRouteApi, useNavigate } from '@tanstack/react-r
 import { useEffect, useState } from 'react';
 import { createTodo, deleteTodo, updateTodoDone } from '#/api/todoApi';
 import { deleteTodoList } from '#/api/todoListApi';
+import { useSnackbar } from '#/components/provider/SnackbarProvider';
 import { useTodoLists } from '#/components/provider/TodoListsProvider';
 import { AddTodoDialog } from '#/components/todolist/AddTodoDialog';
 import { DeleteTodoListConfirmationDialog } from '#/components/todolist/DeleteTodoListConfirmationDialog';
@@ -18,6 +19,7 @@ const routeApi = getRouteApi('/todos/$listId');
 function RouteComponent() {
   const navigate = useNavigate();
   const { refreshTodoLists } = useTodoLists();
+  const { showSnackbar } = useSnackbar();
   const { listId } = routeApi.useParams();
   const { list, todos: loadedTodos } = routeApi.useLoaderData();
   const [todos, setTodos] = useState<TodoDto[]>(loadedTodos);
@@ -43,12 +45,17 @@ function RouteComponent() {
     const success = await deleteTodo(id);
     if (!success) {
       setTodos(previous);
+
+      return;
     }
+
+    showSnackbar('Todo deleted', 'info', 2000);
   }
 
   async function handleCreate(text: string, description: string | null) {
     const todo = await createTodo(text, description, Number(listId));
     setTodos((prev) => [...prev, todo]);
+    showSnackbar('Todo added', 'info', 2000);
   }
 
   async function handleDeleteList() {
@@ -59,6 +66,7 @@ function RouteComponent() {
 
     await refreshTodoLists();
     navigate({ to: '/todos' });
+    showSnackbar('Todo list deleted', 'info', 2000);
   }
 
   return (

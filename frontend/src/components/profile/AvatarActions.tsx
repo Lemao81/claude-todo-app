@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react';
 import { deleteAvatar, hasAvatar, uploadAvatar } from '#/api/userApi';
 import { DeleteAvatarConfirmationDialog } from '#/components/profile/DeleteAvatarConfirmationDialog';
 import { useAvatar } from '#/components/provider/AvatarProvider';
+import { useSnackbar } from '#/components/provider/SnackbarProvider';
 
 export function AvatarActions() {
   const { refreshAvatar } = useAvatar();
+  const { showSnackbar } = useSnackbar();
   const [avatarExists, setAvatarExists] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
 
@@ -24,6 +26,7 @@ export function AvatarActions() {
     if (success) {
       setAvatarExists(true);
       refreshAvatar();
+      showSnackbar('Avatar uploaded successfully');
     }
 
     e.target.value = '';
@@ -38,6 +41,7 @@ export function AvatarActions() {
     setAvatarExists(false);
     setConfirmOpen(false);
     refreshAvatar();
+    showSnackbar('Avatar deleted successfully');
   }
 
   return (
