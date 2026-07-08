@@ -1,16 +1,12 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { deleteAvatar, hasAvatar, uploadAvatar } from '#/api/userApi';
+import { DeleteAvatarDialog } from '#/components/profile/DeleteAvatarDialog';
 import { ProfileField } from '#/components/profile/ProfileField';
 import { useUserInfo } from '#/components/provider/UserInfoProvider';
 
@@ -23,7 +19,6 @@ function RouteComponent() {
   const { userInfo } = useUserInfo();
   const [avatarExists, setAvatarExists] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     if (!userInfo) {
@@ -54,19 +49,13 @@ function RouteComponent() {
   }
 
   async function handleAvatarDelete() {
-    setDeleting(true);
-
-    try {
-      const success = await deleteAvatar();
-      if (!success) {
-        return;
-      }
-
-      setAvatarExists(false);
-      setConfirmOpen(false);
-    } finally {
-      setDeleting(false);
+    const success = await deleteAvatar();
+    if (!success) {
+      return;
     }
+
+    setAvatarExists(false);
+    setConfirmOpen(false);
   }
 
   return (
@@ -91,18 +80,11 @@ function RouteComponent() {
           </Button>
         )}
       </Stack>
-      <Dialog open={confirmOpen} onClose={() => setConfirmOpen(false)} fullWidth maxWidth="xs">
-        <DialogTitle>Delete Avatar</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Are you sure you want to delete your avatar?</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setConfirmOpen(false)}>Cancel</Button>
-          <Button variant="contained" color="error" onClick={handleAvatarDelete} disabled={deleting}>
-            Delete
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <DeleteAvatarDialog
+        open={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        onDelete={handleAvatarDelete}
+      />
     </Box>
   );
 }
