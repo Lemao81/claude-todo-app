@@ -6,20 +6,27 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from 'react';
 
-type DeleteAvatarDialogProps = {
+type DeleteTodoListConfirmationDialogProps = {
   open: boolean;
+  listName: string;
   onClose: () => void;
-  onDelete: () => Promise<void>;
+  onConfirm: () => Promise<void>;
 };
 
-export function DeleteAvatarDialog({ open, onClose, onDelete }: DeleteAvatarDialogProps) {
+export function DeleteTodoListConfirmationDialog({
+  open,
+  listName,
+  onClose,
+  onConfirm,
+}: DeleteTodoListConfirmationDialogProps) {
   const [deleting, setDeleting] = useState(false);
 
-  async function handleDelete() {
+  async function handleConfirm() {
     setDeleting(true);
 
     try {
-      await onDelete();
+      await onConfirm();
+      onClose();
     } finally {
       setDeleting(false);
     }
@@ -27,13 +34,15 @@ export function DeleteAvatarDialog({ open, onClose, onDelete }: DeleteAvatarDial
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
-      <DialogTitle>Delete Avatar</DialogTitle>
+      <DialogTitle>Delete Todo List</DialogTitle>
       <DialogContent>
-        <DialogContentText>Are you sure you want to delete your avatar?</DialogContentText>
+        <DialogContentText>
+          Are you sure you want to delete the list "{listName}" and all of its todos?
+        </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        <Button variant="contained" color="error" onClick={handleDelete} disabled={deleting}>
+        <Button variant="contained" color="error" onClick={handleConfirm} disabled={deleting}>
           Delete
         </Button>
       </DialogActions>

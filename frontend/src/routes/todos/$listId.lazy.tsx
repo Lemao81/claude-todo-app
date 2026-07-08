@@ -4,7 +4,7 @@ import { createTodo, deleteTodo, updateTodoDone } from '#/api/todoApi';
 import { deleteTodoList } from '#/api/todoListApi';
 import { useTodoLists } from '#/components/provider/TodoListsProvider';
 import { AddTodoDialog } from '#/components/todolist/AddTodoDialog';
-import { DeleteTodoListDialog } from '#/components/todolist/DeleteTodoListDialog';
+import { DeleteTodoListConfirmationDialog } from '#/components/todolist/DeleteTodoListConfirmationDialog';
 import { TodoList } from '#/components/todolist/TodoList';
 import { TodoListHeader } from '#/components/todolist/TodoListHeader';
 import type { TodoDto } from '#/types/todo';
@@ -82,7 +82,7 @@ function RouteComponent() {
         onClose={() => setAddDialogOpen(false)}
         onCreate={handleCreate}
       />
-      <DeleteTodoListDialog
+      <DeleteTodoListConfirmationDialog
         open={deleteDialogOpen}
         listName={list.name}
         onClose={() => setDeleteDialogOpen(false)}

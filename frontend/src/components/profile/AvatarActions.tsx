@@ -2,7 +2,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { useEffect, useState } from 'react';
 import { deleteAvatar, hasAvatar, uploadAvatar } from '#/api/userApi';
-import { DeleteAvatarDialog } from '#/components/profile/DeleteAvatarDialog';
+import { DeleteAvatarConfirmationDialog } from '#/components/profile/DeleteAvatarConfirmationDialog';
 import { useAvatar } from '#/components/provider/AvatarProvider';
 
 export function AvatarActions() {
@@ -53,7 +53,7 @@ export function AvatarActions() {
           </Button>
         )}
       </Stack>
-      <DeleteAvatarDialog
+      <DeleteAvatarConfirmationDialog
         open={confirmOpen}
         onClose={() => setConfirmOpen(false)}
         onDelete={handleAvatarDelete}
