@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using WebApi.Extensions;
 using WebApi.Features.Users.Models.Dtos;
 using WebApi.Features.Users.Services;
 
@@ -23,7 +24,7 @@ public static class UserEndpoints
         group.MapGet(
             "/avatar", async (ClaimsPrincipal user, UserService userService) =>
             {
-                if (!TryGetUserId(user, out var userId))
+                if (!user.TryGetUserId(out var userId))
                 {
                     return Results.Unauthorized();
                 }
@@ -38,7 +39,7 @@ public static class UserEndpoints
         group.MapPost(
             "/avatar", async (IFormFile file, ClaimsPrincipal user, UserService userService) =>
             {
-                if (!TryGetUserId(user, out var userId))
+                if (!user.TryGetUserId(out var userId))
                 {
                     return Results.Unauthorized();
                 }
@@ -59,7 +60,7 @@ public static class UserEndpoints
         group.MapDelete(
             "/avatar", async (ClaimsPrincipal user, UserService userService) =>
             {
-                if (!TryGetUserId(user, out var userId))
+                if (!user.TryGetUserId(out var userId))
                 {
                     return Results.Unauthorized();
                 }
@@ -71,9 +72,6 @@ public static class UserEndpoints
 
         return app;
     }
-
-    private static bool TryGetUserId(ClaimsPrincipal user, out Guid userId) =>
-        Guid.TryParse(user.FindFirstValue(ClaimTypes.NameIdentifier), out userId);
 
     private static string GetAvatarContentType(byte[] avatar) =>
         avatar is [0x89, 0x50, 0x4E, 0x47, ..] ? "image/png" : "image/jpeg";

@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using WebApi.Extensions;
 using WebApi.Features.Todos.Models.Dtos;
 using WebApi.Features.Todos.Services;
 
@@ -13,7 +14,7 @@ public static class TodoListEndpoints
         group.MapGet(
             "", async (ClaimsPrincipal user, TodoService todoService) =>
             {
-                if (!TryGetUserId(user, out var userId))
+                if (!user.TryGetUserId(out var userId))
                 {
                     return Results.Unauthorized();
                 }
@@ -27,7 +28,7 @@ public static class TodoListEndpoints
         group.MapGet(
             "/{id:int}", async (int id, ClaimsPrincipal user, TodoService todoService) =>
             {
-                if (!TryGetUserId(user, out var userId))
+                if (!user.TryGetUserId(out var userId))
                 {
                     return Results.Unauthorized();
                 }
@@ -40,7 +41,7 @@ public static class TodoListEndpoints
         group.MapPost(
             "", async (CreateTodoListDto dto, ClaimsPrincipal user, TodoService todoService) =>
             {
-                if (!TryGetUserId(user, out var userId))
+                if (!user.TryGetUserId(out var userId))
                 {
                     return Results.Unauthorized();
                 }
@@ -53,7 +54,7 @@ public static class TodoListEndpoints
         group.MapDelete(
             "/{id:int}", async (int id, ClaimsPrincipal user, TodoService todoService) =>
             {
-                if (!TryGetUserId(user, out var userId))
+                if (!user.TryGetUserId(out var userId))
                 {
                     return Results.Unauthorized();
                 }
@@ -65,7 +66,4 @@ public static class TodoListEndpoints
 
         return app;
     }
-
-    private static bool TryGetUserId(ClaimsPrincipal user, out Guid userId) =>
-        Guid.TryParse(user.FindFirstValue(ClaimTypes.NameIdentifier), out userId);
 }
