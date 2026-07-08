@@ -1,3 +1,4 @@
+import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { useEffect, useState } from 'react';
@@ -7,7 +8,7 @@ import { useAvatar } from '#/components/provider/AvatarProvider';
 import { useSnackbar } from '#/components/provider/SnackbarProvider';
 
 export function AvatarActions() {
-  const { refreshAvatar } = useAvatar();
+  const { avatarVersion, refreshAvatar } = useAvatar();
   const { showSnackbar } = useSnackbar();
   const [avatarExists, setAvatarExists] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -57,6 +58,13 @@ export function AvatarActions() {
           </Button>
         )}
       </Stack>
+      {avatarExists && (
+        <Avatar
+          src={`/api/users/avatar?v=${avatarVersion}`}
+          alt="Avatar"
+          sx={{ width: 160, height: 160, mt: 4 }}
+        />
+      )}
       <DeleteAvatarConfirmationDialog
         open={confirmOpen}
         onClose={() => setConfirmOpen(false)}
