@@ -9,6 +9,13 @@ public class UserService(AppDbContext db)
     public async Task<User?> GetByIdAsync(Guid id) =>
         await db.Users.FindAsync(id);
 
+    public async Task<byte[]?> GetAvatarAsync(Guid id)
+    {
+        var user = await db.Users.FindAsync(id);
+
+        return user?.Avatar;
+    }
+
     public async Task<bool> SetAvatarAsync(Guid id, byte[] avatar)
     {
         var user = await db.Users.FindAsync(id);

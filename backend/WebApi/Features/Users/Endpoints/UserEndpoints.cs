@@ -20,6 +20,21 @@ public static class UserEndpoints
                 return user is not null ? Results.Ok(UserDto.FromUser(user)) : Results.NotFound();
             });
 
+        group.MapGet(
+            "/avatar", async (ClaimsPrincipal user, UserService userService) =>
+            {
+                if (!TryGetUserId(user, out var userId))
+                {
+                    return Results.Unauthorized();
+                }
+
+                var avatar = await userService.GetAvatarAsync(userId);
+
+                return avatar is not null
+                    ? Results.File(avatar, GetAvatarContentType(avatar))
+                    : Results.NotFound();
+            });
+
         group.MapPost(
             "/avatar", async (IFormFile file, ClaimsPrincipal user, UserService userService) =>
             {
@@ -46,4 +61,7 @@ public static class UserEndpoints
 
     private static bool TryGetUserId(ClaimsPrincipal user, out Guid userId) =>
         Guid.TryParse(user.FindFirstValue(ClaimTypes.NameIdentifier), out userId);
+
+    private static string GetAvatarContentType(byte[] avatar) =>
+        avatar is [0x89, 0x50, 0x4E, 0x47, ..] ? "image/png" : "image/jpeg";
 }

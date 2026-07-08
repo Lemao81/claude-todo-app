@@ -71,6 +71,10 @@ GET {{baseUrl}}/api/users/cc6aead7-855c-4410-bb4b-2067f5738528
 
 ###
 
+GET {{baseUrl}}/api/users/avatar
+
+###
+
 POST {{baseUrl}}/api/users/avatar
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 

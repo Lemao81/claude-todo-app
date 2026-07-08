@@ -4,6 +4,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { Link, useNavigate } from '@tanstack/react-router';
+import { useState } from 'react';
 import { logout } from '#/api/authApi';
 import { useColorMode } from '#/components/provider/AppThemeProvider';
 import { useUserInfo } from '#/components/provider/UserInfoProvider';
@@ -31,7 +32,7 @@ export function ToolbarActions() {
       {userInfo ? (
         <>
           <IconButton component={Link} to="/profile" sx={{ ml: 4, p: 0 }}>
-            <Avatar src="/default_avatar.jpg" alt={userInfo.userName} sx={{ width: 36, height: 36 }} />
+            <UserAvatar key={userInfo.userName} alt={userInfo.userName} />
           </IconButton>
           <Button
             color="inherit"
@@ -62,5 +63,22 @@ export function ToolbarActions() {
         </Button>
       )}
     </>
+  );
+}
+
+type UserAvatarProps = {
+  alt: string;
+};
+
+function UserAvatar({ alt }: UserAvatarProps) {
+  const [src, setSrc] = useState('/api/users/avatar');
+
+  return (
+    <Avatar
+      src={src}
+      alt={alt}
+      slotProps={{ img: { onError: () => setSrc('/default_avatar.jpg') } }}
+      sx={{ width: 36, height: 36 }}
+    />
   );
 }
