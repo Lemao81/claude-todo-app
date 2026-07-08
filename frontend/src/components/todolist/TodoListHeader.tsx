@@ -1,7 +1,7 @@
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlined';
 import Button from '@mui/material/Button';
+import Fab from '@mui/material/Fab';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
 import Tooltip from '@mui/material/Tooltip';
@@ -36,9 +36,14 @@ export function TodoListHeader({
           Add ToDo
         </Button>
         <Tooltip title="Delete Todo List" enterDelay={500} enterNextDelay={500}>
-          <IconButton color="error" aria-label="Delete todo list" onClick={onDeleteClick}>
+          <Fab
+            size="small"
+            aria-label="Delete todo list"
+            onClick={onDeleteClick}
+            sx={{ bgcolor: 'grey.400', '&:hover': { bgcolor: 'grey.500' } }}
+          >
             <DeleteOutlineIcon />
-          </IconButton>
+          </Fab>
         </Tooltip>
       </Stack>
     </Stack>
