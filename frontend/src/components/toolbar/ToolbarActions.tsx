@@ -1,14 +1,12 @@
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { createLink, Link, useNavigate } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import { logout } from '#/api/authApi';
 import { useColorMode } from '#/components/provider/AppThemeProvider';
 import { useUserInfo } from '#/components/provider/UserInfoProvider';
-
-const TypographyLink = createLink(Typography);
 
 export function ToolbarActions() {
   const { mode, toggleColorMode } = useColorMode();
@@ -32,18 +30,9 @@ export function ToolbarActions() {
       </IconButton>
       {userInfo ? (
         <>
-          <TypographyLink
-            to="/profile"
-            sx={{
-              ml: 4,
-              color: 'inherit',
-              textDecoration: 'none',
-              cursor: 'pointer',
-              '&:hover': { textDecoration: 'underline' },
-            }}
-          >
-            {userInfo.userName}
-          </TypographyLink>
+          <IconButton component={Link} to="/profile" sx={{ ml: 4, p: 0 }}>
+            <Avatar src="/default_avatar.jpg" alt={userInfo.userName} sx={{ width: 36, height: 36 }} />
+          </IconButton>
           <Button
             color="inherit"
             variant="contained"
