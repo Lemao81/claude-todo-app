@@ -1,6 +1,8 @@
 import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { deleteAvatar, hasAvatar, uploadAvatar } from '#/api/userApi';
 import { DeleteAvatarConfirmationDialog } from '#/components/profile/DeleteAvatarConfirmationDialog';
@@ -58,12 +60,30 @@ export function AvatarActions() {
           </Button>
         )}
       </Stack>
-      {avatarExists && (
+      {avatarExists ? (
         <Avatar
           src={`/api/users/avatar?v=${avatarVersion}`}
           alt="Avatar"
           sx={{ width: 160, height: 160, mt: 4 }}
         />
+      ) : (
+        <Box
+          sx={{
+            width: 160,
+            height: 160,
+            mt: 4,
+            border: '2px dashed',
+            borderColor: 'divider',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Typography variant="body2" color="text.secondary">
+            No avatar
+          </Typography>
+        </Box>
       )}
       <DeleteAvatarConfirmationDialog
         open={confirmOpen}
