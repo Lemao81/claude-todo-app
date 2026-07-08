@@ -1,13 +1,12 @@
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { Link, useNavigate } from '@tanstack/react-router';
-import { useState } from 'react';
 import { logout } from '#/api/authApi';
 import { useColorMode } from '#/components/provider/AppThemeProvider';
 import { useUserInfo } from '#/components/provider/UserInfoProvider';
+import { UserAvatar } from '#/components/toolbar/UserAvatar';
 
 export function ToolbarActions() {
   const { mode, toggleColorMode } = useColorMode();
@@ -63,22 +62,5 @@ export function ToolbarActions() {
         </Button>
       )}
     </>
-  );
-}
-
-type UserAvatarProps = {
-  alt: string;
-};
-
-function UserAvatar({ alt }: UserAvatarProps) {
-  const [src, setSrc] = useState('/api/users/avatar');
-
-  return (
-    <Avatar
-      src={src}
-      alt={alt}
-      slotProps={{ img: { onError: () => setSrc('/default_avatar.jpg') } }}
-      sx={{ width: 36, height: 36 }}
-    />
   );
 }
