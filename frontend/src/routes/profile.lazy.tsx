@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { deleteAvatar, hasAvatar, uploadAvatar } from '#/api/userApi';
 import { DeleteAvatarDialog } from '#/components/profile/DeleteAvatarDialog';
 import { ProfileField } from '#/components/profile/ProfileField';
+import { useAvatar } from '#/components/provider/AvatarProvider';
 import { useUserInfo } from '#/components/provider/UserInfoProvider';
 
 export const Route = createLazyFileRoute('/profile')({
@@ -17,6 +18,7 @@ export const Route = createLazyFileRoute('/profile')({
 function RouteComponent() {
   const navigate = useNavigate();
   const { userInfo } = useUserInfo();
+  const { refreshAvatar } = useAvatar();
   const [avatarExists, setAvatarExists] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
 
@@ -43,6 +45,7 @@ function RouteComponent() {
     const success = await uploadAvatar(file);
     if (success) {
       setAvatarExists(true);
+      refreshAvatar();
     }
 
     e.target.value = '';
@@ -56,6 +59,7 @@ function RouteComponent() {
 
     setAvatarExists(false);
     setConfirmOpen(false);
+    refreshAvatar();
   }
 
   return (
