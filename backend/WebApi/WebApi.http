@@ -86,3 +86,7 @@ Content-Type: image/png
 --WebAppBoundary--
 
 ###
+
+DELETE {{baseUrl}}/api/users/avatar
+
+###

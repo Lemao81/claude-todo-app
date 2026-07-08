@@ -30,6 +30,20 @@ public class UserService(AppDbContext db)
         return true;
     }
 
+    public async Task<bool> DeleteAvatarAsync(Guid id)
+    {
+        var user = await db.Users.FindAsync(id);
+        if (user is null)
+        {
+            return false;
+        }
+
+        user.Avatar = null;
+        await db.SaveChangesAsync();
+
+        return true;
+    }
+
     public async Task<User?> GetByUsernameOrEmailAsync(string usernameOrEmail)
     {
         var emailNormalized = usernameOrEmail.ToUpperInvariant();

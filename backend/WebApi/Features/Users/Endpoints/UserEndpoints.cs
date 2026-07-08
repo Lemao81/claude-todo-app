@@ -56,6 +56,19 @@ public static class UserEndpoints
                 return updated ? Results.NoContent() : Results.NotFound();
             }).DisableAntiforgery();
 
+        group.MapDelete(
+            "/avatar", async (ClaimsPrincipal user, UserService userService) =>
+            {
+                if (!TryGetUserId(user, out var userId))
+                {
+                    return Results.Unauthorized();
+                }
+
+                var deleted = await userService.DeleteAvatarAsync(userId);
+
+                return deleted ? Results.NoContent() : Results.NotFound();
+            });
+
         return app;
     }
 
