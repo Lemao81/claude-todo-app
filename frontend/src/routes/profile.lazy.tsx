@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { deleteAvatar, hasAvatar, uploadAvatar } from '#/api/userApi';
+import { ProfileField } from '#/components/profile/ProfileField';
 import { useUserInfo } from '#/components/provider/UserInfoProvider';
 
 export const Route = createLazyFileRoute('/profile')({
@@ -103,21 +104,5 @@ function RouteComponent() {
         </DialogActions>
       </Dialog>
     </Box>
-  );
-}
-
-type ProfileFieldProps = {
-  label: string;
-  value: string;
-};
-
-function ProfileField({ label, value }: ProfileFieldProps) {
-  return (
-    <div>
-      <Typography variant="h6" color="primary" sx={{ fontWeight: 600, letterSpacing: 0.5 }}>
-        {label}
-      </Typography>
-      <Typography variant="body1">{value}</Typography>
-    </div>
   );
 }
