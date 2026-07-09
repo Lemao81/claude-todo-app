@@ -19,8 +19,8 @@ type EditTodoPanelProps = {
 export function EditTodoPanel({ todo, onChange, onClose }: EditTodoPanelProps) {
   const [text, setText] = useState(todo.text);
   const [description, setDescription] = useState(todo.description ?? '');
-  const debouncedText = useDebounce(text, 600);
-  const debouncedDescription = useDebounce(description, 600);
+  const debouncedText = useDebounce(text);
+  const debouncedDescription = useDebounce(description);
 
   useEffect(() => {
     if (debouncedText === todo.text && debouncedDescription === (todo.description ?? '')) {
