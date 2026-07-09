@@ -5,14 +5,15 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import { type FormEvent, useState } from 'react';
+import { useTodos } from '#/components/provider/TodosProvider';
 
 type AddTodoDialogProps = {
   open: boolean;
   onClose: () => void;
-  onCreate: (text: string, description: string | null) => Promise<void>;
 };
 
-export function AddTodoDialog({ open, onClose, onCreate }: AddTodoDialogProps) {
+export function AddTodoDialog({ open, onClose }: AddTodoDialogProps) {
+  const { addTodo } = useTodos();
   const [text, setText] = useState('');
   const [description, setDescription] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -28,7 +29,7 @@ export function AddTodoDialog({ open, onClose, onCreate }: AddTodoDialogProps) {
     setSubmitting(true);
 
     try {
-      await onCreate(text.trim(), description.trim() || null);
+      await addTodo(text.trim(), description.trim() || null);
       handleClose();
     } finally {
       setSubmitting(false);

@@ -7,16 +7,16 @@ import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
+import { useTodos } from '#/components/provider/TodosProvider';
 import { useDebounce } from '#/hooks/useDebounce';
 import type { TodoDto } from '#/types/todo';
 
 type EditTodoPanelProps = {
   todo: TodoDto;
-  onChange: (id: number, text: string, description: string) => void;
-  onClose: () => void;
 };
 
-export function EditTodoPanel({ todo, onChange, onClose }: EditTodoPanelProps) {
+export function EditTodoPanel({ todo }: EditTodoPanelProps) {
+  const { editTodo, stopEditing } = useTodos();
   const [text, setText] = useState(todo.text);
   const [description, setDescription] = useState(todo.description ?? '');
   const debouncedText = useDebounce(text);
@@ -27,8 +27,8 @@ export function EditTodoPanel({ todo, onChange, onClose }: EditTodoPanelProps) {
       return;
     }
 
-    onChange(todo.id, debouncedText, debouncedDescription);
-  }, [debouncedText, debouncedDescription, todo, onChange]);
+    editTodo(todo.id, debouncedText, debouncedDescription);
+  }, [debouncedText, debouncedDescription, todo, editTodo]);
 
   return (
     <Card variant="outlined" sx={{ width: 520, flexShrink: 0 }}>
@@ -39,7 +39,7 @@ export function EditTodoPanel({ todo, onChange, onClose }: EditTodoPanelProps) {
         >
           <Typography variant="h6">Edit ToDo</Typography>
           <Tooltip title="Close" enterDelay={500} enterNextDelay={500}>
-            <IconButton aria-label="Close edit panel" size="small" onClick={onClose}>
+            <IconButton aria-label="Close edit panel" size="small" onClick={stopEditing}>
               <CloseIcon fontSize="small" />
             </IconButton>
           </Tooltip>

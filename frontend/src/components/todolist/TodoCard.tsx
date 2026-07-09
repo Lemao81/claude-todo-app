@@ -12,19 +12,18 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { useTodos } from '#/components/provider/TodosProvider';
 import type { TodoDto } from '#/types/todo';
 
 type TodoCardProps = {
   todo: TodoDto;
   index: number;
-  isEditing: boolean;
-  onToggleDone: (id: number, done: boolean) => void;
-  onEdit: (id: number) => void;
-  onDelete: (id: number) => void;
 };
 
-export function TodoCard({ todo, index, isEditing, onToggleDone, onEdit, onDelete }: TodoCardProps) {
+export function TodoCard({ todo, index }: TodoCardProps) {
+  const { editingTodoId, toggleTodoDone, removeTodo, startEditing } = useTodos();
   const { ref, handleRef, isDragging } = useSortable({ id: todo.id, index });
+  const isEditing = todo.id === editingTodoId;
 
   return (
     <Card
@@ -52,7 +51,7 @@ export function TodoCard({ todo, index, isEditing, onToggleDone, onEdit, onDelet
       >
         <DragIndicatorIcon />
       </Box>
-      <CardActionArea onClick={() => onToggleDone(todo.id, !todo.done)} sx={{ flex: 1 }}>
+      <CardActionArea onClick={() => toggleTodoDone(todo.id, !todo.done)} sx={{ flex: 1 }}>
         <CardContent
           sx={{
             display: 'flex',
@@ -99,12 +98,12 @@ export function TodoCard({ todo, index, isEditing, onToggleDone, onEdit, onDelet
       </CardActionArea>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 1 }}>
         <Tooltip title="Edit Todo" enterDelay={500} enterNextDelay={500}>
-          <IconButton aria-label="Edit todo" onClick={() => onEdit(todo.id)} size="small">
+          <IconButton aria-label="Edit todo" onClick={() => startEditing(todo.id)} size="small">
             <EditOutlineIcon fontSize="small" />
           </IconButton>
         </Tooltip>
         <Tooltip title="Delete Todo" enterDelay={500} enterNextDelay={500}>
-          <IconButton aria-label="Delete todo" onClick={() => onDelete(todo.id)} size="small">
+          <IconButton aria-label="Delete todo" onClick={() => removeTodo(todo.id)} size="small">
             <DeleteOutlineIcon fontSize="small" />
           </IconButton>
         </Tooltip>
