@@ -101,6 +101,7 @@ function RouteComponent() {
           <TodoList
             todos={todos}
             showDone={showDone}
+            editingTodoId={editingTodoId}
             setTodos={setTodos}
             onToggleDone={handleToggleDone}
             onEdit={setEditingTodoId}

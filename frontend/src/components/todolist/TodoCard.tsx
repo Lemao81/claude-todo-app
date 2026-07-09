@@ -17,19 +17,26 @@ import type { TodoDto } from '#/types/todo';
 type TodoCardProps = {
   todo: TodoDto;
   index: number;
+  isEditing: boolean;
   onToggleDone: (id: number, done: boolean) => void;
   onEdit: (id: number) => void;
   onDelete: (id: number) => void;
 };
 
-export function TodoCard({ todo, index, onToggleDone, onEdit, onDelete }: TodoCardProps) {
+export function TodoCard({ todo, index, isEditing, onToggleDone, onEdit, onDelete }: TodoCardProps) {
   const { ref, handleRef, isDragging } = useSortable({ id: todo.id, index });
 
   return (
     <Card
       ref={ref}
       variant="outlined"
-      sx={{ display: 'flex', alignItems: 'stretch', mb: 1.5, opacity: isDragging ? 0.4 : 1 }}
+      sx={{
+        display: 'flex',
+        alignItems: 'stretch',
+        mb: 1.5,
+        opacity: isDragging ? 0.4 : 1,
+        ...(isEditing && { borderColor: 'primary.main', outline: '1px solid', outlineColor: 'primary.main' }),
+      }}
     >
       <Box
         ref={handleRef}

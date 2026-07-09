@@ -10,6 +10,7 @@ import { arrayMove } from '#/utils/arrayMove';
 type TodoListProps = {
   todos: TodoDto[];
   showDone: boolean;
+  editingTodoId: number | null;
   setTodos: Dispatch<SetStateAction<TodoDto[]>>;
   onToggleDone: (id: number, done: boolean) => void;
   onEdit: (id: number) => void;
@@ -19,6 +20,7 @@ type TodoListProps = {
 export function TodoList({
   todos,
   showDone,
+  editingTodoId,
   setTodos,
   onToggleDone,
   onEdit,
@@ -59,6 +61,7 @@ export function TodoList({
           key={todo.id}
           todo={todo}
           index={index}
+          isEditing={todo.id === editingTodoId}
           onToggleDone={onToggleDone}
           onEdit={onEdit}
           onDelete={onDelete}
