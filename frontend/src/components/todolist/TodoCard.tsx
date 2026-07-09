@@ -2,6 +2,7 @@ import { useSortable } from '@dnd-kit/react/sortable';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlined';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
+import EditOutlineIcon from '@mui/icons-material/EditOutlined';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -17,10 +18,11 @@ type TodoCardProps = {
   todo: TodoDto;
   index: number;
   onToggleDone: (id: number, done: boolean) => void;
+  onEdit: (id: number) => void;
   onDelete: (id: number) => void;
 };
 
-export function TodoCard({ todo, index, onToggleDone, onDelete }: TodoCardProps) {
+export function TodoCard({ todo, index, onToggleDone, onEdit, onDelete }: TodoCardProps) {
   const { ref, handleRef, isDragging } = useSortable({ id: todo.id, index });
 
   return (
@@ -89,6 +91,11 @@ export function TodoCard({ todo, index, onToggleDone, onDelete }: TodoCardProps)
         </CardContent>
       </CardActionArea>
       <Box sx={{ display: 'flex', alignItems: 'center', px: 0.5 }}>
+        <Tooltip title="Edit Todo" enterDelay={500} enterNextDelay={500}>
+          <IconButton aria-label="Edit todo" onClick={() => onEdit(todo.id)} size="small">
+            <EditOutlineIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
         <Tooltip title="Delete Todo" enterDelay={500} enterNextDelay={500}>
           <IconButton aria-label="Delete todo" onClick={() => onDelete(todo.id)} size="small">
             <DeleteOutlineIcon fontSize="small" />

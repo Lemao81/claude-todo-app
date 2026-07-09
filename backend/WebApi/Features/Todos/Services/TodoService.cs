@@ -73,7 +73,7 @@ public class TodoService(AppDbContext db)
         await db.SaveChangesAsync();
     }
 
-    public async Task<Todo?> SetDoneAsync(int id, bool done)
+    public async Task<Todo?> UpdateAsync(int id, bool? done, string? text, string? description)
     {
         var todo = await db.Todos.FindAsync(id);
         if (todo is null)
@@ -81,7 +81,17 @@ public class TodoService(AppDbContext db)
             return null;
         }
 
-        todo.Done = done;
+        if (done is not null)
+        {
+            todo.Done = done.Value;
+        }
+
+        if (text is not null)
+        {
+            todo.Text = text;
+            todo.Description = string.IsNullOrWhiteSpace(description) ? null : description;
+        }
+
         await db.SaveChangesAsync();
 
         return todo;

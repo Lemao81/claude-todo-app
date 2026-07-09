@@ -35,9 +35,9 @@ public static class TodoEndpoints
             });
 
         group.MapPatch(
-            "/{id:int}", async (int id, UpdateTodoDoneDto dto, TodoService todoService) =>
+            "/{id:int}", async (int id, UpdateTodoDto dto, TodoService todoService) =>
             {
-                var todo = await todoService.SetDoneAsync(id, dto.Done);
+                var todo = await todoService.UpdateAsync(id, dto.Done, dto.Text, dto.Description);
 
                 return todo is not null ? Results.Ok(TodoDto.FromTodo(todo)) : Results.NotFound();
             });

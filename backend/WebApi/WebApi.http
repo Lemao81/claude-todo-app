@@ -54,6 +54,17 @@ Content-Type: application/json
 
 ###
 
+PATCH {{baseUrl}}/api/todos/1
+Content-Type: application/json
+
+{
+  "done": false,
+  "text": "Buy groceries",
+  "description": "Milk, eggs and bread"
+}
+
+###
+
 PATCH {{baseUrl}}/api/todos/reorder
 Content-Type: application/json
 

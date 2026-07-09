@@ -40,6 +40,26 @@ export async function updateTodoDone(id: number, done: boolean): Promise<boolean
   return true;
 }
 
+export async function updateTodo(
+  id: number,
+  text: string,
+  description: string | null,
+): Promise<boolean> {
+  const res = await apiFetch(`/api/todos/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text, description }),
+  });
+
+  if (!res.ok) {
+    await logFetchError(res, `Failed to update todo ${id}`);
+
+    return false;
+  }
+
+  return true;
+}
+
 export async function deleteTodo(id: number): Promise<boolean> {
   const res = await apiFetch(`/api/todos/${id}`, { method: 'DELETE' });
   if (!res.ok) {
