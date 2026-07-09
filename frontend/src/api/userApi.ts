@@ -1,5 +1,4 @@
-import { apiFetch } from '#/utils/apiClient';
-import { logFetchError } from '#/utils/logHelper';
+import { apiFetch, apiSend } from '#/utils/apiClient';
 
 export async function hasAvatar(): Promise<boolean> {
   const res = await apiFetch('/api/users/avatar');
@@ -7,27 +6,16 @@ export async function hasAvatar(): Promise<boolean> {
   return res.ok;
 }
 
-export async function deleteAvatar(): Promise<boolean> {
-  const res = await apiFetch('/api/users/avatar', { method: 'DELETE' });
-  if (!res.ok) {
-    await logFetchError(res, 'Failed to delete avatar');
-
-    return false;
-  }
-
-  return true;
+export function deleteAvatar(): Promise<boolean> {
+  return apiSend('/api/users/avatar', 'Failed to delete avatar', { method: 'DELETE' });
 }
 
-export async function uploadAvatar(file: File): Promise<boolean> {
+export function uploadAvatar(file: File): Promise<boolean> {
   const formData = new FormData();
   formData.append('file', file);
 
-  const res = await apiFetch('/api/users/avatar', { method: 'POST', body: formData });
-  if (!res.ok) {
-    await logFetchError(res, 'Failed to upload avatar');
-
-    return false;
-  }
-
-  return true;
+  return apiSend('/api/users/avatar', 'Failed to upload avatar', {
+    method: 'POST',
+    body: formData,
+  });
 }

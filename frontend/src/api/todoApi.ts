@@ -1,88 +1,38 @@
 import type { TodoDto } from '#/types/todo';
-import { apiFetch } from '#/utils/apiClient';
-import { logFetchError } from '#/utils/logHelper';
+import { apiSend, apiSendJson, jsonBody } from '#/utils/apiClient';
 
-export async function createTodo(
+export function createTodo(
   text: string,
   description: string | null,
   todoListId: number,
-): Promise<TodoDto> {
-  const res = await apiFetch('/api/todos', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text, description, todoListId }),
-  });
-
-  if (!res.ok) {
-    await logFetchError(res, 'Failed to create todo');
-
-    throw new Error('Failed to create todo');
-  }
-
-  const todo: TodoDto = await res.json();
-
-  return todo;
+): Promise<TodoDto | null> {
+  return apiSendJson<TodoDto>(
+    '/api/todos',
+    'Failed to create todo',
+    jsonBody('POST', { text, description, todoListId }),
+  );
 }
 
-export async function updateTodoDone(id: number, done: boolean): Promise<boolean> {
-  const res = await apiFetch(`/api/todos/${id}`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ done }),
-  });
-
-  if (!res.ok) {
-    await logFetchError(res, `Failed to update todo ${id}`);
-
-    return false;
-  }
-
-  return true;
+export function updateTodoDone(id: number, done: boolean): Promise<boolean> {
+  return apiSend(`/api/todos/${id}`, `Failed to update todo ${id}`, jsonBody('PATCH', { done }));
 }
 
-export async function updateTodo(
+export function updateTodo(
   id: number,
   text: string,
   description: string | null,
 ): Promise<boolean> {
-  const res = await apiFetch(`/api/todos/${id}`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text, description }),
-  });
-
-  if (!res.ok) {
-    await logFetchError(res, `Failed to update todo ${id}`);
-
-    return false;
-  }
-
-  return true;
+  return apiSend(
+    `/api/todos/${id}`,
+    `Failed to update todo ${id}`,
+    jsonBody('PATCH', { text, description }),
+  );
 }
 
-export async function deleteTodo(id: number): Promise<boolean> {
-  const res = await apiFetch(`/api/todos/${id}`, { method: 'DELETE' });
-  if (!res.ok) {
-    await logFetchError(res, `Failed to delete todo ${id}`);
-
-    return false;
-  }
-
-  return true;
+export function deleteTodo(id: number): Promise<boolean> {
+  return apiSend(`/api/todos/${id}`, `Failed to delete todo ${id}`, { method: 'DELETE' });
 }
 
-export async function reorderTodos(orderedIds: number[]): Promise<boolean> {
-  const res = await apiFetch('/api/todos/reorder', {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ orderedIds }),
-  });
-
-  if (!res.ok) {
-    await logFetchError(res, 'Failed to reorder todos');
-
-    return false;
-  }
-
-  return true;
+export function reorderTodos(orderedIds: number[]): Promise<boolean> {
+  return apiSend('/api/todos/reorder', 'Failed to reorder todos', jsonBody('PATCH', { orderedIds }));
 }

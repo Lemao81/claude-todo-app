@@ -46,6 +46,12 @@ export function TodosProvider({ listId, initialTodos, children }: TodosProviderP
 
   async function addTodo(text: string, description: string | null): Promise<void> {
     const todo = await createTodo(text, description, listId);
+    if (!todo) {
+      showSnackbar('Failed to add todo', 'error');
+
+      return;
+    }
+
     setTodos((prev) => [...prev, todo]);
     showSnackbar('Todo added', 'info', 2000);
   }

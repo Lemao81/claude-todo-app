@@ -1,5 +1,5 @@
 import type { UserInfo } from '#/types/userInfo';
-import { apiFetch } from '#/utils/apiClient';
+import { apiSend } from '#/utils/apiClient';
 import { logFetchError } from '#/utils/logHelper';
 
 export async function login(
@@ -23,13 +23,6 @@ export async function login(
   return [userInfo, null];
 }
 
-export async function logout(): Promise<boolean> {
-  const res = await apiFetch('/api/auth/logout', { method: 'POST' });
-  if (!res.ok) {
-    await logFetchError(res, 'Failed to log out');
-
-    return false;
-  }
-
-  return true;
+export function logout(): Promise<boolean> {
+  return apiSend('/api/auth/logout', 'Failed to log out', { method: 'POST' });
 }

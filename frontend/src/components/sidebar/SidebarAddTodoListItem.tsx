@@ -18,6 +18,12 @@ export function SidebarAddTodoListItem() {
 
   async function handleCreate(name: string) {
     const list = await createTodoList(name);
+    if (!list) {
+      showSnackbar('Failed to create todo list', 'error');
+
+      return;
+    }
+
     await refreshTodoLists();
     navigate({ to: '/todos/$listId', params: { listId: String(list.id) } });
     showSnackbar('Todo list created', 'info', 2000);
