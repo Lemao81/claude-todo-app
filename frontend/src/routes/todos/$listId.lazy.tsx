@@ -48,7 +48,7 @@ function TodoListPage({ list }: { list: TodoListDto }) {
 
     await refreshTodoLists();
     navigate({ to: '/todos' });
-    showSnackbar('Todo list deleted', 'info', 2000);
+    showSnackbar('Todo list deleted');
   }
 
   return (

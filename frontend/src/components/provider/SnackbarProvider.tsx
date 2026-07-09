@@ -28,11 +28,11 @@ export function SnackbarProvider({ children }: { children: React.ReactNode }) {
   const showSnackbar = (
     message: string,
     severity: SnackbarSeverity = 'info',
-    hideDuration = 5000,
+    hideDuration?: number,
   ): void => {
     setMessage(message);
     setSeverity(severity);
-    setHideDuration(hideDuration);
+    setHideDuration(hideDuration ?? (severity === 'error' ? 5000 : 2000));
     setOpen(true);
   };
 

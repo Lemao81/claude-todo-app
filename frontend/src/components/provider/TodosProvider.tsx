@@ -53,7 +53,7 @@ export function TodosProvider({ listId, initialTodos, children }: TodosProviderP
     }
 
     setTodos((prev) => [...prev, todo]);
-    showSnackbar('Todo added', 'info', 2000);
+    showSnackbar('Todo added');
   }
 
   const editTodo = useCallback((id: number, text: string, description: string): void => {
@@ -91,7 +91,7 @@ export function TodosProvider({ listId, initialTodos, children }: TodosProviderP
       return;
     }
 
-    showSnackbar('Todo deleted', 'info', 2000);
+    showSnackbar('Todo deleted');
   }
 
   async function reorder(reordered: TodoDto[]): Promise<void> {

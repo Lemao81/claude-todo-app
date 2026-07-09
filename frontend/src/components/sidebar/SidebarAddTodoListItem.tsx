@@ -26,7 +26,7 @@ export function SidebarAddTodoListItem() {
 
     await refreshTodoLists();
     navigate({ to: '/todos/$listId', params: { listId: String(list.id) } });
-    showSnackbar('Todo list created', 'info', 2000);
+    showSnackbar('Todo list created');
   }
 
   return (
