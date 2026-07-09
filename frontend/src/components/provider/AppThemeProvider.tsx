@@ -1,5 +1,7 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { createContext, useContext, useMemo, useState } from 'react';
+import { COLOR_MODE_STORAGE_KEY } from '#/utils/constants';
+import { getItem, setItem } from '#/utils/localStorage';
 
 type ColorMode = 'light' | 'dark';
 
@@ -19,13 +21,13 @@ export function useColorMode() {
 
 export function AppThemeProvider({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState<ColorMode>(
-    () => (localStorage.getItem('colorMode') as ColorMode) ?? 'dark',
+    () => getItem<ColorMode>(COLOR_MODE_STORAGE_KEY) ?? 'dark',
   );
 
   const toggleColorMode = () =>
     setMode((prev) => {
       const next = prev === 'light' ? 'dark' : 'light';
-      localStorage.setItem('colorMode', next);
+      setItem(COLOR_MODE_STORAGE_KEY, next);
 
       return next;
     });
