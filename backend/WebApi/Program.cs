@@ -15,6 +15,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<TodoService>();
+builder.Services.AddScoped<TodoListService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasherV1>();
 
