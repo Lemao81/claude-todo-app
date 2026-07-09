@@ -3,7 +3,7 @@ import type { TodoListDto } from '#/types/todoList';
 import { apiSend, apiSendJson, jsonBody } from '#/utils/apiClient';
 import { logFetchError } from '#/utils/logHelper';
 
-export async function fetchTodoLists(): Promise<TodoListDto[]> {
+export async function loadTodoLists(): Promise<TodoListDto[]> {
   const res = await fetch('/api/todolists');
   if (res.status === 401) {
     throw redirect({ to: '/login' });
@@ -18,6 +18,10 @@ export async function fetchTodoLists(): Promise<TodoListDto[]> {
   const lists: TodoListDto[] = await res.json();
 
   return lists;
+}
+
+export function fetchTodoLists(): Promise<TodoListDto[] | null> {
+  return apiSendJson<TodoListDto[]>('/api/todolists', 'Failed to fetch todo lists');
 }
 
 export function createTodoList(name: string): Promise<TodoListDto | null> {

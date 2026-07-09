@@ -1,8 +1,8 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { fetchTodoLists } from '#/api/todoListApi';
+import { useSnackbar } from '#/components/provider/SnackbarProvider';
 import { useUserInfo } from '#/components/provider/UserInfoProvider';
 import type { TodoListDto } from '#/types/todoList';
-import { apiFetch } from '#/utils/apiClient';
-import { logFetchError } from '#/utils/logHelper';
 
 interface TodoListsContextValue {
   todoLists: TodoListDto[];
@@ -22,18 +22,19 @@ export function useTodoLists(): TodoListsContextValue {
 
 export function TodoListsProvider({ children }: { children: React.ReactNode }) {
   const { userInfo } = useUserInfo();
+  const { showSnackbar } = useSnackbar();
   const [todoLists, setTodoLists] = useState<TodoListDto[]>([]);
 
   const refreshTodoLists = useCallback(async (): Promise<void> => {
-    const res = await apiFetch('/api/todolists');
-    if (!res.ok) {
-      await logFetchError(res, 'Failed to fetch todo lists');
+    const lists = await fetchTodoLists();
+    if (!lists) {
+      showSnackbar('Failed to load todo lists', 'error');
 
       return;
     }
 
-    setTodoLists(await res.json());
-  }, []);
+    setTodoLists(lists);
+  }, [showSnackbar]);
 
   useEffect(() => {
     if (!userInfo) {
