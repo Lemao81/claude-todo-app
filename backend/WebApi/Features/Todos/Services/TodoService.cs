@@ -39,14 +39,21 @@ public class TodoService(AppDbContext db)
         return true;
     }
 
-    public async Task<List<Todo>> GetAsync(int? todoListId = null) =>
+    public async Task<List<Todo>> GetAsync(Guid userId, int? todoListId = null) =>
         await db.Todos
+            .Where(todo => todo.TodoList.UserId == userId)
             .Where(todo => todoListId == null || todo.TodoListId == todoListId)
             .OrderBy(todo => todo.Order)
             .ToListAsync();
 
-    public async Task<Todo> AddAsync(Todo todo)
+    public async Task<Todo?> AddAsync(Todo todo, Guid userId)
     {
+        var ownsList = await db.TodoLists.AnyAsync(list => list.Id == todo.TodoListId && list.UserId == userId);
+        if (!ownsList)
+        {
+            return null;
+        }
+
         var maxOrder = await db.Todos
             .Where(existing => existing.TodoListId == todo.TodoListId)
             .MaxAsync(existing => (int?)existing.Order) ?? 0;
@@ -59,10 +66,10 @@ public class TodoService(AppDbContext db)
         return todo;
     }
 
-    public async Task ReorderAsync(int[] orderedIds)
+    public async Task ReorderAsync(int[] orderedIds, Guid userId)
     {
         var todos = await db.Todos
-            .Where(todo => orderedIds.Contains(todo.Id))
+            .Where(todo => orderedIds.Contains(todo.Id) && todo.TodoList.UserId == userId)
             .ToListAsync();
 
         foreach (var todo in todos)
@@ -73,9 +80,9 @@ public class TodoService(AppDbContext db)
         await db.SaveChangesAsync();
     }
 
-    public async Task<Todo?> UpdateAsync(int id, bool? done, string? text, string? description)
+    public async Task<Todo?> UpdateAsync(int id, Guid userId, bool? done, string? text, string? description)
     {
-        var todo = await db.Todos.FindAsync(id);
+        var todo = await db.Todos.FirstOrDefaultAsync(existing => existing.Id == id && existing.TodoList.UserId == userId);
         if (todo is null)
         {
             return null;
@@ -97,9 +104,9 @@ public class TodoService(AppDbContext db)
         return todo;
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id, Guid userId)
     {
-        var todo = await db.Todos.FindAsync(id);
+        var todo = await db.Todos.FirstOrDefaultAsync(existing => existing.Id == id && existing.TodoList.UserId == userId);
         if (todo is null)
         {
             return false;
