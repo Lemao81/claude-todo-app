@@ -31,7 +31,7 @@ export function EditTodoPanel({ todo, onChange, onClose }: EditTodoPanelProps) {
   }, [debouncedText, debouncedDescription, todo, onChange]);
 
   return (
-    <Card variant="outlined" sx={{ width: 320, flexShrink: 0 }}>
+    <Card variant="outlined" sx={{ width: 520, flexShrink: 0 }}>
       <CardContent>
         <Stack
           direction="row"

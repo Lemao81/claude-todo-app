@@ -86,8 +86,8 @@ function RouteComponent() {
   }
 
   return (
-    <Stack direction="row" sx={{ gap: 3, alignItems: 'flex-start' }}>
-      <div style={{ maxWidth: 800, flex: 1 }}>
+    <div>
+      <div style={{ maxWidth: 800 }}>
         <TodoListHeader
           listName={list.name}
           showDone={showDone}
@@ -95,34 +95,38 @@ function RouteComponent() {
           onAddClick={() => setAddDialogOpen(true)}
           onDeleteClick={() => setDeleteDialogOpen(true)}
         />
-        <TodoList
-          todos={todos}
-          showDone={showDone}
-          setTodos={setTodos}
-          onToggleDone={handleToggleDone}
-          onEdit={setEditingTodoId}
-          onDelete={handleDelete}
-        />
-        <AddTodoDialog
-          open={addDialogOpen}
-          onClose={() => setAddDialogOpen(false)}
-          onCreate={handleCreate}
-        />
-        <DeleteTodoListConfirmationDialog
-          open={deleteDialogOpen}
-          listName={list.name}
-          onClose={() => setDeleteDialogOpen(false)}
-          onConfirm={handleDeleteList}
-        />
       </div>
-      {editingTodo && (
-        <EditTodoPanel
-          key={editingTodo.id}
-          todo={editingTodo}
-          onChange={handleEditChange}
-          onClose={() => setEditingTodoId(null)}
-        />
-      )}
-    </Stack>
+      <Stack direction="row" sx={{ gap: 3, alignItems: 'flex-start' }}>
+        <div style={{ maxWidth: 800, flex: 1 }}>
+          <TodoList
+            todos={todos}
+            showDone={showDone}
+            setTodos={setTodos}
+            onToggleDone={handleToggleDone}
+            onEdit={setEditingTodoId}
+            onDelete={handleDelete}
+          />
+        </div>
+        {editingTodo && (
+          <EditTodoPanel
+            key={editingTodo.id}
+            todo={editingTodo}
+            onChange={handleEditChange}
+            onClose={() => setEditingTodoId(null)}
+          />
+        )}
+      </Stack>
+      <AddTodoDialog
+        open={addDialogOpen}
+        onClose={() => setAddDialogOpen(false)}
+        onCreate={handleCreate}
+      />
+      <DeleteTodoListConfirmationDialog
+        open={deleteDialogOpen}
+        listName={list.name}
+        onClose={() => setDeleteDialogOpen(false)}
+        onConfirm={handleDeleteList}
+      />
+    </div>
   );
 }

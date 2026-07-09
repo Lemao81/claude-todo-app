@@ -90,7 +90,7 @@ export function TodoCard({ todo, index, onToggleDone, onEdit, onDelete }: TodoCa
           </div>
         </CardContent>
       </CardActionArea>
-      <Box sx={{ display: 'flex', alignItems: 'center', px: 0.5 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 1 }}>
         <Tooltip title="Edit Todo" enterDelay={500} enterNextDelay={500}>
           <IconButton aria-label="Edit todo" onClick={() => onEdit(todo.id)} size="small">
             <EditOutlineIcon fontSize="small" />
