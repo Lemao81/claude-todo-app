@@ -8,7 +8,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { deleteAvatar, hasAvatar, uploadAvatar } from '#/api/userApi';
-import { DeleteAvatarConfirmationDialog } from '#/components/profile/DeleteAvatarConfirmationDialog';
+import { ConfirmationDialog } from '#/components/ConfirmationDialog';
 import { useAvatar } from '#/components/provider/AvatarProvider';
 import { useSnackbar } from '#/components/provider/SnackbarProvider';
 
@@ -41,11 +41,12 @@ export function AvatarActions() {
   async function handleAvatarDelete() {
     const success = await deleteAvatar();
     if (!success) {
+      showSnackbar('Failed to delete avatar', 'error');
+
       return;
     }
 
     setAvatarExists(false);
-    setConfirmOpen(false);
     refreshAvatar();
     showSnackbar('Avatar deleted successfully');
   }
@@ -103,10 +104,12 @@ export function AvatarActions() {
           </Typography>
         </Box>
       )}
-      <DeleteAvatarConfirmationDialog
+      <ConfirmationDialog
         open={confirmOpen}
+        title="Delete Avatar"
+        message="Are you sure you want to delete your avatar?"
         onClose={() => setConfirmOpen(false)}
-        onDelete={handleAvatarDelete}
+        onConfirm={handleAvatarDelete}
       />
     </>
   );

@@ -86,6 +86,7 @@ export function TodosProvider({ listId, initialTodos, children }: TodosProviderP
     const success = await deleteTodo(id);
     if (!success) {
       setTodos(previous);
+      showSnackbar('Failed to delete todo', 'error');
 
       return;
     }

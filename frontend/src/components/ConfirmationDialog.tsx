@@ -6,39 +6,46 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from 'react';
 
-type DeleteAvatarConfirmationDialogProps = {
+type ConfirmationDialogProps = {
   open: boolean;
+  title: string;
+  message: string;
+  confirmLabel?: string;
   onClose: () => void;
-  onDelete: () => Promise<void>;
+  onConfirm: () => Promise<void>;
 };
 
-export function DeleteAvatarConfirmationDialog({
+export function ConfirmationDialog({
   open,
+  title,
+  message,
+  confirmLabel = 'Delete',
   onClose,
-  onDelete,
-}: DeleteAvatarConfirmationDialogProps) {
-  const [deleting, setDeleting] = useState(false);
+  onConfirm,
+}: ConfirmationDialogProps) {
+  const [confirming, setConfirming] = useState(false);
 
-  async function handleDelete() {
-    setDeleting(true);
+  async function handleConfirm() {
+    setConfirming(true);
 
     try {
-      await onDelete();
+      await onConfirm();
+      onClose();
     } finally {
-      setDeleting(false);
+      setConfirming(false);
     }
   }
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
-      <DialogTitle>Delete Avatar</DialogTitle>
+      <DialogTitle>{title}</DialogTitle>
       <DialogContent>
-        <DialogContentText>Are you sure you want to delete your avatar?</DialogContentText>
+        <DialogContentText>{message}</DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        <Button variant="contained" color="error" onClick={handleDelete} disabled={deleting}>
-          Delete
+        <Button variant="contained" color="error" onClick={handleConfirm} disabled={confirming}>
+          {confirmLabel}
         </Button>
       </DialogActions>
     </Dialog>

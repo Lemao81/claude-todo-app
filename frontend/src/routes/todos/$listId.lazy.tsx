@@ -5,8 +5,8 @@ import { deleteTodoList } from '#/api/todoListApi';
 import { useSnackbar } from '#/components/provider/SnackbarProvider';
 import { useTodoLists } from '#/components/provider/TodoListsProvider';
 import { TodosProvider, useTodos } from '#/components/provider/TodosProvider';
+import { ConfirmationDialog } from '#/components/ConfirmationDialog';
 import { AddTodoDialog } from '#/components/todolist/AddTodoDialog';
-import { DeleteTodoListConfirmationDialog } from '#/components/todolist/DeleteTodoListConfirmationDialog';
 import { EditTodoPanel } from '#/components/todolist/EditTodoPanel';
 import { TodoList } from '#/components/todolist/TodoList';
 import { TodoListHeader } from '#/components/todolist/TodoListHeader';
@@ -41,6 +41,8 @@ function TodoListPage({ list }: { list: TodoListDto }) {
   async function handleDeleteList() {
     const success = await deleteTodoList(list.id);
     if (!success) {
+      showSnackbar('Failed to delete todo list', 'error');
+
       return;
     }
 
@@ -67,9 +69,10 @@ function TodoListPage({ list }: { list: TodoListDto }) {
         {editingTodo && <EditTodoPanel key={editingTodo.id} todo={editingTodo} />}
       </Stack>
       <AddTodoDialog open={addDialogOpen} onClose={() => setAddDialogOpen(false)} />
-      <DeleteTodoListConfirmationDialog
+      <ConfirmationDialog
         open={deleteDialogOpen}
-        listName={list.name}
+        title="Delete Todo List"
+        message={`Are you sure you want to delete the list "${list.name}" and all of its todos?`}
         onClose={() => setDeleteDialogOpen(false)}
         onConfirm={handleDeleteList}
       />
