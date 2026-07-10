@@ -1,9 +1,6 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
+import { AboutPage } from '#/components/page/AboutPage';
 
 export const Route = createLazyFileRoute('/about')({
-  component: RouteComponent,
+  component: AboutPage,
 });
-
-function RouteComponent() {
-  return <div>This ToDo app is done via Claude Code prompting</div>;
-}
