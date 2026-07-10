@@ -1,27 +1,6 @@
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import { TanStackDevtools } from '@tanstack/react-devtools';
-import { createRootRoute, Outlet } from '@tanstack/react-router';
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
-import { MainLayout } from '#/components/MainLayout';
+import { createRootRoute } from '@tanstack/react-router';
+import { RootPage } from '#/components/page/RootPage';
 
 export const Route = createRootRoute({
-  component: RootComponent,
+  component: RootPage,
 });
-
-function RootComponent() {
-  return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-
-      <MainLayout>
-        <Outlet />
-      </MainLayout>
-
-      <TanStackDevtools
-        config={{ position: 'bottom-right' }}
-        plugins={[{ name: 'TanStack Router', render: <TanStackRouterDevtoolsPanel /> }]}
-      />
-    </Box>
-  );
-}
