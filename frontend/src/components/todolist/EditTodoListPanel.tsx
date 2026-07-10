@@ -7,37 +7,33 @@ import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
+import { useTodoList } from '#/components/provider/TodoListProvider';
 import { useDebounce } from '#/hooks/useDebounce';
 
-type EditTodoListPanelProps = {
-  name: string;
-  onRename: (name: string) => void;
-  onClose: () => void;
-};
-
-export function EditTodoListPanel({ name, onRename, onClose }: EditTodoListPanelProps) {
-  const [nameInput, setNameInput] = useState(name);
+export function EditTodoListPanel() {
+  const { listName, renameList, stopEditingList } = useTodoList();
+  const [nameInput, setNameInput] = useState(listName);
   const debouncedName = useDebounce(nameInput);
 
   useEffect(() => {
-    if (debouncedName === name) {
+    if (debouncedName === listName) {
       return;
     }
 
-    onRename(debouncedName);
-  }, [debouncedName, name, onRename]);
+    renameList(debouncedName);
+  }, [debouncedName, listName, renameList]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent): void => {
       if (event.key === 'Escape') {
-        onClose();
+        stopEditingList();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
 
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
+  }, [stopEditingList]);
 
   return (
     <Card variant="outlined" sx={{ width: 520, flexShrink: 0 }}>
@@ -48,7 +44,7 @@ export function EditTodoListPanel({ name, onRename, onClose }: EditTodoListPanel
         >
           <Typography variant="h6">Edit Todo List</Typography>
           <Tooltip title="Close" enterDelay={500} enterNextDelay={500}>
-            <IconButton aria-label="Close edit panel" size="small" onClick={onClose}>
+            <IconButton aria-label="Close edit panel" size="small" onClick={stopEditingList}>
               <CloseIcon fontSize="small" />
             </IconButton>
           </Tooltip>
