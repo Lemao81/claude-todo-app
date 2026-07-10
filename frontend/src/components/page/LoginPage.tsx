@@ -6,7 +6,7 @@ export function LoginPage() {
   return (
     <Box sx={{ maxWidth: 360, mx: 'auto', mt: 8 }}>
       <Typography variant="h5" sx={{ mb: 3 }}>
-        Log in
+        Sign In
       </Typography>
       <LoginForm />
     </Box>

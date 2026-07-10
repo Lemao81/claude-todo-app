@@ -54,7 +54,7 @@ export function LoginForm() {
         </Typography>
       )}
       <Button type="submit" variant="contained" disabled={!username || !password}>
-        Log in
+        Sign in
       </Button>
     </Stack>
   );
