@@ -1,5 +1,6 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { loadTodoLists } from '#/api/todoListApi';
+import { TodosPage } from '#/components/page/TodosPage';
 import type { TodoListDto } from '#/types/todoList';
 
 export const Route = createFileRoute('/todos/')({
@@ -11,9 +12,5 @@ export const Route = createFileRoute('/todos/')({
 
     return lists;
   },
-  component: RouteComponent,
+  component: TodosPage,
 });
-
-function RouteComponent() {
-  return <div style={{ maxWidth: 640 }}>No todo lists yet.</div>;
-}
