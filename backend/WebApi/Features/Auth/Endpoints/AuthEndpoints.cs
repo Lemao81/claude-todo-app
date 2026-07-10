@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using WebApi.Extensions;
 using WebApi.Features.Auth.Models.Dtos;
 using WebApi.Features.Auth.Services;
 using WebApi.Features.Users.Models.Dtos;
@@ -49,6 +50,19 @@ public static class AuthEndpoints
 
                 return Results.Ok();
             });
+
+        group.MapGet(
+            "/me", async (ClaimsPrincipal principal, UserService userService) =>
+            {
+                if (!principal.TryGetUserId(out var userId))
+                {
+                    return Results.Unauthorized();
+                }
+
+                var user = await userService.GetByIdAsync(userId);
+
+                return user is not null ? Results.Ok(UserDto.FromUser(user)) : Results.Unauthorized();
+            }).RequireAuthorization();
 
         return app;
     }

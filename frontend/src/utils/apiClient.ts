@@ -10,7 +10,6 @@ export class UnauthorizedError extends Error {
 
 export async function apiFetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
   const res = await fetch(input, init);
-
   if (res.status === 401) {
     router.navigate({ to: '/login' });
 

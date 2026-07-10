@@ -26,3 +26,13 @@ export async function login(
 export function logout(): Promise<boolean> {
   return apiSend('/api/auth/logout', 'Failed to log out', { method: 'POST' });
 }
+
+export async function isSessionExpired(): Promise<boolean> {
+  try {
+    const res = await fetch('/api/auth/me');
+
+    return res.status === 401;
+  } catch {
+    return false;
+  }
+}

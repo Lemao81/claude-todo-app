@@ -12,7 +12,9 @@ export function Sidebar() {
   const { todoLists } = useTodoLists();
   const [todosOpen, setTodosOpen] = useState(false);
 
-  useEffect(() => setTodosOpen(Boolean(userInfo)), [userInfo]);
+  useEffect(() => {
+    setTodosOpen(Boolean(userInfo));
+  }, [userInfo]);
 
   return (
     <List>

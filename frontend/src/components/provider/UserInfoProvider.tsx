@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { isSessionExpired } from '#/api/authApi';
 import type { UserInfo } from '#/types/userInfo';
 import { USER_INFO_STORAGE_KEY } from '#/utils/constants';
 import { getItem, setItem } from '#/utils/localStorage';
@@ -25,12 +26,24 @@ export function UserInfoProvider({ children }: { children: React.ReactNode }) {
     getItem<UserInfo>(USER_INFO_STORAGE_KEY),
   );
 
-  const setUserInfo = (userInfo: UserInfo | null): void => {
+  const setUserInfo = useCallback((userInfo: UserInfo | null): void => {
     setItem(USER_INFO_STORAGE_KEY, userInfo);
     setUserInfoState(userInfo);
-  };
+  }, []);
 
   const clearUserInfo = (): void => setUserInfo(null);
+
+  useEffect(() => {
+    if (getItem<UserInfo>(USER_INFO_STORAGE_KEY) === null) {
+      return;
+    }
+
+    isSessionExpired().then((expired): void => {
+      if (expired) {
+        setUserInfo(null);
+      }
+    });
+  }, [setUserInfo]);
 
   return (
     <UserInfoContext.Provider value={{ userInfo, setUserInfo, clearUserInfo }}>

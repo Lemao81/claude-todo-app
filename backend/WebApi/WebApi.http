@@ -15,6 +15,10 @@ POST {{baseUrl}}/api/auth/logout
 
 ###
 
+GET {{baseUrl}}/api/auth/me
+
+###
+
 GET {{baseUrl}}/api/todolists
 
 ###
