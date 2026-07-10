@@ -1,9 +1,6 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
 import { useEffect } from 'react';
-import { AvatarActions } from '#/components/profile/AvatarActions';
-import { ProfileFields } from '#/components/profile/ProfileFields';
+import { ProfilePage } from '#/components/page/ProfilePage';
 import { useUserInfo } from '#/components/provider/UserInfoProvider';
 
 export const Route = createLazyFileRoute('/profile')({
@@ -24,13 +21,5 @@ function RouteComponent() {
     return null;
   }
 
-  return (
-    <Box sx={{ maxWidth: 480 }}>
-      <Typography variant="h5" sx={{ mb: 3 }}>
-        Profile
-      </Typography>
-      <ProfileFields userInfo={userInfo} />
-      <AvatarActions />
-    </Box>
-  );
+  return <ProfilePage userInfo={userInfo} />;
 }
