@@ -1,5 +1,7 @@
+import { useNavigate } from '@tanstack/react-router';
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { updateTodoList } from '#/api/todoListApi';
+import { deleteTodoList, updateTodoList } from '#/api/todoListApi';
+import { useSnackbar } from '#/components/provider/SnackbarProvider';
 import { useTodoLists } from '#/components/provider/TodoListsProvider';
 import { useTodos } from '#/components/provider/TodosProvider';
 import type { TodoListDto } from '#/types/todoList';
@@ -9,6 +11,7 @@ interface TodoListContextValue {
   listName: string;
   editingList: boolean;
   renameList: (name: string) => void;
+  deleteList: () => Promise<void>;
   startEditingList: () => void;
   stopEditingList: () => void;
 }
@@ -30,6 +33,8 @@ type TodoListProviderProps = {
 };
 
 export function TodoListProvider({ list, children }: TodoListProviderProps) {
+  const navigate = useNavigate();
+  const { showSnackbar } = useSnackbar();
   const { refreshTodoLists } = useTodoLists();
   const { editingTodo, stopEditing } = useTodos();
   const [listName, setListName] = useState(list.name);
@@ -58,6 +63,19 @@ export function TodoListProvider({ list, children }: TodoListProviderProps) {
     [list.id, refreshTodoLists],
   );
 
+  async function deleteList(): Promise<void> {
+    const success = await deleteTodoList(list.id);
+    if (!success) {
+      showSnackbar('Failed to delete todo list', 'error');
+
+      return;
+    }
+
+    await refreshTodoLists();
+    navigate({ to: '/todos' });
+    showSnackbar('Todo list deleted');
+  }
+
   const startEditingList = (): void => {
     stopEditing();
     setEditingList(true);
@@ -72,6 +90,7 @@ export function TodoListProvider({ list, children }: TodoListProviderProps) {
         listName,
         editingList,
         renameList,
+        deleteList,
         startEditingList,
         stopEditingList,
       }}

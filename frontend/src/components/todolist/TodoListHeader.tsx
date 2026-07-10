@@ -1,7 +1,5 @@
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlined';
 import EditOutlineIcon from '@mui/icons-material/EditOutlined';
 import Button from '@mui/material/Button';
-import Fab from '@mui/material/Fab';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
@@ -14,15 +12,9 @@ type TodoListHeaderProps = {
   showDone: boolean;
   onShowDoneChange: (showDone: boolean) => void;
   onAddClick: () => void;
-  onDeleteClick: () => void;
 };
 
-export function TodoListHeader({
-  showDone,
-  onShowDoneChange,
-  onAddClick,
-  onDeleteClick,
-}: TodoListHeaderProps) {
+export function TodoListHeader({ showDone, onShowDoneChange, onAddClick }: TodoListHeaderProps) {
   const { listName, startEditingList } = useTodoList();
 
   return (
@@ -45,16 +37,6 @@ export function TodoListHeader({
         <Button variant="contained" onClick={onAddClick}>
           Add ToDo
         </Button>
-        <Tooltip title="Delete Todo List" enterDelay={500} enterNextDelay={500}>
-          <Fab
-            size="small"
-            aria-label="Delete todo list"
-            onClick={onDeleteClick}
-            sx={{ bgcolor: 'grey.400', '&:hover': { bgcolor: 'grey.500' } }}
-          >
-            <DeleteOutlineIcon />
-          </Fab>
-        </Tooltip>
       </Stack>
     </Stack>
   );

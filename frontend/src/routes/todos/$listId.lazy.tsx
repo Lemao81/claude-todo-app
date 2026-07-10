@@ -1,12 +1,8 @@
 import Stack from '@mui/material/Stack';
-import { createLazyFileRoute, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { createLazyFileRoute, getRouteApi } from '@tanstack/react-router';
 import { useState } from 'react';
-import { deleteTodoList } from '#/api/todoListApi';
-import { useSnackbar } from '#/components/provider/SnackbarProvider';
 import { TodoListProvider, useTodoList } from '#/components/provider/TodoListProvider';
-import { useTodoLists } from '#/components/provider/TodoListsProvider';
 import { TodosProvider, useTodos } from '#/components/provider/TodosProvider';
-import { ConfirmationDialog } from '#/components/ConfirmationDialog';
 import { AddTodoDialog } from '#/components/todolist/AddTodoDialog';
 import { EditTodoListPanel } from '#/components/todolist/EditTodoListPanel';
 import { EditTodoPanel } from '#/components/todolist/EditTodoPanel';
@@ -33,27 +29,10 @@ function RouteComponent() {
 }
 
 function TodoListPage() {
-  const navigate = useNavigate();
-  const { refreshTodoLists } = useTodoLists();
-  const { showSnackbar } = useSnackbar();
   const { editingTodo } = useTodos();
-  const { listId, listName, editingList } = useTodoList();
+  const { editingList } = useTodoList();
   const [showDone, setShowDone] = useState(true);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-
-  async function handleDeleteList() {
-    const success = await deleteTodoList(listId);
-    if (!success) {
-      showSnackbar('Failed to delete todo list', 'error');
-
-      return;
-    }
-
-    await refreshTodoLists();
-    navigate({ to: '/todos' });
-    showSnackbar('Todo list deleted');
-  }
 
   return (
     <div>
@@ -62,7 +41,6 @@ function TodoListPage() {
           showDone={showDone}
           onShowDoneChange={setShowDone}
           onAddClick={() => setAddDialogOpen(true)}
-          onDeleteClick={() => setDeleteDialogOpen(true)}
         />
       </div>
       <Stack direction="row" sx={{ gap: 3, alignItems: 'flex-start' }}>
@@ -73,13 +51,6 @@ function TodoListPage() {
         {editingList && <EditTodoListPanel />}
       </Stack>
       <AddTodoDialog open={addDialogOpen} onClose={() => setAddDialogOpen(false)} />
-      <ConfirmationDialog
-        open={deleteDialogOpen}
-        title="Delete Todo List"
-        message={`Are you sure you want to delete the list "${listName}" and all of its todos?`}
-        onClose={() => setDeleteDialogOpen(false)}
-        onConfirm={handleDeleteList}
-      />
     </div>
   );
 }
