@@ -32,6 +32,14 @@ export function createTodoList(name: string): Promise<TodoListDto | null> {
   );
 }
 
+export function updateTodoList(id: number, name: string): Promise<boolean> {
+  return apiSend(
+    `/api/todolists/${id}`,
+    `Failed to update todo list ${id}`,
+    jsonBody('PATCH', { name }),
+  );
+}
+
 export function deleteTodoList(id: number): Promise<boolean> {
   return apiSend(`/api/todolists/${id}`, `Failed to delete todo list ${id}`, { method: 'DELETE' });
 }

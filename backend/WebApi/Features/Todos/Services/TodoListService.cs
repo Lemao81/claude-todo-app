@@ -25,6 +25,20 @@ public class TodoListService(AppDbContext db)
         return list;
     }
 
+    public async Task<TodoList?> UpdateAsync(int id, Guid userId, string name)
+    {
+        var list = await db.TodoLists.FirstOrDefaultAsync(list => list.Id == id && list.UserId == userId);
+        if (list is null)
+        {
+            return null;
+        }
+
+        list.Name = name;
+        await db.SaveChangesAsync();
+
+        return list;
+    }
+
     public async Task<bool> DeleteAsync(int id, Guid userId)
     {
         var list = await db.TodoLists.FirstOrDefaultAsync(list => list.Id == id && list.UserId == userId);

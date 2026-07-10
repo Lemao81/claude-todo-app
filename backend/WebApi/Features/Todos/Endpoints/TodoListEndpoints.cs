@@ -51,6 +51,19 @@ public static class TodoListEndpoints
                 return Results.Created($"/api/todolists/{list.Id}", TodoListDto.FromTodoList(list));
             });
 
+        group.MapPatch(
+            "/{id:int}", async (int id, UpdateTodoListDto dto, ClaimsPrincipal user, TodoListService todoListService) =>
+            {
+                if (!user.TryGetUserId(out var userId))
+                {
+                    return Results.Unauthorized();
+                }
+
+                var list = await todoListService.UpdateAsync(id, userId, dto.Name);
+
+                return list is not null ? Results.Ok(TodoListDto.FromTodoList(list)) : Results.NotFound();
+            });
+
         group.MapDelete(
             "/{id:int}", async (int id, ClaimsPrincipal user, TodoListService todoListService) =>
             {

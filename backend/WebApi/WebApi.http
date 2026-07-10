@@ -36,6 +36,15 @@ Content-Type: application/json
 
 ###
 
+PATCH {{baseUrl}}/api/todolists/1
+Content-Type: application/json
+
+{
+  "name": "Work"
+}
+
+###
+
 DELETE {{baseUrl}}/api/todolists/1
 
 ###
