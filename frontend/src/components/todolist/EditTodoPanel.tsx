@@ -30,6 +30,18 @@ export function EditTodoPanel({ todo }: EditTodoPanelProps) {
     editTodo(todo.id, debouncedText, debouncedDescription);
   }, [debouncedText, debouncedDescription, todo, editTodo]);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent): void => {
+      if (event.key === 'Escape') {
+        stopEditing();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [stopEditing]);
+
   return (
     <Card variant="outlined" sx={{ width: 520, flexShrink: 0 }}>
       <CardContent>

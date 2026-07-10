@@ -105,7 +105,7 @@ export function TodosProvider({ listId, initialTodos, children }: TodosProviderP
   }
 
   const startEditing = (id: number): void => setEditingTodoId(id);
-  const stopEditing = (): void => setEditingTodoId(null);
+  const stopEditing = useCallback((): void => setEditingTodoId(null), []);
 
   return (
     <TodosContext.Provider
