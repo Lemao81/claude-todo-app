@@ -1,7 +1,7 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { createContext, useContext, useMemo, useState } from 'react';
+import { useLocalStorage } from '#/hooks/useLocalStorage';
 import { COLOR_MODE_STORAGE_KEY } from '#/utils/constants';
-import { getItem, setItem } from '#/utils/localStorage';
 
 type ColorMode = 'light' | 'dark';
 
@@ -20,6 +20,7 @@ export function useColorMode() {
 }
 
 export function AppThemeProvider({ children }: { children: React.ReactNode }) {
+  const { getItem, setItem } = useLocalStorage();
   const [mode, setMode] = useState<ColorMode>(
     () => getItem<ColorMode>(COLOR_MODE_STORAGE_KEY) ?? 'dark',
   );
