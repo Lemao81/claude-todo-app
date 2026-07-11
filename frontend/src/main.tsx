@@ -2,6 +2,7 @@ import { RouterProvider } from '@tanstack/react-router';
 import ReactDOM from 'react-dom/client';
 import { AppThemeProvider } from './components/provider/AppThemeProvider';
 import { AvatarProvider } from './components/provider/AvatarProvider';
+import { SearchProvider } from './components/provider/SearchProvider';
 import { SnackbarProvider } from './components/provider/SnackbarProvider';
 import { TodoListsProvider } from './components/provider/TodoListsProvider';
 import { UserInfoProvider } from './components/provider/UserInfoProvider';
@@ -17,7 +18,9 @@ if (!rootElement.innerHTML) {
         <UserInfoProvider>
           <AvatarProvider>
             <TodoListsProvider>
-              <RouterProvider router={router} />
+              <SearchProvider>
+                <RouterProvider router={router} />
+              </SearchProvider>
             </TodoListsProvider>
           </AvatarProvider>
         </UserInfoProvider>

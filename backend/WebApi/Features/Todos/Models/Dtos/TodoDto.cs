@@ -8,6 +8,7 @@ public class TodoDto
     public string Text { get; set; } = string.Empty;
     public bool Done { get; set; }
     public string? Description { get; set; }
+    public int TodoListId { get; set; }
 
     public static TodoDto FromTodo(Todo todo) => new()
     {
@@ -15,5 +16,6 @@ public class TodoDto
         Text = todo.Text,
         Done = todo.Done,
         Description = todo.Description,
+        TodoListId = todo.TodoListId,
     };
 }

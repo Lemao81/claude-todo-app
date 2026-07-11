@@ -3,4 +3,5 @@ export type TodoDto = {
   text: string;
   done: boolean;
   description: string | null;
+  todoListId: number;
 };

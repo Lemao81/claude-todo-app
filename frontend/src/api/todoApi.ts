@@ -1,6 +1,10 @@
 import type { TodoDto } from '#/types/todo';
 import { apiSend, apiSendJson, jsonBody } from '#/utils/apiClient';
 
+export function fetchAllTodos(): Promise<TodoDto[] | null> {
+  return apiSendJson<TodoDto[]>('/api/todos', 'Failed to fetch todos');
+}
+
 export function createTodo(
   text: string,
   description: string | null,

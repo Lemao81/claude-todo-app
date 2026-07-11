@@ -3,6 +3,8 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import type { ReactNode } from 'react';
+import { useSearch } from '#/components/provider/SearchProvider';
+import { SearchResults } from '#/components/search/SearchResults';
 import { Sidebar } from '#/components/sidebar/Sidebar';
 import { ToolbarActions } from '#/components/toolbar/ToolbarActions';
 import { ToolbarTitle } from '#/components/toolbar/ToolbarTitle';
@@ -14,6 +16,8 @@ type MainLayoutProps = {
 };
 
 export function MainLayout({ children }: MainLayoutProps) {
+  const { activeSearchTerm } = useSearch();
+
   return (
     <>
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
@@ -42,7 +46,7 @@ export function MainLayout({ children }: MainLayoutProps) {
 
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
-        {children}
+        {activeSearchTerm ? <SearchResults /> : children}
       </Box>
     </>
   );
