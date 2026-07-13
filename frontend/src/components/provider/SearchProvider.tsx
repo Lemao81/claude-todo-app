@@ -1,6 +1,12 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useDeferredValue,
+  useEffect,
+  useState,
+} from 'react';
 import { useUserInfo } from '#/components/provider/UserInfoProvider';
-import { useDebounce } from '#/hooks/useDebounce';
 
 interface SearchContextValue {
   searchTerm: string;
@@ -23,8 +29,8 @@ export function useSearch(): SearchContextValue {
 export function SearchProvider({ children }: { children: React.ReactNode }) {
   const { userInfo } = useUserInfo();
   const [searchTerm, setSearchTerm] = useState('');
-  const debouncedSearchTerm = useDebounce(searchTerm);
-  const activeSearchTerm = searchTerm.trim() ? debouncedSearchTerm.trim() : '';
+  const deferredSearchTerm = useDeferredValue(searchTerm);
+  const activeSearchTerm = searchTerm.trim() ? deferredSearchTerm.trim() : '';
 
   const clearSearch = useCallback((): void => setSearchTerm(''), []);
 
