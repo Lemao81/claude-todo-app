@@ -1,5 +1,6 @@
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
 import { Link } from '@tanstack/react-router';
 import { useUserInfo } from '#/components/provider/UserInfoProvider';
 import { UserAvatar } from '#/components/toolbar/UserAvatar';
@@ -9,19 +10,35 @@ export function UserActions() {
 
   if (!userInfo) {
     return (
-      <Button
-        color="inherit"
-        variant="contained"
-        component={Link}
-        to="/login"
-        sx={{
-          ml: 4,
-          bgcolor: 'rgba(255, 255, 255, 0.15)',
-          '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.25)' },
-        }}
-      >
-        Sign in
-      </Button>
+      <Stack direction="row" spacing={1} sx={{ ml: 4 }}>
+        <Button
+          color="inherit"
+          variant="contained"
+          component={Link}
+          to="/login"
+          sx={{
+            bgcolor: 'rgba(255, 255, 255, 0.15)',
+            '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.25)' },
+          }}
+        >
+          Sign in
+        </Button>
+        <Button
+          color="inherit"
+          variant="outlined"
+          component={Link}
+          to="/register"
+          sx={{
+            borderColor: 'rgba(255, 255, 255, 0.4)',
+            '&:hover': {
+              borderColor: 'rgba(255, 255, 255, 0.7)',
+              bgcolor: 'rgba(255, 255, 255, 0.1)',
+            },
+          }}
+        >
+          Sign up
+        </Button>
+      </Stack>
     );
   }
 

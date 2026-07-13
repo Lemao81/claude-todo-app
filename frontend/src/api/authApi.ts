@@ -1,6 +1,30 @@
 import type { UserInfo } from '#/types/userInfo';
-import { apiSend } from '#/utils/apiClient';
+import { apiSend, jsonBody } from '#/utils/apiClient';
 import { logFetchError } from '#/utils/logHelper';
+
+export type RegisterData = {
+  userName: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+};
+
+export async function register(data: RegisterData): Promise<string | null> {
+  const res = await fetch('/api/auth/register', jsonBody('POST', data));
+
+  if (res.status === 409) {
+    return 'Username or email is already taken';
+  }
+
+  if (!res.ok) {
+    await logFetchError(res, 'Failed to register');
+
+    return 'Registration failed';
+  }
+
+  return null;
+}
 
 export async function login(
   usernameOrEmail: string,

@@ -11,6 +11,19 @@ Content-Type: application/json
 
 ###
 
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "userName": "newuser",
+  "email": "new.user@test.com",
+  "firstName": "New",
+  "lastName": "User",
+  "password": "password"
+}
+
+###
+
 POST {{baseUrl}}/api/auth/logout
 
 ###

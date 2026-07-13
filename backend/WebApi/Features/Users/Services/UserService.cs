@@ -44,6 +44,21 @@ public class UserService(AppDbContext db)
         return true;
     }
 
+    public async Task<User?> CreateAsync(User user)
+    {
+        var exists = await db.Users.AnyAsync(u =>
+            u.UserName == user.UserName || u.EmailNormalized == user.EmailNormalized);
+        if (exists)
+        {
+            return null;
+        }
+
+        db.Users.Add(user);
+        await db.SaveChangesAsync();
+
+        return user;
+    }
+
     public async Task<User?> GetByUsernameOrEmailAsync(string usernameOrEmail)
     {
         var emailNormalized = usernameOrEmail.ToUpperInvariant();

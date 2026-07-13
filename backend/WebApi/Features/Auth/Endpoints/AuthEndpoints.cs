@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using WebApi.Extensions;
 using WebApi.Features.Auth.Models.Dtos;
 using WebApi.Features.Auth.Services;
+using WebApi.Features.Users.Models;
 using WebApi.Features.Users.Models.Dtos;
 using WebApi.Features.Users.Services;
 
@@ -41,6 +42,37 @@ public static class AuthEndpoints
                 await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
                 return Results.Ok(UserDto.FromUser(user));
+            });
+
+        group.MapPost(
+            "/register",
+            async (RegisterDto dto, UserService userService, IPasswordHasher passwordHasher) =>
+            {
+                if (string.IsNullOrWhiteSpace(dto.UserName)
+                    || string.IsNullOrWhiteSpace(dto.Email)
+                    || string.IsNullOrWhiteSpace(dto.Password))
+                {
+                    return Results.BadRequest();
+                }
+
+                var email = dto.Email.Trim();
+                var user = new User
+                {
+                    UserName = dto.UserName.Trim(),
+                    Email = email,
+                    EmailNormalized = email.ToUpperInvariant(),
+                    FirstName = dto.FirstName.Trim(),
+                    LastName = dto.LastName.Trim(),
+                    PasswordHash = passwordHasher.Hash(dto.Password)
+                };
+
+                var createdUser = await userService.CreateAsync(user);
+                if (createdUser is null)
+                {
+                    return Results.Conflict();
+                }
+
+                return Results.Created($"/api/users/{createdUser.Id}", UserDto.FromUser(createdUser));
             });
 
         group.MapPost(
