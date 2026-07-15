@@ -1,6 +1,6 @@
 import { createRootRoute } from '@tanstack/react-router';
-import { RootPage } from '#/components/page/RootPage';
+import { RootDocument } from '#/components/layout/RootDocument.tsx';
 
 export const Route = createRootRoute({
-  component: RootPage,
+  component: RootDocument,
 });

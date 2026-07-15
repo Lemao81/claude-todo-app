@@ -3,9 +3,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { TanStackDevtools } from '@tanstack/react-devtools';
 import { Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
-import { MainLayout } from '#/components/MainLayout';
+import { MainLayout } from '#/components/layout/MainLayout';
 
-export function RootPage() {
+export function RootDocument() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
