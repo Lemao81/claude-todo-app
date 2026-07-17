@@ -34,7 +34,11 @@ export function TodoCard({ todo, index }: TodoCardProps) {
         alignItems: 'stretch',
         mb: 1.5,
         opacity: isDragging ? 0.4 : 1,
-        ...(isEditing && { borderColor: 'primary.main', outline: '1px solid', outlineColor: 'primary.main' }),
+        ...(isEditing && {
+          borderColor: 'primary.main',
+          outline: '1px solid',
+          outlineColor: 'primary.main',
+        }),
       }}
     >
       <Box

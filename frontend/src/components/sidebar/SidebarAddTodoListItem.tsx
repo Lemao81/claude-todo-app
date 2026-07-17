@@ -36,7 +36,10 @@ export function SidebarAddTodoListItem() {
           <ListItemIcon sx={{ minWidth: 32 }}>
             <AddIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText primary="New List" slotProps={{ primary: { sx: { fontSize: '0.875rem' } } }} />
+          <ListItemText
+            primary="New List"
+            slotProps={{ primary: { sx: { fontSize: '0.875rem' } } }}
+          />
         </ListItemButton>
       </ListItem>
       <AddTodoListDialog

@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { isSessionExpired } from '#/api/authApi';
-import type { UserInfo } from '#/types/userInfo';
 import { useLocalStorage } from '#/hooks/useLocalStorage';
+import type { UserInfo } from '#/types/userInfo';
 import { USER_INFO_STORAGE_KEY } from '#/utils/constants';
 
 interface UserInfoContextValue {

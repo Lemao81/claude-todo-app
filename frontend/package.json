@@ -11,9 +11,10 @@
     "preview": "vite preview",
     "test": "vitest run",
     "format": "biome format",
-    "format-write": "biome format --write",
+    "format:write": "biome format --write",
     "lint": "biome lint",
-    "check": "biome check"
+    "check": "biome check",
+    "check:write": "biome check --write"
   },
   "dependencies": {
     "@dnd-kit/react": "0.5.0",

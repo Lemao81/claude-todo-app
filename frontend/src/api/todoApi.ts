@@ -21,11 +21,7 @@ export function updateTodoDone(id: number, done: boolean): Promise<boolean> {
   return apiSend(`/api/todos/${id}`, `Failed to update todo ${id}`, jsonBody('PATCH', { done }));
 }
 
-export function updateTodo(
-  id: number,
-  text: string,
-  description: string | null,
-): Promise<boolean> {
+export function updateTodo(id: number, text: string, description: string | null): Promise<boolean> {
   return apiSend(
     `/api/todos/${id}`,
     `Failed to update todo ${id}`,
@@ -38,5 +34,9 @@ export function deleteTodo(id: number): Promise<boolean> {
 }
 
 export function reorderTodos(orderedIds: number[]): Promise<boolean> {
-  return apiSend('/api/todos/reorder', 'Failed to reorder todos', jsonBody('PATCH', { orderedIds }));
+  return apiSend(
+    '/api/todos/reorder',
+    'Failed to reorder todos',
+    jsonBody('PATCH', { orderedIds }),
+  );
 }

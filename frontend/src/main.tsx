@@ -8,9 +8,9 @@ import { TodoListsProvider } from './components/provider/TodoListsProvider';
 import { UserInfoProvider } from './components/provider/UserInfoProvider';
 import { router } from './router';
 
-const rootElement = document.getElementById('app')!;
+const rootElement = document.getElementById('app');
 
-if (!rootElement.innerHTML) {
+if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <AppThemeProvider>
