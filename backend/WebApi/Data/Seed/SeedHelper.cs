@@ -9,6 +9,7 @@ public static class SeedHelper
 {
     private static readonly Guid AdminUserId = new("cc6aead7-855c-4410-bb4b-2067f5738528");
     private static readonly Guid JohnDoeUserId = new("298c7978-451b-469a-8fdd-ca1f672c300e");
+    private static readonly Guid CypressUserId = new("624649ed-644a-462d-8c39-d6ecbd032d02");
 
     public static async Task SeedAsync(AppDbContext db, IPasswordHasher passwordHasher)
     {
@@ -88,11 +89,33 @@ public static class SeedHelper
             }
         ];
 
+        TodoList[] cypressTodoLists =
+        [
+            new()
+            {
+                Name = "Cypress List",
+                Todos =
+                [
+                    new Todo { Text = "Open todo", Description = "An open todo with a description", Done = false },
+                    new Todo { Text = "Done todo", Description = "A completed todo with a description", Done = true },
+                    new Todo { Text = "Open todo without description", Done = false },
+                    new Todo { Text = "Done todo without description", Done = true }
+                ]
+            },
+            new()
+            {
+                Name = "Cypress Empty List",
+                Todos = []
+            }
+        ];
+
         AssignSeedData(adminTodoLists, AdminUserId);
         AssignSeedData(johnDoeTodoLists, JohnDoeUserId);
+        AssignSeedData(cypressTodoLists, CypressUserId);
 
         db.TodoLists.AddRange(adminTodoLists);
         db.TodoLists.AddRange(johnDoeTodoLists);
+        db.TodoLists.AddRange(cypressTodoLists);
 
         await db.SaveChangesAsync();
     }
@@ -122,7 +145,8 @@ public static class SeedHelper
             CreateUser(JohnDoeUserId, "jdoe", "jdoe@test.com", "John", "Doe", "password", passwordHasher),
             CreateUser(new Guid("d0f35cb0-3722-4bb9-a383-0653ea0c6453"), "asmith", "alice.smith@test.com", "Alice", "Smith", "password", passwordHasher),
             CreateUser(new Guid("6f5a1105-e94d-4080-ba21-d3eda369512f"), "bwayne", "bruce.wayne@test.com", "Bruce", "Wayne", "password", passwordHasher),
-            CreateUser(new Guid("d69caa5f-7295-4850-be6d-d636671934c0"), "cjones", "carol.jones@test.com", "Carol", "Jones", "password", passwordHasher)
+            CreateUser(new Guid("d69caa5f-7295-4850-be6d-d636671934c0"), "cjones", "carol.jones@test.com", "Carol", "Jones", "password", passwordHasher),
+            CreateUser(CypressUserId, "cypress", "cypress@test.com", "Cy", "Press", "password", passwordHasher)
         );
 
         await db.SaveChangesAsync();
