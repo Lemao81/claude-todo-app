@@ -6,14 +6,13 @@ import ListItemText from '@mui/material/ListItemText';
 import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { createTodoList } from '#/api/todoListApi';
-import { useSnackbar } from '#/components/provider/SnackbarProvider';
 import { useTodoLists } from '#/components/provider/TodoListsProvider';
 import { AddTodoListDialog } from '#/components/sidebar/AddTodoListDialog';
+import { showSnackbar } from '#/utils/snackbar';
 
 export function SidebarAddTodoListItem() {
   const navigate = useNavigate();
   const { refreshTodoLists } = useTodoLists();
-  const { showSnackbar } = useSnackbar();
   const [dialogOpen, setDialogOpen] = useState(false);
 
   async function handleCreate(name: string) {

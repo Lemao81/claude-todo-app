@@ -1,9 +1,9 @@
 import { useNavigate } from '@tanstack/react-router';
 import { createContext, useCallback, useContext, useState } from 'react';
 import { deleteTodoList, updateTodoList } from '#/api/todoListApi';
-import { useSnackbar } from '#/components/provider/SnackbarProvider';
 import { useTodoLists } from '#/components/provider/TodoListsProvider';
 import type { TodoListDto } from '#/types/todoList';
+import { showSnackbar } from '#/utils/snackbar';
 
 interface TodoListContextValue {
   listId: number;
@@ -33,7 +33,6 @@ type TodoListProviderProps = {
 
 export function TodoListProvider({ list, children }: TodoListProviderProps) {
   const navigate = useNavigate();
-  const { showSnackbar } = useSnackbar();
   const { refreshTodoLists } = useTodoLists();
   const [listName, setListName] = useState(list.name);
   const [editingList, setEditingList] = useState(false);

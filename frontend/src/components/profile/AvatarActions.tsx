@@ -4,11 +4,10 @@ import { deleteAvatar, hasAvatarQueryOptions, uploadAvatar } from '#/api/userApi
 import { AvatarPlaceholder } from '#/components/profile/AvatarPlaceholder';
 import { AvatarWithDelete } from '#/components/profile/AvatarWithDelete';
 import { useAvatar } from '#/components/provider/AvatarProvider';
-import { useSnackbar } from '#/components/provider/SnackbarProvider';
+import { showSnackbar } from '#/utils/snackbar';
 
 export function AvatarActions() {
   const { refreshAvatar } = useAvatar();
-  const { showSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const { data: avatarExists = false } = useQuery(hasAvatarQueryOptions);
 

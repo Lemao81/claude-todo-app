@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { createTodo, deleteTodo, reorderTodos, updateTodo, updateTodoDone } from '#/api/todoApi';
-import { useSnackbar } from '#/components/provider/SnackbarProvider';
 import type { TodoDto } from '#/types/todo';
+import { showSnackbar } from '#/utils/snackbar';
 
 interface TodosContextValue {
   todos: TodoDto[];
@@ -34,7 +34,6 @@ type TodosProviderProps = {
 };
 
 export function TodosProvider({ listId, initialTodos, children }: TodosProviderProps) {
-  const { showSnackbar } = useSnackbar();
   const [todos, setTodos] = useState<TodoDto[]>(initialTodos);
   const [editingTodoId, setEditingTodoId] = useState<number | null>(null);
   const editingTodo = todos.find((todo) => todo.id === editingTodoId) ?? null;

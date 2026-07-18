@@ -6,11 +6,10 @@ import { useForm } from '@tanstack/react-form';
 import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { register } from '#/api/authApi';
-import { useSnackbar } from '#/components/provider/SnackbarProvider';
+import { showSnackbar } from '#/utils/snackbar';
 
 export function RegisterForm() {
   const navigate = useNavigate();
-  const { showSnackbar } = useSnackbar();
   const [error, setError] = useState<string | null>(null);
 
   const form = useForm({
