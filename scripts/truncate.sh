@@ -1,0 +1,1 @@
+﻿'TRUNCATE TABLE "Todos", "TodoLists", "Users" RESTART IDENTITY CASCADE;' | docker compose exec -T postgres psql -U postgres -d claudetodo
