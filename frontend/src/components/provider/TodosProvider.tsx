@@ -12,8 +12,8 @@ interface TodosContextValue {
   toggleTodoDone: (id: number, done: boolean) => Promise<void>;
   removeTodo: (id: number) => Promise<void>;
   reorder: (reordered: TodoDto[]) => Promise<void>;
-  startEditing: (id: number) => void;
-  stopEditing: () => void;
+  startEditingTodo: (id: number) => void;
+  stopEditingTodo: () => void;
 }
 
 const TodosContext = createContext<TodosContextValue | null>(null);
@@ -104,8 +104,8 @@ export function TodosProvider({ listId, initialTodos, children }: TodosProviderP
     }
   }
 
-  const startEditing = (id: number): void => setEditingTodoId(id);
-  const stopEditing = useCallback((): void => setEditingTodoId(null), []);
+  const startEditingTodo = (id: number): void => setEditingTodoId(id);
+  const stopEditingTodo = useCallback((): void => setEditingTodoId(null), []);
 
   return (
     <TodosContext.Provider
@@ -118,8 +118,8 @@ export function TodosProvider({ listId, initialTodos, children }: TodosProviderP
         toggleTodoDone,
         removeTodo,
         reorder,
-        startEditing,
-        stopEditing,
+        startEditingTodo,
+        stopEditingTodo,
       }}
     >
       {children}

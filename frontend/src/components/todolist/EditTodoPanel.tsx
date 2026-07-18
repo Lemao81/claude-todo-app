@@ -16,7 +16,7 @@ type EditTodoPanelProps = {
 };
 
 export function EditTodoPanel({ todo }: EditTodoPanelProps) {
-  const { editTodo, stopEditing } = useTodos();
+  const { editTodo, stopEditingTodo } = useTodos();
   const [text, setText] = useState(todo.text);
   const [description, setDescription] = useState(todo.description ?? '');
   const debouncedText = useDebounce(text);
@@ -33,14 +33,14 @@ export function EditTodoPanel({ todo }: EditTodoPanelProps) {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent): void => {
       if (event.key === 'Escape') {
-        stopEditing();
+        stopEditingTodo();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
 
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [stopEditing]);
+  }, [stopEditingTodo]);
 
   return (
     <Card variant="outlined" sx={{ width: 520, flexShrink: 0 }}>
@@ -51,7 +51,7 @@ export function EditTodoPanel({ todo }: EditTodoPanelProps) {
         >
           <Typography variant="h6">Edit ToDo</Typography>
           <Tooltip title="Close" enterDelay={500} enterNextDelay={500}>
-            <IconButton aria-label="Close edit panel" size="small" onClick={stopEditing}>
+            <IconButton aria-label="Close edit panel" size="small" onClick={stopEditingTodo}>
               <CloseIcon fontSize="small" />
             </IconButton>
           </Tooltip>

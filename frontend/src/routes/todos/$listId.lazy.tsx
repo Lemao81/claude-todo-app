@@ -14,14 +14,15 @@ const routeApi = getRouteApi('/todos/$listId');
 
 function RouteComponent() {
   const { listId } = routeApi.useParams();
-  const { data: list } = useSuspenseQuery(todoListQueryOptions(Number(listId)));
-  const { data: todos } = useSuspenseQuery(todosQueryOptions(Number(listId)));
+  const listIdNumber = Number(listId);
+  const { data: list } = useSuspenseQuery(todoListQueryOptions(listIdNumber));
+  const { data: todos } = useSuspenseQuery(todosQueryOptions(listIdNumber));
 
   return (
-    <TodosProvider listId={Number(listId)} initialTodos={todos}>
-      <TodoListProvider key={list.id} list={list}>
+    <TodoListProvider key={list.id} list={list}>
+      <TodosProvider listId={listIdNumber} initialTodos={todos}>
         <TodoListPage />
-      </TodoListProvider>
-    </TodosProvider>
+      </TodosProvider>
+    </TodoListProvider>
   );
 }

@@ -1,9 +1,8 @@
 import { useNavigate } from '@tanstack/react-router';
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useState } from 'react';
 import { deleteTodoList, updateTodoList } from '#/api/todoListApi';
 import { useSnackbar } from '#/components/provider/SnackbarProvider';
 import { useTodoLists } from '#/components/provider/TodoListsProvider';
-import { useTodos } from '#/components/provider/TodosProvider';
 import type { TodoListDto } from '#/types/todoList';
 
 interface TodoListContextValue {
@@ -36,15 +35,8 @@ export function TodoListProvider({ list, children }: TodoListProviderProps) {
   const navigate = useNavigate();
   const { showSnackbar } = useSnackbar();
   const { refreshTodoLists } = useTodoLists();
-  const { editingTodo, stopEditing } = useTodos();
   const [listName, setListName] = useState(list.name);
   const [editingList, setEditingList] = useState(false);
-
-  useEffect(() => {
-    if (editingTodo) {
-      setEditingList(false);
-    }
-  }, [editingTodo]);
 
   const renameList = useCallback(
     (name: string): void => {
@@ -76,10 +68,7 @@ export function TodoListProvider({ list, children }: TodoListProviderProps) {
     showSnackbar('Todo list deleted');
   }
 
-  const startEditingList = (): void => {
-    stopEditing();
-    setEditingList(true);
-  };
+  const startEditingList = (): void => setEditingList(true);
 
   const stopEditingList = useCallback((): void => setEditingList(false), []);
 
