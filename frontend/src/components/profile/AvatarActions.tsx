@@ -1,9 +1,8 @@
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { deleteAvatar, hasAvatarQueryOptions, uploadAvatar } from '#/api/userApi';
+import { AvatarPlaceholder } from '#/components/profile/AvatarPlaceholder';
 import { AvatarWithDelete } from '#/components/profile/AvatarWithDelete';
 import { useAvatar } from '#/components/provider/AvatarProvider';
 import { useSnackbar } from '#/components/provider/SnackbarProvider';
@@ -51,27 +50,7 @@ export function AvatarActions() {
           <input type="file" hidden accept="image/jpeg,image/png" onChange={handleAvatarChange} />
         </Button>
       </Stack>
-      {avatarExists ? (
-        <AvatarWithDelete onDelete={handleAvatarDelete} />
-      ) : (
-        <Box
-          sx={{
-            width: 160,
-            height: 160,
-            mt: 4,
-            border: '2px dashed',
-            borderColor: 'divider',
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Typography variant="body2" color="text.secondary">
-            No avatar
-          </Typography>
-        </Box>
-      )}
+      {avatarExists ? <AvatarWithDelete onDelete={handleAvatarDelete} /> : <AvatarPlaceholder />}
     </>
   );
 }
