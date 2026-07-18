@@ -6,8 +6,9 @@ import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { useEffect, useState } from 'react';
-import { deleteAvatar, hasAvatar, uploadAvatar } from '#/api/userApi';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
+import { deleteAvatar, hasAvatarQueryOptions, uploadAvatar } from '#/api/userApi';
 import { ConfirmationDialog } from '#/components/ConfirmationDialog';
 import { useAvatar } from '#/components/provider/AvatarProvider';
 import { useSnackbar } from '#/components/provider/SnackbarProvider';
@@ -15,12 +16,9 @@ import { useSnackbar } from '#/components/provider/SnackbarProvider';
 export function AvatarActions() {
   const { avatarVersion, refreshAvatar } = useAvatar();
   const { showSnackbar } = useSnackbar();
-  const [avatarExists, setAvatarExists] = useState(false);
+  const queryClient = useQueryClient();
+  const { data: avatarExists = false } = useQuery(hasAvatarQueryOptions);
   const [confirmOpen, setConfirmOpen] = useState(false);
-
-  useEffect(() => {
-    hasAvatar().then(setAvatarExists);
-  }, []);
 
   async function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -30,7 +28,7 @@ export function AvatarActions() {
 
     const success = await uploadAvatar(file);
     if (success) {
-      setAvatarExists(true);
+      queryClient.setQueryData(hasAvatarQueryOptions.queryKey, true);
       refreshAvatar();
       showSnackbar('Avatar uploaded successfully');
     }
@@ -46,7 +44,7 @@ export function AvatarActions() {
       return;
     }
 
-    setAvatarExists(false);
+    queryClient.setQueryData(hasAvatarQueryOptions.queryKey, false);
     refreshAvatar();
     showSnackbar('Avatar deleted successfully');
   }

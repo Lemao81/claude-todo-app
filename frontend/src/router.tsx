@@ -1,8 +1,25 @@
-import { createRouter } from '@tanstack/react-router';
+import { QueryCache, QueryClient } from '@tanstack/react-query';
+import { createRouter, isRedirect } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
+
+export type RouterContext = {
+  queryClient: QueryClient;
+};
+
+export const queryClient = new QueryClient({
+  defaultOptions: { queries: { retry: false } },
+  queryCache: new QueryCache({
+    onError: (error): void => {
+      if (isRedirect(error)) {
+        router.navigate(error.options);
+      }
+    },
+  }),
+});
 
 export const router = createRouter({
   routeTree,
+  context: { queryClient },
   defaultPreload: 'intent',
   defaultPreloadStaleTime: 0,
   scrollRestoration: true,

@@ -1,3 +1,4 @@
+import { queryOptions } from '@tanstack/react-query';
 import type { UserInfo } from '#/types/userInfo';
 import { apiSend, jsonBody } from '#/utils/apiClient';
 import { logFetchError } from '#/utils/logHelper';
@@ -51,7 +52,7 @@ export function logout(): Promise<boolean> {
   return apiSend('/api/auth/logout', 'Failed to log out', { method: 'POST' });
 }
 
-export async function isSessionExpired(): Promise<boolean> {
+async function isSessionExpired(): Promise<boolean> {
   try {
     const res = await fetch('/api/auth/me');
 
@@ -60,3 +61,9 @@ export async function isSessionExpired(): Promise<boolean> {
     return false;
   }
 }
+
+export const sessionExpiredQueryOptions = queryOptions({
+  queryKey: ['sessionExpired'],
+  queryFn: isSessionExpired,
+  staleTime: Infinity,
+});

@@ -1,8 +1,10 @@
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { fetchTodoLists } from '#/api/todoListApi';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { createContext, useCallback, useContext, useEffect } from 'react';
+import { todoListsQueryOptions } from '#/api/todoListApi';
 import { useSnackbar } from '#/components/provider/SnackbarProvider';
 import { useUserInfo } from '#/components/provider/UserInfoProvider';
 import type { TodoListDto } from '#/types/todoList';
+import { shouldRetryQuery } from '#/utils/apiClient';
 
 interface TodoListsContextValue {
   todoLists: TodoListDto[];
@@ -23,28 +25,25 @@ export function useTodoLists(): TodoListsContextValue {
 export function TodoListsProvider({ children }: { children: React.ReactNode }) {
   const { userInfo } = useUserInfo();
   const { showSnackbar } = useSnackbar();
-  const [todoLists, setTodoLists] = useState<TodoListDto[]>([]);
-
-  const refreshTodoLists = useCallback(async (): Promise<void> => {
-    const lists = await fetchTodoLists();
-    if (!lists) {
-      showSnackbar('Failed to load todo lists', 'error');
-
-      return;
-    }
-
-    setTodoLists(lists);
-  }, [showSnackbar]);
+  const queryClient = useQueryClient();
+  const { data: loadedTodoLists, isError } = useQuery({
+    ...todoListsQueryOptions,
+    enabled: !!userInfo,
+    retry: shouldRetryQuery,
+  });
+  const todoLists = userInfo ? (loadedTodoLists ?? []) : [];
 
   useEffect(() => {
-    if (!userInfo) {
-      setTodoLists([]);
-
-      return;
+    if (isError) {
+      showSnackbar('Failed to load todo lists', 'error');
     }
+  }, [isError, showSnackbar]);
 
-    refreshTodoLists();
-  }, [userInfo, refreshTodoLists]);
+  const refreshTodoLists = useCallback(
+    (): Promise<void> =>
+      queryClient.invalidateQueries({ queryKey: todoListsQueryOptions.queryKey }),
+    [queryClient],
+  );
 
   return (
     <TodoListsContext.Provider value={{ todoLists, refreshTodoLists }}>

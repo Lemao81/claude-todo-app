@@ -1,5 +1,6 @@
+import { useQuery } from '@tanstack/react-query';
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { isSessionExpired } from '#/api/authApi';
+import { sessionExpiredQueryOptions } from '#/api/authApi';
 import { useLocalStorage } from '#/hooks/useLocalStorage';
 import type { UserInfo } from '#/types/userInfo';
 import { USER_INFO_STORAGE_KEY } from '#/utils/constants';
@@ -27,6 +28,11 @@ export function UserInfoProvider({ children }: { children: React.ReactNode }) {
     getItem<UserInfo>(USER_INFO_STORAGE_KEY),
   );
 
+  const { data: sessionExpired } = useQuery({
+    ...sessionExpiredQueryOptions,
+    enabled: userInfo !== null,
+  });
+
   const setUserInfo = useCallback(
     (userInfo: UserInfo | null): void => {
       setItem(USER_INFO_STORAGE_KEY, userInfo);
@@ -38,16 +44,10 @@ export function UserInfoProvider({ children }: { children: React.ReactNode }) {
   const clearUserInfo = (): void => setUserInfo(null);
 
   useEffect(() => {
-    if (getItem<UserInfo>(USER_INFO_STORAGE_KEY) === null) {
-      return;
+    if (sessionExpired) {
+      setUserInfo(null);
     }
-
-    isSessionExpired().then((expired): void => {
-      if (expired) {
-        setUserInfo(null);
-      }
-    });
-  }, [getItem, setUserInfo]);
+  }, [sessionExpired, setUserInfo]);
 
   return (
     <UserInfoContext.Provider value={{ userInfo, setUserInfo, clearUserInfo }}>

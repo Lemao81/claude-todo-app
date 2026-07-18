@@ -1,28 +1,19 @@
-import { redirect } from '@tanstack/react-router';
+import { queryOptions } from '@tanstack/react-query';
 import type { TodoListDto } from '#/types/todoList';
-import { apiSend, apiSendJson, jsonBody } from '#/utils/apiClient';
-import { logFetchError } from '#/utils/logHelper';
+import { apiGetJson, apiSend, apiSendJson, jsonBody } from '#/utils/apiClient';
 
-export async function loadTodoLists(): Promise<TodoListDto[]> {
-  const res = await fetch('/api/todolists');
-  if (res.status === 401) {
-    throw redirect({ to: '/login' });
-  }
+export const todoListsQueryOptions = queryOptions({
+  queryKey: ['todoLists'],
+  queryFn: (): Promise<TodoListDto[]> =>
+    apiGetJson<TodoListDto[]>('/api/todolists', 'Failed to fetch todo lists'),
+});
 
-  if (!res.ok) {
-    await logFetchError(res, 'Failed to fetch todo lists');
-
-    throw new Error('Failed to fetch todo lists');
-  }
-
-  const lists: TodoListDto[] = await res.json();
-
-  return lists;
-}
-
-export function fetchTodoLists(): Promise<TodoListDto[] | null> {
-  return apiSendJson<TodoListDto[]>('/api/todolists', 'Failed to fetch todo lists');
-}
+export const todoListQueryOptions = (id: number) =>
+  queryOptions({
+    queryKey: ['todoLists', id],
+    queryFn: (): Promise<TodoListDto> =>
+      apiGetJson<TodoListDto>(`/api/todolists/${id}`, 'Failed to fetch todo list'),
+  });
 
 export function createTodoList(name: string): Promise<TodoListDto | null> {
   return apiSendJson<TodoListDto>(

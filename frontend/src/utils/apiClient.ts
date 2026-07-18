@@ -1,3 +1,4 @@
+import { isRedirect, redirect } from '@tanstack/react-router';
 import { router } from '#/router';
 import { logFetchError } from '#/utils/logHelper';
 
@@ -6,6 +7,10 @@ export class UnauthorizedError extends Error {
     super('Unauthorized');
     this.name = 'UnauthorizedError';
   }
+}
+
+export function shouldRetryQuery(failureCount: number, error: Error): boolean {
+  return !isRedirect(error) && !(error instanceof UnauthorizedError) && failureCount < 1;
 }
 
 export async function apiFetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
@@ -40,6 +45,23 @@ export async function apiSend(
   }
 
   return true;
+}
+
+export async function apiGetJson<T>(input: RequestInfo | URL, errorMessage: string): Promise<T> {
+  const res = await fetch(input);
+  if (res.status === 401) {
+    throw redirect({ to: '/login' });
+  }
+
+  if (!res.ok) {
+    await logFetchError(res, errorMessage);
+
+    throw new Error(errorMessage);
+  }
+
+  const data: T = await res.json();
+
+  return data;
 }
 
 export async function apiSendJson<T>(

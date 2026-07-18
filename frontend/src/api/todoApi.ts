@@ -1,9 +1,19 @@
+import { queryOptions } from '@tanstack/react-query';
 import type { TodoDto } from '#/types/todo';
-import { apiSend, apiSendJson, jsonBody } from '#/utils/apiClient';
+import { apiGetJson, apiSend, apiSendJson, jsonBody, shouldRetryQuery } from '#/utils/apiClient';
 
-export function fetchAllTodos(): Promise<TodoDto[] | null> {
-  return apiSendJson<TodoDto[]>('/api/todos', 'Failed to fetch todos');
-}
+export const allTodosQueryOptions = queryOptions({
+  queryKey: ['todos'],
+  queryFn: (): Promise<TodoDto[]> => apiGetJson<TodoDto[]>('/api/todos', 'Failed to fetch todos'),
+  retry: shouldRetryQuery,
+});
+
+export const todosQueryOptions = (todoListId: number) =>
+  queryOptions({
+    queryKey: ['todos', todoListId],
+    queryFn: (): Promise<TodoDto[]> =>
+      apiGetJson<TodoDto[]>(`/api/todos?todoListId=${todoListId}`, 'Failed to fetch todos'),
+  });
 
 export function createTodo(
   text: string,

@@ -1,38 +1,24 @@
 import Typography from '@mui/material/Typography';
-import { useEffect, useState } from 'react';
-import { fetchAllTodos } from '#/api/todoApi';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { allTodosQueryOptions } from '#/api/todoApi';
 import { useSearch } from '#/components/provider/SearchProvider';
 import { useSnackbar } from '#/components/provider/SnackbarProvider';
 import { useTodoLists } from '#/components/provider/TodoListsProvider';
 import { SearchResultList } from '#/components/search/SearchResultList';
-import type { TodoDto } from '#/types/todo';
 
 export function SearchResults() {
   const { activeSearchTerm } = useSearch();
   const { todoLists } = useTodoLists();
   const { showSnackbar } = useSnackbar();
-  const [todos, setTodos] = useState<TodoDto[]>([]);
+  const { data: allTodos, isError } = useQuery(allTodosQueryOptions);
+  const todos = allTodos ?? [];
 
   useEffect(() => {
-    let cancelled = false;
-    fetchAllTodos().then((allTodos): void => {
-      if (cancelled) {
-        return;
-      }
-
-      if (!allTodos) {
-        showSnackbar('Failed to search todos', 'error');
-
-        return;
-      }
-
-      setTodos(allTodos);
-    });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [showSnackbar]);
+    if (isError) {
+      showSnackbar('Failed to search todos', 'error');
+    }
+  }, [isError, showSnackbar]);
 
   const term = activeSearchTerm.toLowerCase();
   const results = todos.filter(

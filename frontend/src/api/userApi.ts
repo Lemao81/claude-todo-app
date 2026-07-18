@@ -1,10 +1,17 @@
-import { apiFetch, apiSend } from '#/utils/apiClient';
+import { queryOptions } from '@tanstack/react-query';
+import { apiFetch, apiSend, shouldRetryQuery } from '#/utils/apiClient';
 
-export async function hasAvatar(): Promise<boolean> {
+async function hasAvatar(): Promise<boolean> {
   const res = await apiFetch('/api/users/avatar');
 
   return res.ok;
 }
+
+export const hasAvatarQueryOptions = queryOptions({
+  queryKey: ['avatar'],
+  queryFn: hasAvatar,
+  retry: shouldRetryQuery,
+});
 
 export function deleteAvatar(): Promise<boolean> {
   return apiSend('/api/users/avatar', 'Failed to delete avatar', { method: 'DELETE' });
