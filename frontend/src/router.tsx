@@ -1,6 +1,8 @@
 import { QueryCache, QueryClient } from '@tanstack/react-query';
 import { createRouter, isRedirect } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
+import { UnauthorizedError } from './utils/errors';
+import { showSnackbar } from './utils/snackbar';
 
 export type RouterContext = {
   queryClient: QueryClient;
@@ -12,6 +14,8 @@ export const queryClient = new QueryClient({
     onError: (error): void => {
       if (isRedirect(error)) {
         router.navigate(error.options);
+      } else if (!(error instanceof UnauthorizedError)) {
+        showSnackbar(error.message, 'error');
       }
     },
   }),

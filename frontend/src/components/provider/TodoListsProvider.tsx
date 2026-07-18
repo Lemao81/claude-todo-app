@@ -1,7 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { createContext, useCallback, useContext, useEffect } from 'react';
+import { createContext, useCallback, useContext } from 'react';
 import { todoListsQueryOptions } from '#/api/todoListApi';
-import { useSnackbar } from '#/components/provider/SnackbarProvider';
 import { useUserInfo } from '#/components/provider/UserInfoProvider';
 import type { TodoListDto } from '#/types/todoList';
 import { shouldRetryQuery } from '#/utils/apiClient';
@@ -24,20 +23,13 @@ export function useTodoLists(): TodoListsContextValue {
 
 export function TodoListsProvider({ children }: { children: React.ReactNode }) {
   const { userInfo } = useUserInfo();
-  const { showSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
-  const { data: loadedTodoLists, isError } = useQuery({
+  const { data: loadedTodoLists } = useQuery({
     ...todoListsQueryOptions,
     enabled: !!userInfo,
     retry: shouldRetryQuery,
   });
   const todoLists = userInfo ? (loadedTodoLists ?? []) : [];
-
-  useEffect(() => {
-    if (isError) {
-      showSnackbar('Failed to load todo lists', 'error');
-    }
-  }, [isError, showSnackbar]);
 
   const refreshTodoLists = useCallback(
     (): Promise<void> =>

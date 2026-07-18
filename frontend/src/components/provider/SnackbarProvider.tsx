@@ -1,8 +1,7 @@
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
-import { createContext, useCallback, useContext, useState } from 'react';
-
-type SnackbarSeverity = 'info' | 'error';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { type SnackbarSeverity, setSnackbarListener } from '#/utils/snackbar';
 
 interface SnackbarContextValue {
   showSnackbar: (message: string, severity?: SnackbarSeverity, hideDuration?: number) => void;
@@ -34,6 +33,12 @@ export function SnackbarProvider({ children }: { children: React.ReactNode }) {
     },
     [],
   );
+
+  useEffect(() => {
+    setSnackbarListener(showSnackbar);
+
+    return () => setSnackbarListener(null);
+  }, [showSnackbar]);
 
   const handleClose = (): void => setOpen(false);
 
