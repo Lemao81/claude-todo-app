@@ -14,7 +14,8 @@
     "format:write": "biome format --write",
     "lint": "biome lint",
     "check": "biome check",
-    "check:write": "biome check --write"
+    "check:write": "biome check --write",
+    "cy:open": "cypress open"
   },
   "dependencies": {
     "@dnd-kit/react": "0.5.0",
@@ -46,6 +47,7 @@
     "@types/react": "19.2.15",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.2",
+    "cypress": "15.18.0",
     "jsdom": "28.1.0",
     "typescript": "6.0.3",
     "vite": "8.0.14",

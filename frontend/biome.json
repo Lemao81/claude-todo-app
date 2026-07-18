@@ -9,6 +9,7 @@
     "ignoreUnknown": false,
     "includes": [
       "**/src/**/*",
+      "**/cypress/**/*",
       "**/.vscode/**/*",
       "**/index.html",
       "**/vite.config.ts",
