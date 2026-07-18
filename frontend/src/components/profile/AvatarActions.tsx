@@ -1,24 +1,18 @@
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlined';
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
-import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
 import { deleteAvatar, hasAvatarQueryOptions, uploadAvatar } from '#/api/userApi';
-import { ConfirmationDialog } from '#/components/ConfirmationDialog';
+import { AvatarWithDelete } from '#/components/profile/AvatarWithDelete';
 import { useAvatar } from '#/components/provider/AvatarProvider';
 import { useSnackbar } from '#/components/provider/SnackbarProvider';
 
 export function AvatarActions() {
-  const { avatarVersion, refreshAvatar } = useAvatar();
+  const { refreshAvatar } = useAvatar();
   const { showSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const { data: avatarExists = false } = useQuery(hasAvatarQueryOptions);
-  const [confirmOpen, setConfirmOpen] = useState(false);
 
   async function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -58,31 +52,7 @@ export function AvatarActions() {
         </Button>
       </Stack>
       {avatarExists ? (
-        <Box sx={{ position: 'relative', width: 160, mt: 4 }}>
-          <Avatar
-            src={`/api/users/avatar?v=${avatarVersion}`}
-            alt="Avatar"
-            sx={{ width: 160, height: 160 }}
-          />
-          <Tooltip title="Delete Avatar" enterDelay={500} enterNextDelay={500}>
-            <IconButton
-              aria-label="Delete avatar"
-              size="small"
-              color="error"
-              onClick={() => setConfirmOpen(true)}
-              sx={{
-                position: 'absolute',
-                right: -1.5,
-                bottom: -1.5,
-                bgcolor: 'grey.300',
-                boxShadow: 1,
-                '&:hover': { bgcolor: 'grey.400' },
-              }}
-            >
-              <DeleteOutlineIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        </Box>
+        <AvatarWithDelete onDelete={handleAvatarDelete} />
       ) : (
         <Box
           sx={{
@@ -102,13 +72,6 @@ export function AvatarActions() {
           </Typography>
         </Box>
       )}
-      <ConfirmationDialog
-        open={confirmOpen}
-        title="Delete Avatar"
-        message="Are you sure you want to delete your avatar?"
-        onClose={() => setConfirmOpen(false)}
-        onConfirm={handleAvatarDelete}
-      />
     </>
   );
 }
