@@ -1,5 +1,4 @@
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { deleteAvatar, hasAvatarQueryOptions, uploadAvatar } from '#/api/userApi';
 import { AvatarPlaceholder } from '#/components/profile/AvatarPlaceholder';
@@ -44,12 +43,10 @@ export function AvatarActions() {
 
   return (
     <>
-      <Stack direction="row" spacing={2} sx={{ mt: 4 }}>
-        <Button variant="contained" component="label">
-          Upload Avatar
-          <input type="file" hidden accept="image/jpeg,image/png" onChange={handleAvatarChange} />
-        </Button>
-      </Stack>
+      <Button variant="contained" component="label" sx={{ mt: 4 }}>
+        Upload Avatar
+        <input type="file" hidden accept="image/jpeg,image/png" onChange={handleAvatarChange} />
+      </Button>
       {avatarExists ? <AvatarWithDelete onDelete={handleAvatarDelete} /> : <AvatarPlaceholder />}
     </>
   );
