@@ -64,6 +64,12 @@ docker compose up   # Build and run the backend container
 
 Use `Link` from `@tanstack/react-router` for client-side navigation. Use `Route.useLoaderData()` to access data loaded by a route's `loader`.
 
+## Agent Instructions
+
+- Never execute `pnpm install`, `pnpm add`, `pnpm remove`, or any other command that installs/mutates dependencies. Edit `package.json` directly and tell the user to run the install themselves.
+- Never execute `git commit` on your own. Stage/prepare changes if asked, but leave committing to the user. Once the user gives command to commit current changes, do it, don't ask for extra confirmation.
+- In this sandbox, `node_modules` was installed on Windows: `pnpm` is unavailable, `.bin` shims fail, and platform-specific binaries (e.g. Biome's Linux CLI) are missing. Never attempt `npx <tool>`, `pnpm exec <tool>`, `pnpm <script>`, or login-shell fallbacks. To verify changes, run `node node_modules/typescript/bin/tsc --noEmit` (ignore pre-existing errors in unrelated files) and skip lint/format checks — the user runs `pnpm check` on the host.
+
 ## Code Style
 - General:
   - insert new line before return keyword if not first line of block
