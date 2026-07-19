@@ -36,7 +36,7 @@ export function TodoListHeader({ showDone, onShowDoneChange, onAddClick }: TodoL
           }
           label="Show done"
         />
-        <Button variant="contained" onClick={onAddClick}>
+        <Button variant="contained" onClick={onAddClick} data-cy="add-todo-button">
           Add ToDo
         </Button>
       </Stack>

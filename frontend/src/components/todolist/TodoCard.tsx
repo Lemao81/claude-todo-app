@@ -83,6 +83,7 @@ export function TodoCard({ todo, index }: TodoCardProps) {
           <div>
             <Typography
               variant="body1"
+              data-cy="todo-card-text"
               sx={{
                 textDecoration: todo.done ? 'line-through' : 'none',
                 opacity: todo.done ? 0.5 : 1,
@@ -94,6 +95,7 @@ export function TodoCard({ todo, index }: TodoCardProps) {
               <Typography
                 variant="body2"
                 color="text.secondary"
+                data-cy="todo-card-description"
                 sx={{
                   mt: 0.5,
                   textDecoration: todo.done ? 'line-through' : 'none',

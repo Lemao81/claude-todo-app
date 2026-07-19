@@ -28,4 +28,34 @@ describe("todos", () => {
 			});
 		cy.wait("@updateTodoDone").its("response.statusCode").should("be.oneOf", [200, 204]);
 	});
+
+	it("adds todo with description", () => {
+		cy.request("GET", "/api/todos").then((response: Cypress.Response<TodoResponse[]>) => {
+			for (const todo of response.body.filter((t) => t.text === "New todo")) {
+				cy.request("DELETE", `/api/todos/${todo.id}`);
+			}
+		});
+		cy.intercept("POST", "/api/todos").as("createTodo");
+		cy.visit("/todos");
+
+		cy.get("[data-cy=add-todo-button]").click();
+
+		cy.get("[data-cy=add-todo-dialog]").should("be.visible");
+		cy.get("[data-cy=add-todo-dialog-title]").should("be.visible").and("have.text", "Add ToDo");
+		cy.get("[data-cy=add-todo-text-input]").should("be.visible");
+		cy.get("[data-cy=add-todo-description-input]").should("be.visible");
+
+		cy.get("[data-cy=add-todo-text-input]").type("New todo");
+		cy.get("[data-cy=add-todo-description-input]").type("New todo description");
+		cy.get("[data-cy=add-todo-submit]").click();
+
+		cy.wait("@createTodo").its("response.statusCode").should("eq", 201);
+		cy.get("[data-cy=add-todo-dialog]").should("not.exist");
+		cy.get("[data-cy=todo-card]")
+			.last()
+			.within(() => {
+				cy.get("[data-cy=todo-card-text]").should("have.text", "New todo");
+				cy.get("[data-cy=todo-card-description]").should("have.text", "New todo description");
+			});
+	});
 });

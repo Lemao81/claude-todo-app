@@ -37,9 +37,9 @@ export function AddTodoDialog({ open, onClose }: AddTodoDialogProps) {
   }
 
   return (
-    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm" data-cy="add-todo-dialog">
       <form onSubmit={handleSubmit}>
-        <DialogTitle>Add ToDo</DialogTitle>
+        <DialogTitle data-cy="add-todo-dialog-title">Add ToDo</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -49,6 +49,7 @@ export function AddTodoDialog({ open, onClose }: AddTodoDialogProps) {
             fullWidth
             value={text}
             onChange={(e) => setText(e.target.value)}
+            slotProps={{ htmlInput: { 'data-cy': 'add-todo-text-input' } }}
           />
           <TextField
             margin="dense"
@@ -58,11 +59,17 @@ export function AddTodoDialog({ open, onClose }: AddTodoDialogProps) {
             rows={3}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            slotProps={{ htmlInput: { 'data-cy': 'add-todo-description-input' } }}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit" variant="contained" disabled={submitting || !text.trim()}>
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={submitting || !text.trim()}
+            data-cy="add-todo-submit"
+          >
             Add
           </Button>
         </DialogActions>
