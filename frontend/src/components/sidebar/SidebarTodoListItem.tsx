@@ -20,6 +20,7 @@ export function SidebarTodoListItem({ todoList }: SidebarTodoListItemProps) {
         params={{ listId: String(todoList.id) }}
         selected={!!matchRoute({ to: '/todos/$listId', params: { listId: String(todoList.id) } })}
         sx={{ pl: 4 }}
+        data-cy="sidebar-todo-list-item"
       >
         <ListItemText primary={todoList.name} />
       </ListItemButtonLink>

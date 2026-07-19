@@ -39,6 +39,7 @@ export function LoginForm() {
         autoComplete="username"
         autoFocus
         fullWidth
+        slotProps={{ htmlInput: { 'data-cy': 'login-username-input' } }}
         data-cy="login-username"
       />
       <TextField
@@ -48,6 +49,7 @@ export function LoginForm() {
         onChange={(e) => setPassword(e.target.value)}
         autoComplete="current-password"
         fullWidth
+        slotProps={{ htmlInput: { 'data-cy': 'login-password-input' } }}
         data-cy="login-password"
       />
       {error && (

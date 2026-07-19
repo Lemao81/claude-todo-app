@@ -20,7 +20,9 @@ export function TodoListHeader({ showDone, onShowDoneChange, onAddClick }: TodoL
   return (
     <Stack direction="row" sx={{ alignItems: 'center', justifyContent: 'space-between', mb: 3 }}>
       <Stack direction="row" sx={{ alignItems: 'center', gap: 1 }}>
-        <Typography variant="h5">My Todos - {listName}</Typography>
+        <Typography variant="h5" data-cy="todo-list-heading">
+          My Todos - {listName}
+        </Typography>
         <Tooltip title="Edit Todo List" enterDelay={500} enterNextDelay={500}>
           <IconButton aria-label="Edit todo list" size="small" onClick={startEditingList}>
             <EditOutlineIcon fontSize="small" />
