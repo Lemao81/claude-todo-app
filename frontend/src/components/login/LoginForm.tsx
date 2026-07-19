@@ -14,7 +14,7 @@ export function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const { setUserInfo } = useUserInfo();
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault();
     setError(null);
 

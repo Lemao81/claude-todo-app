@@ -4,7 +4,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
-import { type FormEvent, useState } from 'react';
+import { type SubmitEvent, useState } from 'react';
 import { useTodos } from '#/components/provider/TodosProvider';
 
 type AddTodoDialogProps = {
@@ -24,7 +24,7 @@ export function AddTodoDialog({ open, onClose }: AddTodoDialogProps) {
     onClose();
   }
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setSubmitting(true);
 
