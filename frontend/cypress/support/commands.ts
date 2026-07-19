@@ -35,3 +35,22 @@
 //     }
 //   }
 // }
+
+Cypress.Commands.add("login", () => {
+	cy.request("POST", "/api/auth/login", {
+		usernameOrEmail: "cypress",
+		password: "password",
+	}).then((response) => {
+		window.localStorage.setItem("userInfo", JSON.stringify(response.body));
+	});
+});
+
+declare global {
+	namespace Cypress {
+		interface Chainable {
+			login(): Chainable<void>;
+		}
+	}
+}
+
+export {};

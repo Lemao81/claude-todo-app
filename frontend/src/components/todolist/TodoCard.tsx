@@ -29,6 +29,7 @@ export function TodoCard({ todo, index }: TodoCardProps) {
     <Card
       ref={ref}
       variant="outlined"
+      data-cy="todo-card"
       sx={{
         display: 'flex',
         alignItems: 'stretch',
@@ -55,7 +56,11 @@ export function TodoCard({ todo, index }: TodoCardProps) {
       >
         <DragIndicatorIcon />
       </Box>
-      <CardActionArea onClick={() => toggleTodoDone(todo.id, !todo.done)} sx={{ flex: 1 }}>
+      <CardActionArea
+        onClick={() => toggleTodoDone(todo.id, !todo.done)}
+        sx={{ flex: 1 }}
+        data-cy="todo-card-toggle"
+      >
         <CardContent
           sx={{
             display: 'flex',
@@ -73,6 +78,7 @@ export function TodoCard({ todo, index }: TodoCardProps) {
             disableRipple
             tabIndex={-1}
             sx={{ p: 0, mt: 0.25 }}
+            slotProps={{ input: { 'data-cy': 'todo-card-checkbox' } }}
           />
           <div>
             <Typography
