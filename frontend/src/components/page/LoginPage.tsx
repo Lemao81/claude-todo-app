@@ -5,7 +5,7 @@ import { LoginForm } from '#/components/login/LoginForm';
 export function LoginPage() {
   return (
     <Box sx={{ maxWidth: 360, mx: 'auto', mt: 8 }}>
-      <Typography variant="h5" sx={{ mb: 3 }}>
+      <Typography variant="h5" sx={{ mb: 3 }} data-cy="login-heading">
         Sign In
       </Typography>
       <LoginForm />

@@ -2,13 +2,13 @@ describe("login navigation", () => {
 	it("shows the login form", () => {
 		cy.visit("/");
 
-		cy.contains("a", "Sign in").click();
+		cy.get("[data-cy=sign-in-link]").click();
 
 		cy.location("pathname").should("eq", "/login");
-		cy.contains("h5", "Sign In").should("be.visible");
-		cy.contains("label", "Username").should("be.visible");
-		cy.contains("label", "Password").should("be.visible");
-		cy.contains("button", "Sign in").should("be.visible");
+		cy.get("[data-cy=login-heading]").should("be.visible").and("have.text", "Sign In");
+		cy.get("[data-cy=login-username]").should("be.visible").and("contain.text", "Username");
+		cy.get("[data-cy=login-password]").should("be.visible").and("contain.text", "Password");
+		cy.get("[data-cy=login-submit]").should("be.visible").and("have.text", "Sign in");
 		cy.focused().should("have.attr", "autocomplete", "username");
 	});
 });

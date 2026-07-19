@@ -2,6 +2,8 @@ describe("home", () => {
 	it("shows the home screen", () => {
 		cy.visit("/");
 
-		cy.contains("h1", "Welcome to Claude ToDo App").should("be.visible");
+		cy.get("[data-cy=home-heading]")
+			.should("be.visible")
+			.and("contain.text", "Welcome to Claude ToDo App");
 	});
 });

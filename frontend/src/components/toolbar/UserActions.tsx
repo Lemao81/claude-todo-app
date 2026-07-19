@@ -16,6 +16,7 @@ export function UserActions() {
           variant="contained"
           component={Link}
           to="/login"
+          data-cy="sign-in-link"
           sx={{
             bgcolor: 'rgba(255, 255, 255, 0.15)',
             '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.25)' },

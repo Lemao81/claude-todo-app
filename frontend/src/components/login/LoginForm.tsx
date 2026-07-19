@@ -39,6 +39,7 @@ export function LoginForm() {
         autoComplete="username"
         autoFocus
         fullWidth
+        data-cy="login-username"
       />
       <TextField
         label="Password"
@@ -47,13 +48,19 @@ export function LoginForm() {
         onChange={(e) => setPassword(e.target.value)}
         autoComplete="current-password"
         fullWidth
+        data-cy="login-password"
       />
       {error && (
         <Typography color="error" variant="body2">
           {error}
         </Typography>
       )}
-      <Button type="submit" variant="contained" disabled={!username || !password}>
+      <Button
+        type="submit"
+        variant="contained"
+        disabled={!username || !password}
+        data-cy="login-submit"
+      >
         Sign in
       </Button>
     </Stack>
