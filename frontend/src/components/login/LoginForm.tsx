@@ -53,7 +53,7 @@ export function LoginForm() {
         data-cy="login-password"
       />
       {error && (
-        <Typography color="error" variant="body2">
+        <Typography color="error" variant="body2" data-cy="login-error">
           {error}
         </Typography>
       )}
