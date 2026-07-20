@@ -1,6 +1,6 @@
 import { queryOptions } from '@tanstack/react-query';
 import type { UserInfo } from '#/types/userInfo';
-import { apiSend, jsonBody } from '#/utils/apiClient';
+import { apiSend, jsonBody } from '#/services/api/apiClient';
 import { logFetchError } from '#/utils/helpers';
 
 export type RegisterData = {

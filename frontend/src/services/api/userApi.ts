@@ -1,5 +1,5 @@
 import { queryOptions } from '@tanstack/react-query';
-import { apiFetch, apiSend, shouldRetryQuery } from '#/utils/apiClient';
+import { apiFetch, apiSend, shouldRetryQuery } from '#/services/api/apiClient';
 
 async function hasAvatar(): Promise<boolean> {
   const res = await apiFetch('/api/users/avatar');

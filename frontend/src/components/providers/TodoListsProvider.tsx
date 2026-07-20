@@ -3,7 +3,7 @@ import { createContext, useCallback, useContext } from 'react';
 import { todoListsQueryOptions } from '#/services/api/todoListApi';
 import { useUserInfo } from '#/components/providers/UserInfoProvider';
 import type { TodoListDto } from '#/types/todoList';
-import { shouldRetryQuery } from '#/utils/apiClient';
+import { shouldRetryQuery } from '#/services/api/apiClient';
 
 interface TodoListsContextValue {
   todoLists: TodoListDto[];

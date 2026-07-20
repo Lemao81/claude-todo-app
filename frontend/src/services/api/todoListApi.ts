@@ -1,6 +1,6 @@
 import { queryOptions } from '@tanstack/react-query';
 import type { TodoListDto } from '#/types/todoList';
-import { apiGetJson, apiSend, apiSendJson, jsonBody } from '#/utils/apiClient';
+import { apiGetJson, apiSend, apiSendJson, jsonBody } from '#/services/api/apiClient';
 
 export const todoListsQueryOptions = queryOptions({
   queryKey: ['todoLists'],
