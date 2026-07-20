@@ -1,7 +1,7 @@
 import { isRedirect, redirect } from '@tanstack/react-router';
 import { router } from '#/router';
 import { UnauthorizedError } from '#/utils/errors';
-import { logFetchError } from '#/utils/logHelper';
+import { logFetchError } from '#/utils/helpers';
 
 export function shouldRetryQuery(failureCount: number, error: Error): boolean {
   return !isRedirect(error) && !(error instanceof UnauthorizedError) && failureCount < 1;

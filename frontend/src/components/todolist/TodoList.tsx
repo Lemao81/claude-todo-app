@@ -3,7 +3,7 @@ import { DragDropProvider } from '@dnd-kit/react';
 import { isSortable } from '@dnd-kit/react/sortable';
 import { useTodos } from '#/components/providers/TodosProvider';
 import { TodoCard } from '#/components/todolist/TodoCard';
-import { arrayMove } from '#/utils/arrayMove';
+import { arrayMove } from '#/utils/helpers';
 
 type TodoListProps = {
   showDone: boolean;
