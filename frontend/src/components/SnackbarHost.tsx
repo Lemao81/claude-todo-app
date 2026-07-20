@@ -1,7 +1,7 @@
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import { useSelector } from '@tanstack/react-store';
-import { closeSnackbar, snackbarStore } from '#/utils/snackbar';
+import { closeSnackbar, snackbarStore } from '#/services/state/snackbar';
 
 export function SnackbarHost() {
   const { open, message, severity, hideDuration } = useSelector(snackbarStore);

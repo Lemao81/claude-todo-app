@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { createTodoList } from '#/api/todoListApi';
 import { useTodoLists } from '#/components/providers/TodoListsProvider';
 import { AddTodoListDialog } from '#/components/sidebar/AddTodoListDialog';
-import { showSnackbar } from '#/utils/snackbar';
+import { showSnackbar } from '#/services/state/snackbar';
 
 export function SidebarAddTodoListItem() {
   const navigate = useNavigate();

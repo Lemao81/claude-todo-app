@@ -3,7 +3,7 @@ import { createContext, useCallback, useContext, useState } from 'react';
 import { deleteTodoList, updateTodoList } from '#/api/todoListApi';
 import { useTodoLists } from '#/components/providers/TodoListsProvider';
 import type { TodoListDto } from '#/types/todoList';
-import { showSnackbar } from '#/utils/snackbar';
+import { showSnackbar } from '#/services/state/snackbar';
 
 interface TodoListContextValue {
   listId: number;

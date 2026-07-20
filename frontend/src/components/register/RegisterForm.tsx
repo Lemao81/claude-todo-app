@@ -6,7 +6,7 @@ import { useForm } from '@tanstack/react-form';
 import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { register } from '#/api/authApi';
-import { showSnackbar } from '#/utils/snackbar';
+import { showSnackbar } from '#/services/state/snackbar';
 
 export function RegisterForm() {
   const navigate = useNavigate();
