@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { useState } from 'react';
-import { ConfirmationDialog } from '#/components/ConfirmationDialog';
+import { ConfirmationDialog } from '#/components/shared/ConfirmationDialog';
 import { useAvatar } from '#/providers/AvatarProvider';
 
 type AvatarWithDeleteProps = {

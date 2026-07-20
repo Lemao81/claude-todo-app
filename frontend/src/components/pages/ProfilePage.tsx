@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { logout } from '#/services/api/authApi';
-import { ConfirmationDialog } from '#/components/ConfirmationDialog';
+import { ConfirmationDialog } from '#/components/shared/ConfirmationDialog';
 import { AvatarActions } from '#/components/profile/AvatarActions';
 import { ProfileFields } from '#/components/profile/ProfileFields';
 import { useUserInfo } from '#/providers/UserInfoProvider';
