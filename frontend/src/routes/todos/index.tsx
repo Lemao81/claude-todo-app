@@ -1,6 +1,6 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { todoListsQueryOptions } from '#/api/todoListApi';
-import { TodosPage } from '#/components/page/TodosPage';
+import { TodosPage } from '#/components/pages/TodosPage';
 import type { TodoListDto } from '#/types/todoList';
 
 export const Route = createFileRoute('/todos/')({
