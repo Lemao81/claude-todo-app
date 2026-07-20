@@ -12,7 +12,7 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { useTodos } from '#/components/provider/TodosProvider';
+import { useTodos } from '#/components/providers/TodosProvider';
 import type { TodoDto } from '#/types/todo';
 
 type TodoCardProps = {

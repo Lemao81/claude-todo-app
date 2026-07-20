@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { login } from '#/api/authApi';
-import { useUserInfo } from '#/components/provider/UserInfoProvider';
+import { useUserInfo } from '#/components/providers/UserInfoProvider';
 
 export function LoginForm() {
   const navigate = useNavigate();

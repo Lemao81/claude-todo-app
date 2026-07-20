@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-import { useTodos } from '#/components/provider/TodosProvider';
+import { useTodos } from '#/components/providers/TodosProvider';
 import { useDebounce } from '#/hooks/useDebounce';
 import type { TodoDto } from '#/types/todo';
 

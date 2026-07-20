@@ -1,8 +1,8 @@
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
 import { useEffect, useState } from 'react';
-import { useTodoLists } from '#/components/provider/TodoListsProvider';
-import { useUserInfo } from '#/components/provider/UserInfoProvider';
+import { useTodoLists } from '#/components/providers/TodoListsProvider';
+import { useUserInfo } from '#/components/providers/UserInfoProvider';
 import { SidebarAboutItem } from '#/components/sidebar/SidebarAboutItem';
 import { SidebarSearch } from '#/components/sidebar/SidebarSearch';
 import { SidebarTodoLists } from '#/components/sidebar/SidebarTodoLists';

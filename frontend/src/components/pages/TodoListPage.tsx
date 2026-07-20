@@ -1,8 +1,8 @@
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Stack from '@mui/material/Stack';
 import { useEffect, useState } from 'react';
-import { useTodoList } from '#/components/provider/TodoListProvider';
-import { useTodos } from '#/components/provider/TodosProvider';
+import { useTodoList } from '#/components/providers/TodoListProvider';
+import { useTodos } from '#/components/providers/TodosProvider';
 import { AddTodoDialog } from '#/components/todolist/AddTodoDialog';
 import { EditTodoListPanel } from '#/components/todolist/EditTodoListPanel';
 import { EditTodoPanel } from '#/components/todolist/EditTodoPanel';

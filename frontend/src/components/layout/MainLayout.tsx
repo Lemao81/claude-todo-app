@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import type { ReactNode } from 'react';
-import { useSearch } from '#/components/provider/SearchProvider';
+import { useSearch } from '#/components/providers/SearchProvider';
 import { SearchResults } from '#/components/search/SearchResults';
 import { Sidebar } from '#/components/sidebar/Sidebar';
 import { ToolbarActions } from '#/components/toolbar/ToolbarActions';

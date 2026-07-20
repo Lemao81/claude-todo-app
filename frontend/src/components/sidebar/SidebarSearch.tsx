@@ -3,8 +3,8 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import ListItem from '@mui/material/ListItem';
 import TextField from '@mui/material/TextField';
-import { useSearch } from '#/components/provider/SearchProvider';
-import { useUserInfo } from '#/components/provider/UserInfoProvider';
+import { useSearch } from '#/components/providers/SearchProvider';
+import { useUserInfo } from '#/components/providers/UserInfoProvider';
 
 export function SidebarSearch() {
   const { userInfo } = useUserInfo();

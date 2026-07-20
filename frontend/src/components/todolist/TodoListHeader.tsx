@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { useTodoList } from '#/components/provider/TodoListProvider';
+import { useTodoList } from '#/components/providers/TodoListProvider';
 
 type TodoListHeaderProps = {
   showDone: boolean;

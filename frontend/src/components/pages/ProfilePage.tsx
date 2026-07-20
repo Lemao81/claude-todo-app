@@ -7,7 +7,7 @@ import { logout } from '#/api/authApi';
 import { ConfirmationDialog } from '#/components/ConfirmationDialog';
 import { AvatarActions } from '#/components/profile/AvatarActions';
 import { ProfileFields } from '#/components/profile/ProfileFields';
-import { useUserInfo } from '#/components/provider/UserInfoProvider';
+import { useUserInfo } from '#/components/providers/UserInfoProvider';
 import type { UserInfo } from '#/types/userInfo';
 
 type ProfilePageProps = {

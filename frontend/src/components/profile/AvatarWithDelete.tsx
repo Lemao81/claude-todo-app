@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { useState } from 'react';
 import { ConfirmationDialog } from '#/components/ConfirmationDialog';
-import { useAvatar } from '#/components/provider/AvatarProvider';
+import { useAvatar } from '#/components/providers/AvatarProvider';
 
 type AvatarWithDeleteProps = {
   onDelete: () => Promise<void>;

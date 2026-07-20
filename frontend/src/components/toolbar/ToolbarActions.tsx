@@ -1,7 +1,7 @@
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import IconButton from '@mui/material/IconButton';
-import { useColorMode } from '#/components/provider/AppThemeProvider';
+import { useColorMode } from '#/components/providers/AppThemeProvider';
 import { UserActions } from '#/components/toolbar/UserActions';
 
 export function ToolbarActions() {

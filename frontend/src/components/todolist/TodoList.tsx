@@ -1,7 +1,7 @@
 import type { DragEndEvent } from '@dnd-kit/react';
 import { DragDropProvider } from '@dnd-kit/react';
 import { isSortable } from '@dnd-kit/react/sortable';
-import { useTodos } from '#/components/provider/TodosProvider';
+import { useTodos } from '#/components/providers/TodosProvider';
 import { TodoCard } from '#/components/todolist/TodoCard';
 import { arrayMove } from '#/utils/arrayMove';
 
