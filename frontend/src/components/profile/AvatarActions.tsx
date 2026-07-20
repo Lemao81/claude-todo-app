@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { deleteAvatar, hasAvatarQueryOptions, uploadAvatar } from '#/services/api/userApi';
 import { AvatarPlaceholder } from '#/components/profile/AvatarPlaceholder';
 import { AvatarWithDelete } from '#/components/profile/AvatarWithDelete';
-import { useAvatar } from '#/components/providers/AvatarProvider';
+import { useAvatar } from '#/providers/AvatarProvider';
 import { showSnackbar } from '#/services/state/snackbar';
 
 export function AvatarActions() {

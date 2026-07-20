@@ -6,7 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
 import { createTodoList } from '#/services/api/todoListApi';
-import { useTodoLists } from '#/components/providers/TodoListsProvider';
+import { useTodoLists } from '#/providers/TodoListsProvider';
 import { AddTodoListDialog } from '#/components/sidebar/AddTodoListDialog';
 import { showSnackbar } from '#/services/state/snackbar';
 

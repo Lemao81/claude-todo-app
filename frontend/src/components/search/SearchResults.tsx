@@ -1,8 +1,8 @@
 import Typography from '@mui/material/Typography';
 import { useQuery } from '@tanstack/react-query';
 import { allTodosQueryOptions } from '#/services/api/todoApi';
-import { useSearch } from '#/components/providers/SearchProvider';
-import { useTodoLists } from '#/components/providers/TodoListsProvider';
+import { useSearch } from '#/providers/SearchProvider';
+import { useTodoLists } from '#/providers/TodoListsProvider';
 import { SearchResultList } from '#/components/search/SearchResultList';
 
 export function SearchResults() {

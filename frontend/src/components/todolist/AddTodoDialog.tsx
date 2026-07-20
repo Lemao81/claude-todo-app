@@ -5,7 +5,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import { type SubmitEvent, useState } from 'react';
-import { useTodos } from '#/components/providers/TodosProvider';
+import { useTodos } from '#/providers/TodosProvider';
 
 type AddTodoDialogProps = {
   open: boolean;

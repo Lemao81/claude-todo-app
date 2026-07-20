@@ -3,8 +3,8 @@ import { createLazyFileRoute, getRouteApi } from '@tanstack/react-router';
 import { todosQueryOptions } from '#/services/api/todoApi';
 import { todoListQueryOptions } from '#/services/api/todoListApi';
 import { TodoListPage } from '#/components/pages/TodoListPage';
-import { TodoListProvider } from '#/components/providers/TodoListProvider';
-import { TodosProvider } from '#/components/providers/TodosProvider';
+import { TodoListProvider } from '#/providers/TodoListProvider';
+import { TodosProvider } from '#/providers/TodosProvider';
 
 export const Route = createLazyFileRoute('/todos/$listId')({
   component: RouteComponent,

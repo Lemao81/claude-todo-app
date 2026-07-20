@@ -1,6 +1,6 @@
 import Avatar from '@mui/material/Avatar';
 import { useState } from 'react';
-import { useAvatar } from '#/components/providers/AvatarProvider';
+import { useAvatar } from '#/providers/AvatarProvider';
 
 type UserAvatarProps = {
   alt: string;

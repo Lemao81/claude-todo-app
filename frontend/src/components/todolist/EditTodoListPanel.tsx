@@ -9,7 +9,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { ConfirmationDialog } from '#/components/ConfirmationDialog';
-import { useTodoList } from '#/components/providers/TodoListProvider';
+import { useTodoList } from '#/providers/TodoListProvider';
 import { useDebounce } from '#/hooks/useDebounce';
 
 export function EditTodoListPanel() {

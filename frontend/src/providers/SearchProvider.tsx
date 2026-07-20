@@ -6,7 +6,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { useUserInfo } from '#/components/providers/UserInfoProvider';
+import { useUserInfo } from '#/providers/UserInfoProvider';
 
 interface SearchContextValue {
   searchTerm: string;
