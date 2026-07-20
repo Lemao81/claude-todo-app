@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { useForm } from '@tanstack/react-form';
 import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
-import { register } from '#/api/authApi';
+import { register } from '#/services/api/authApi';
 import { showSnackbar } from '#/services/state/snackbar';
 
 export function RegisterForm() {

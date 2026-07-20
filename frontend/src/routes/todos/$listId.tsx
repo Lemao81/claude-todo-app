@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { todosQueryOptions } from '#/api/todoApi';
-import { todoListQueryOptions } from '#/api/todoListApi';
+import { todosQueryOptions } from '#/services/api/todoApi';
+import { todoListQueryOptions } from '#/services/api/todoListApi';
 
 export const Route = createFileRoute('/todos/$listId')({
   loader: async ({ context, params }): Promise<void> => {

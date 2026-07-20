@@ -1,7 +1,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createLazyFileRoute, getRouteApi } from '@tanstack/react-router';
-import { todosQueryOptions } from '#/api/todoApi';
-import { todoListQueryOptions } from '#/api/todoListApi';
+import { todosQueryOptions } from '#/services/api/todoApi';
+import { todoListQueryOptions } from '#/services/api/todoListApi';
 import { TodoListPage } from '#/components/pages/TodoListPage';
 import { TodoListProvider } from '#/components/providers/TodoListProvider';
 import { TodosProvider } from '#/components/providers/TodosProvider';

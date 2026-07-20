@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
-import { logout } from '#/api/authApi';
+import { logout } from '#/services/api/authApi';
 import { ConfirmationDialog } from '#/components/ConfirmationDialog';
 import { AvatarActions } from '#/components/profile/AvatarActions';
 import { ProfileFields } from '#/components/profile/ProfileFields';
