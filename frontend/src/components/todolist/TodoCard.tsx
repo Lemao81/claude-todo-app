@@ -110,7 +110,12 @@ export function TodoCard({ todo, index }: TodoCardProps) {
       </CardActionArea>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 1 }}>
         <Tooltip title="Edit Todo" enterDelay={500} enterNextDelay={500}>
-          <IconButton aria-label="Edit todo" onClick={() => startEditingTodo(todo.id)} size="small">
+          <IconButton
+            aria-label="Edit todo"
+            onClick={() => startEditingTodo(todo.id)}
+            size="small"
+            data-cy="todo-card-edit"
+          >
             <EditOutlineIcon fontSize="small" />
           </IconButton>
         </Tooltip>

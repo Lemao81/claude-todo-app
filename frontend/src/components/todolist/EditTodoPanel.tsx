@@ -43,13 +43,15 @@ export function EditTodoPanel({ todo }: EditTodoPanelProps) {
   }, [stopEditingTodo]);
 
   return (
-    <Card variant="outlined" sx={{ width: 520, flexShrink: 0 }}>
+    <Card variant="outlined" sx={{ width: 520, flexShrink: 0 }} data-cy="edit-todo-panel">
       <CardContent>
         <Stack
           direction="row"
           sx={{ alignItems: 'center', justifyContent: 'space-between', mb: 1 }}
         >
-          <Typography variant="h6">Edit ToDo</Typography>
+          <Typography variant="h6" data-cy="edit-todo-panel-title">
+            Edit ToDo
+          </Typography>
           <Tooltip title="Close" enterDelay={500} enterNextDelay={500}>
             <IconButton aria-label="Close edit panel" size="small" onClick={stopEditingTodo}>
               <CloseIcon fontSize="small" />
@@ -64,6 +66,7 @@ export function EditTodoPanel({ todo }: EditTodoPanelProps) {
           value={text}
           error={!text.trim()}
           onChange={(e) => setText(e.target.value)}
+          slotProps={{ htmlInput: { 'data-cy': 'edit-todo-text-input' } }}
         />
         <TextField
           margin="dense"
@@ -73,6 +76,7 @@ export function EditTodoPanel({ todo }: EditTodoPanelProps) {
           rows={3}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          slotProps={{ htmlInput: { 'data-cy': 'edit-todo-description-input' } }}
         />
       </CardContent>
     </Card>

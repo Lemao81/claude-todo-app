@@ -2,6 +2,8 @@ type TodoResponse = {
 	id: number;
 	text: string;
 	done: boolean;
+	description: string | null;
+	todoListId: number;
 };
 
 describe("todos", () => {
@@ -56,6 +58,49 @@ describe("todos", () => {
 			.within(() => {
 				cy.get("[data-cy=todo-card-text]").should("have.text", "New todo");
 				cy.get("[data-cy=todo-card-description]").should("have.text", "New todo description");
+			});
+	});
+
+	it("edits todo text and description", () => {
+		cy.request("GET", "/api/todos").then((response: Cypress.Response<TodoResponse[]>) => {
+			for (const todo of response.body.filter(
+				(t) => t.text === "Editable todo" || t.text === "Edited todo",
+			)) {
+				cy.request("DELETE", `/api/todos/${todo.id}`);
+			}
+
+			const seededTodo = response.body[0];
+			cy.request("POST", "/api/todos", {
+				text: "Editable todo",
+				description: "Original description",
+				todoListId: seededTodo.todoListId,
+			});
+		});
+		cy.intercept("PATCH", "/api/todos/*").as("updateTodo");
+		cy.visit("/todos");
+
+		cy.get("[data-cy=todo-card]")
+			.last()
+			.within(() => {
+				cy.get("[data-cy=todo-card-text]").should("have.text", "Editable todo");
+				cy.get("[data-cy=todo-card-description]").should("have.text", "Original description");
+				cy.get("[data-cy=todo-card-edit]").click();
+			});
+
+		cy.get("[data-cy=edit-todo-panel]").should("be.visible");
+		cy.get("[data-cy=edit-todo-text-input]").should("have.value", "Editable todo");
+		cy.get("[data-cy=edit-todo-description-input]").should("have.value", "Original description");
+
+		cy.get("[data-cy=edit-todo-text-input]").clear().type("Edited todo");
+		cy.get("[data-cy=edit-todo-description-input]").clear().type("Edited description");
+
+		cy.wait("@updateTodo").its("response.statusCode").should("be.oneOf", [200, 204]);
+
+		cy.get("[data-cy=todo-card]")
+			.last()
+			.within(() => {
+				cy.get("[data-cy=todo-card-text]").should("have.text", "Edited todo");
+				cy.get("[data-cy=todo-card-description]").should("have.text", "Edited description");
 			});
 	});
 });
