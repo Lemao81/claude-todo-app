@@ -1,6 +1,7 @@
 import type { DragEndEvent } from '@dnd-kit/react';
 import { DragDropProvider } from '@dnd-kit/react';
 import { isSortable } from '@dnd-kit/react/sortable';
+import Typography from '@mui/material/Typography';
 import { useTodos } from '#/providers/TodosProvider';
 import { TodoCard } from '#/components/todolist/TodoCard';
 import { arrayMove } from '#/utils/helpers';
@@ -32,6 +33,14 @@ export function TodoList({ showDone }: TodoListProps) {
     );
 
     await reorder(reordered);
+  }
+
+  if (todos.length === 0) {
+    return (
+      <Typography color="text.secondary" data-cy="todo-list-empty">
+        This list is empty. Add your first todo to get started.
+      </Typography>
+    );
   }
 
   return (

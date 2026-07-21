@@ -136,4 +136,14 @@ describe("todos", () => {
 			cy.get("[data-cy=todo-card-text]").should("not.contain", "Deletable todo");
 		});
 	});
+
+	it("shows empty list text", () => {
+		cy.visit("/todos");
+
+		cy.get("[data-cy=sidebar-todo-list-item]").eq(1).click();
+
+		cy.get("[data-cy=todo-list-heading]").should("have.text", "My Todos - Cypress Empty List");
+		cy.get("[data-cy=todo-card]").should("not.exist");
+		cy.get("[data-cy=todo-list-empty]").should("be.visible");
+	});
 });
