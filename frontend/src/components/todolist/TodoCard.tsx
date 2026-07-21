@@ -120,7 +120,12 @@ export function TodoCard({ todo, index }: TodoCardProps) {
           </IconButton>
         </Tooltip>
         <Tooltip title="Delete Todo" enterDelay={500} enterNextDelay={500}>
-          <IconButton aria-label="Delete todo" onClick={() => removeTodo(todo.id)} size="small">
+          <IconButton
+            aria-label="Delete todo"
+            onClick={() => removeTodo(todo.id)}
+            size="small"
+            data-cy="todo-card-delete"
+          >
             <DeleteOutlineIcon fontSize="small" />
           </IconButton>
         </Tooltip>

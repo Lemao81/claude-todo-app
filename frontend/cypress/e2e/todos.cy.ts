@@ -103,4 +103,37 @@ describe("todos", () => {
 				cy.get("[data-cy=todo-card-description]").should("have.text", "Edited description");
 			});
 	});
+
+	it("deletes a todo", () => {
+		cy.request("GET", "/api/todos").then((response: Cypress.Response<TodoResponse[]>) => {
+			for (const todo of response.body.filter((t) => t.text === "Deletable todo")) {
+				cy.request("DELETE", `/api/todos/${todo.id}`);
+			}
+
+			const seededTodo = response.body[0];
+			cy.request("POST", "/api/todos", {
+				text: "Deletable todo",
+				description: null,
+				todoListId: seededTodo.todoListId,
+			});
+		});
+		cy.intercept("DELETE", "/api/todos/*").as("deleteTodo");
+		cy.visit("/todos");
+
+		cy.get("[data-cy=todo-card]").then(($cards) => {
+			const initialCount = $cards.length;
+
+			cy.get("[data-cy=todo-card]")
+				.last()
+				.within(() => {
+					cy.get("[data-cy=todo-card-text]").should("have.text", "Deletable todo");
+					cy.get("[data-cy=todo-card-delete]").click();
+				});
+
+			cy.wait("@deleteTodo").its("response.statusCode").should("be.oneOf", [200, 204]);
+
+			cy.get("[data-cy=todo-card]").should("have.length", initialCount - 1);
+			cy.get("[data-cy=todo-card-text]").should("not.contain", "Deletable todo");
+		});
+	});
 });
