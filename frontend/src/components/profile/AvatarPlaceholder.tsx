@@ -15,6 +15,7 @@ export function AvatarPlaceholder() {
         alignItems: 'center',
         justifyContent: 'center',
       }}
+      data-cy="avatar-placeholder"
     >
       <Typography variant="body2" color="text.secondary">
         No avatar

@@ -42,9 +42,15 @@ export function AvatarActions() {
 
   return (
     <>
-      <Button variant="contained" component="label" sx={{ mt: 4 }}>
+      <Button variant="contained" component="label" sx={{ mt: 4 }} data-cy="avatar-upload-button">
         Upload Avatar
-        <input type="file" hidden accept="image/jpeg,image/png" onChange={handleAvatarChange} />
+        <input
+          type="file"
+          hidden
+          accept="image/jpeg,image/png"
+          onChange={handleAvatarChange}
+          data-cy="avatar-upload-input"
+        />
       </Button>
       {avatarExists ? <AvatarWithDelete onDelete={handleAvatarDelete} /> : <AvatarPlaceholder />}
     </>
