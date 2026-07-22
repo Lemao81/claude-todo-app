@@ -29,6 +29,7 @@ export function AvatarWithDelete({ onDelete }: AvatarWithDeleteProps) {
           size="small"
           color="error"
           onClick={() => setConfirmOpen(true)}
+          data-cy="avatar-delete-button"
           sx={{
             position: 'absolute',
             right: -1.5,

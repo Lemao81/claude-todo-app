@@ -37,14 +37,22 @@ export function ConfirmationDialog({
   }
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs" data-cy="confirmation-dialog">
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <DialogContentText>{message}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button variant="contained" color="error" onClick={handleConfirm} disabled={confirming}>
+        <Button onClick={onClose} data-cy="confirmation-dialog-cancel">
+          Cancel
+        </Button>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={handleConfirm}
+          disabled={confirming}
+          data-cy="confirmation-dialog-confirm"
+        >
           {confirmLabel}
         </Button>
       </DialogActions>
