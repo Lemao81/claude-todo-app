@@ -16,7 +16,9 @@
     "check": "biome check",
     "check:write": "biome check --write",
     "cy:open": "cypress open",
-    "cy:open:chrome": "cypress open --e2e --browser chrome"
+    "cy:open:chrome": "cypress open --e2e --browser chrome",
+    "cy:run": "cypress run",
+    "cy:run:headed": "cypress run --headed"
   },
   "dependencies": {
     "@dnd-kit/react": "0.5.0",
