@@ -41,6 +41,7 @@ export function ProfilePage({ userInfo }: ProfilePageProps) {
         color="error"
         onClick={() => setSignOutDialogOpen(true)}
         sx={{ mt: 8 }}
+        data-cy="sign-out-button"
       >
         Sign out
       </Button>
