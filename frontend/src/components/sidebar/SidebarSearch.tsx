@@ -20,6 +20,7 @@ export function SidebarSearch() {
         disabled={!userInfo}
         onChange={(e) => setSearchTerm(e.target.value)}
         slotProps={{
+          htmlInput: { 'data-cy': 'sidebar-search-input' },
           input: {
             endAdornment: searchTerm ? (
               <InputAdornment position="end">
