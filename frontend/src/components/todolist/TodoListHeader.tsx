@@ -32,7 +32,11 @@ export function TodoListHeader({ showDone, onShowDoneChange, onAddClick }: TodoL
       <Stack direction="row" sx={{ alignItems: 'center', gap: 1 }}>
         <FormControlLabel
           control={
-            <Switch checked={showDone} onChange={(e) => onShowDoneChange(e.target.checked)} />
+            <Switch
+              checked={showDone}
+              onChange={(e) => onShowDoneChange(e.target.checked)}
+              slotProps={{ input: { 'data-cy': 'show-done-switch' } }}
+            />
           }
           label="Show done"
         />

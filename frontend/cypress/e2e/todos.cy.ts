@@ -137,6 +137,28 @@ describe("todos", () => {
 		});
 	});
 
+	it("show done switch toggles done todos", () => {
+		cy.request("GET", "/api/todos").then((response: Cypress.Response<TodoResponse[]>) => {
+			for (const todo of response.body.filter((t) => t.text.includes("Done") && !t.done)) {
+				cy.request("PATCH", `/api/todos/${todo.id}`, { done: true });
+			}
+		});
+		cy.visit("/todos");
+
+		cy.get("[data-cy=show-done-switch]").should("be.checked");
+		cy.get("[data-cy=todo-card-text]").should("contain.text", "Done todo");
+
+		cy.get("[data-cy=show-done-switch]").click();
+
+		cy.get("[data-cy=show-done-switch]").should("not.be.checked");
+		cy.get("[data-cy=todo-card-text]").should("not.contain.text", "Done");
+
+		cy.get("[data-cy=show-done-switch]").click();
+
+		cy.get("[data-cy=show-done-switch]").should("be.checked");
+		cy.get("[data-cy=todo-card-text]").should("contain.text", "Done todo");
+	});
+
 	it("shows empty list text", () => {
 		cy.visit("/todos");
 
