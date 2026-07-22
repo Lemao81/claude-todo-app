@@ -31,7 +31,11 @@ export function SidebarAddTodoListItem() {
   return (
     <>
       <ListItem disablePadding>
-        <ListItemButton sx={{ pl: 4 }} onClick={() => setDialogOpen(true)}>
+        <ListItemButton
+          sx={{ pl: 4 }}
+          onClick={() => setDialogOpen(true)}
+          data-cy="add-todo-list-button"
+        >
           <ListItemIcon sx={{ minWidth: 32 }}>
             <AddIcon fontSize="small" />
           </ListItemIcon>

@@ -34,9 +34,9 @@ export function AddTodoListDialog({ open, onClose, onCreate }: AddTodoListDialog
   }
 
   return (
-    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xs">
+    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xs" data-cy="add-todo-list-dialog">
       <form onSubmit={handleSubmit}>
-        <DialogTitle>New Todo List</DialogTitle>
+        <DialogTitle data-cy="add-todo-list-dialog-title">New Todo List</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -46,11 +46,17 @@ export function AddTodoListDialog({ open, onClose, onCreate }: AddTodoListDialog
             fullWidth
             value={name}
             onChange={(e) => setName(e.target.value)}
+            slotProps={{ htmlInput: { 'data-cy': 'add-todo-list-name-input' } }}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit" variant="contained" disabled={submitting || !name.trim()}>
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={submitting || !name.trim()}
+            data-cy="add-todo-list-submit"
+          >
             Create
           </Button>
         </DialogActions>
