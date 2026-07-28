@@ -50,7 +50,7 @@ docker compose up   # Build and run the backend container
 - **Root layout**: `src/routes/__root.tsx` — wraps all routes; TanStack devtools panel is mounted here
 - **Styling**: Tailwind CSS v4 (configured via Vite plugin, no `tailwind.config.js`)
 - **Import alias**: Both `#/*` and `@/*` resolve to `./src/*`
-- **Linting/Formatting**: Biome (not ESLint/Prettier) — tabs, double quotes; `src/routeTree.gen.ts` and `src/styles.css` are excluded from Biome
+- **Linting/Formatting**: Biome (not ESLint/Prettier) — single quotes; `src/routeTree.gen.ts` and `src/styles.css` are excluded from Biome
 - **Package manager**: pnpm
 
 ### File-based routing conventions
@@ -84,6 +84,10 @@ Use `Link` from `@tanstack/react-router` for client-side navigation. Use `Route.
   - Remove braces around arrow function with single-statements
   - Add the return type to all functions, except component functions
   - for react components props declarations, use typescript type, not interface
+  - always use single quotes, matching the Biome config's `quoteStyle`
+- Cypress:
+  - select elements only via `cy.get('[data-cy=...]')`; add a `data-cy` attribute to every element a test targets
+  - keep `it()` titles to a few words naming the main thing, not action→result sentences
 
 ## Workflows
 
