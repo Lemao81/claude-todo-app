@@ -73,21 +73,21 @@ Use `Link` from `@tanstack/react-router` for client-side navigation. Use `Route.
 
 ## Code Style
 - General:
-  - insert new line before return keyword if not first line of block
-  - put single line statements in curly braces to separate line
-  - never add comments, except tool-control directive comments when explicitly instructed — e.g. suppression/ignore/pragma comments for linters, formatters, type-checkers, or static analyzers
-  - leave edited files with CRLF line ending
+  - Insert new line before return keyword if not first line of block.
+  - Put single line statements in curly braces to separate line.
+  - Never add comments, except tool-control directive comments when explicitly instructed — e.g. suppression/ignore/pragma comments for linters, formatters, type-checkers, or static analyzers.
+  - Leave edited files with CRLF line ending.
 - C#:
   - Tests:
-    - Arrange, Act, Assert pattern (comment each section in method)
-- Typescript:
-  - Remove braces around arrow function with single-statements
-  - Add the return type to all functions, except component functions
-  - for react components props declarations, use typescript type, not interface
-  - always use single quotes, matching the Biome config's `quoteStyle`
+    - Use Arrange, Act, Assert pattern (comment each section in method).
+- TypeScript:
+  - Remove braces around arrow function with single-statements.
+  - Add the return type to all functions, except component functions.
+  - For react components props declarations, use TypeScript type, not interface.
+  - Always use single quotes, matching the Biome config's `quoteStyle`.
 - Cypress:
-  - select elements only via `cy.get('[data-cy=...]')`; add a `data-cy` attribute to every element a test targets
-  - keep `it()` titles to a few words naming the main thing, not action→result sentences
+  - Select elements only via `cy.get('[data-cy=...]')`; add a `data-cy` attribute to every element a test targets.
+  - Keep `it()` titles to a few words naming the main thing, not action→result sentences.
 
 ## Workflows
 
