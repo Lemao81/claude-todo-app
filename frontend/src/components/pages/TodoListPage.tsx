@@ -40,6 +40,8 @@ export function TodoListPage() {
 
   return (
     <ClickAwayListener onClickAway={stopEditingAll}>
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: presentational background dismiss area */}
+      {/* biome-ignore lint/a11y/useKeyWithClickEvents: keyboard dismissal handled via Escape in edit panels */}
       <div onClick={handleAreaClick}>
         <div style={{ maxWidth: 800 }}>
           <TodoListHeader
