@@ -1,9 +1,9 @@
 import Typography from '@mui/material/Typography';
 import { useQuery } from '@tanstack/react-query';
-import { allTodosQueryOptions } from '#/services/api/todoApi';
+import { SearchResultList } from '#/components/search/SearchResultList';
 import { useSearch } from '#/providers/SearchProvider';
 import { useTodoLists } from '#/providers/TodoListsProvider';
-import { SearchResultList } from '#/components/search/SearchResultList';
+import { allTodosQueryOptions } from '#/services/api/todoApi';
 
 export function SearchResults() {
   const { activeSearchTerm } = useSearch();

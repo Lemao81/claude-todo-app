@@ -7,8 +7,8 @@ import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-import { useTodos } from '#/providers/TodosProvider';
 import { useDebounce } from '#/hooks/useDebounce';
+import { useTodos } from '#/providers/TodosProvider';
 import type { TodoDto } from '#/types/todo';
 
 type EditTodoPanelProps = {

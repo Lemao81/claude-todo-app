@@ -1,9 +1,9 @@
 import { useNavigate } from '@tanstack/react-router';
 import { createContext, useCallback, useContext, useState } from 'react';
-import { deleteTodoList, updateTodoList } from '#/services/api/todoListApi';
 import { useTodoLists } from '#/providers/TodoListsProvider';
-import type { TodoListDto } from '#/types/todoList';
+import { deleteTodoList, updateTodoList } from '#/services/api/todoListApi';
 import { showSnackbar } from '#/services/state/snackbar';
+import type { TodoListDto } from '#/types/todoList';
 
 interface TodoListContextValue {
   listId: number;

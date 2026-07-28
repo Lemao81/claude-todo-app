@@ -9,8 +9,8 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { ConfirmationDialog } from '#/components/shared/ConfirmationDialog';
-import { useTodoList } from '#/providers/TodoListProvider';
 import { useDebounce } from '#/hooks/useDebounce';
+import { useTodoList } from '#/providers/TodoListProvider';
 
 export function EditTodoListPanel() {
   const { listName, renameList, deleteList, stopEditingList } = useTodoList();

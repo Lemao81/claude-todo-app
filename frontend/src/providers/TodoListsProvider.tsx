@@ -1,9 +1,9 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { createContext, useCallback, useContext } from 'react';
-import { todoListsQueryOptions } from '#/services/api/todoListApi';
 import { useUserInfo } from '#/providers/UserInfoProvider';
-import type { TodoListDto } from '#/types/todoList';
 import { shouldRetryQuery } from '#/services/api/apiClient';
+import { todoListsQueryOptions } from '#/services/api/todoListApi';
+import type { TodoListDto } from '#/types/todoList';
 
 interface TodoListsContextValue {
   todoLists: TodoListDto[];

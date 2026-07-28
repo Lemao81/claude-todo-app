@@ -34,7 +34,13 @@ export function AddTodoListDialog({ open, onClose, onCreate }: AddTodoListDialog
   }
 
   return (
-    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="xs" data-cy="add-todo-list-dialog">
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      fullWidth
+      maxWidth="xs"
+      data-cy="add-todo-list-dialog"
+    >
       <form onSubmit={handleSubmit}>
         <DialogTitle data-cy="add-todo-list-dialog-title">New Todo List</DialogTitle>
         <DialogContent>

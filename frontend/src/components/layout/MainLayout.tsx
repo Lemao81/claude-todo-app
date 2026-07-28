@@ -3,11 +3,11 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import type { ReactNode } from 'react';
-import { useSearch } from '#/providers/SearchProvider';
 import { SearchResults } from '#/components/search/SearchResults';
 import { Sidebar } from '#/components/sidebar/Sidebar';
 import { ToolbarActions } from '#/components/toolbar/ToolbarActions';
 import { ToolbarTitle } from '#/components/toolbar/ToolbarTitle';
+import { useSearch } from '#/providers/SearchProvider';
 
 const DRAWER_WIDTH = 240;
 

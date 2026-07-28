@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { sessionExpiredQueryOptions } from '#/services/api/authApi';
 import { useLocalStorage } from '#/hooks/useLocalStorage';
+import { sessionExpiredQueryOptions } from '#/services/api/authApi';
 import type { UserInfo } from '#/types/userInfo';
 import { USER_INFO_STORAGE_KEY } from '#/utils/constants';
 

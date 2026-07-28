@@ -1,6 +1,12 @@
 import { queryOptions } from '@tanstack/react-query';
+import {
+  apiGetJson,
+  apiSend,
+  apiSendJson,
+  jsonBody,
+  shouldRetryQuery,
+} from '#/services/api/apiClient';
 import type { TodoDto } from '#/types/todo';
-import { apiGetJson, apiSend, apiSendJson, jsonBody, shouldRetryQuery } from '#/services/api/apiClient';
 
 export const allTodosQueryOptions = queryOptions({
   queryKey: ['todos'],

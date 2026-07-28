@@ -1,7 +1,13 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { createTodo, deleteTodo, reorderTodos, updateTodo, updateTodoDone } from '#/services/api/todoApi';
-import type { TodoDto } from '#/types/todo';
+import {
+  createTodo,
+  deleteTodo,
+  reorderTodos,
+  updateTodo,
+  updateTodoDone,
+} from '#/services/api/todoApi';
 import { showSnackbar } from '#/services/state/snackbar';
+import type { TodoDto } from '#/types/todo';
 
 interface TodosContextValue {
   todos: TodoDto[];

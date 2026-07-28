@@ -2,8 +2,8 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import { Link } from '@tanstack/react-router';
-import { useUserInfo } from '#/providers/UserInfoProvider';
 import { UserAvatar } from '#/components/toolbar/UserAvatar';
+import { useUserInfo } from '#/providers/UserInfoProvider';
 
 export function UserActions() {
   const { userInfo } = useUserInfo();

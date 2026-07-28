@@ -1,12 +1,12 @@
 import { QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from '@tanstack/react-router';
 import ReactDOM from 'react-dom/client';
+import { SnackbarHost } from './components/SnackbarHost';
 import { AppThemeProvider } from './providers/AppThemeProvider';
 import { AvatarProvider } from './providers/AvatarProvider';
 import { SearchProvider } from './providers/SearchProvider';
 import { TodoListsProvider } from './providers/TodoListsProvider';
 import { UserInfoProvider } from './providers/UserInfoProvider';
-import { SnackbarHost } from './components/SnackbarHost';
 import { queryClient, router } from './router';
 
 const rootElement = document.getElementById('app');

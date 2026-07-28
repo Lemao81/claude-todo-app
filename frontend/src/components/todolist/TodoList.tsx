@@ -2,8 +2,8 @@ import type { DragEndEvent } from '@dnd-kit/react';
 import { DragDropProvider } from '@dnd-kit/react';
 import { isSortable } from '@dnd-kit/react/sortable';
 import Typography from '@mui/material/Typography';
-import { useTodos } from '#/providers/TodosProvider';
 import { TodoCard } from '#/components/todolist/TodoCard';
+import { useTodos } from '#/providers/TodosProvider';
 import { arrayMove } from '#/utils/helpers';
 
 type TodoListProps = {

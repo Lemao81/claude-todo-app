@@ -4,8 +4,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
-import { login } from '#/services/api/authApi';
 import { useUserInfo } from '#/providers/UserInfoProvider';
+import { login } from '#/services/api/authApi';
 
 export function LoginForm() {
   const navigate = useNavigate();
