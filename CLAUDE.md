@@ -67,8 +67,9 @@ Use `Link` from `@tanstack/react-router` for client-side navigation. Use `Route.
 ## Agent Instructions
 
 - Never execute `pnpm install`, `pnpm add`, `pnpm remove`, or any other command that installs/mutates dependencies. Edit `package.json` directly and tell the user to run the install themselves.
-- Never execute `git commit` on your own. Stage/prepare changes if asked, but leave committing to the user.
+- Never execute `git commit` on your own without explicit instruction. After explicit instruction, execute without asking for additional confirmation.
 - In this sandbox, `node_modules` was installed on Windows: `pnpm` is unavailable, `.bin` shims fail, and platform-specific binaries (e.g. Biome's Linux CLI) are missing. Never attempt `npx <tool>`, `pnpm exec <tool>`, `pnpm <script>`, or login-shell fallbacks. To verify changes, run `node node_modules/typescript/bin/tsc --noEmit` (ignore pre-existing errors in unrelated files) and skip lint/format checks — the user runs `pnpm check` on the host.
+- When the entire user message is `coa`, treat it as the command `commit all`.
 
 ## Code Style
 - General:
