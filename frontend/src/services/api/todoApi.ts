@@ -8,7 +8,7 @@ export const allTodosQueryOptions = queryOptions({
   retry: shouldRetryQuery,
 });
 
-export const todosQueryOptions = (todoListId: number) =>
+export const createTodosQueryOptions = (todoListId: number) =>
   queryOptions({
     queryKey: ['todos', todoListId],
     queryFn: (): Promise<TodoDto[]> =>

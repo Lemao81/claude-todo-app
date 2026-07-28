@@ -8,7 +8,7 @@ export const todoListsQueryOptions = queryOptions({
     apiGetJson<TodoListDto[]>('/api/todolists', 'Failed to fetch todo lists'),
 });
 
-export const todoListQueryOptions = (id: number) =>
+export const createTodoListQueryOptions = (id: number) =>
   queryOptions({
     queryKey: ['todoLists', id],
     queryFn: (): Promise<TodoListDto> =>
