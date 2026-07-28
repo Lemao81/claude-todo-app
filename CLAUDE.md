@@ -75,7 +75,7 @@ Use `Link` from `@tanstack/react-router` for client-side navigation. Use `Route.
 - General:
   - insert new line before return keyword if not first line of block
   - put single line statements in curly braces to separate line
-  - never add comments
+  - never add comments, except tool-control directive comments when explicitly instructed — e.g. suppression/ignore/pragma comments for linters, formatters, type-checkers, or static analyzers
   - leave edited files with CRLF line ending
 - C#:
   - Tests:
