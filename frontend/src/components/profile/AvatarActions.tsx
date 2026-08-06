@@ -4,7 +4,7 @@ import { AvatarPlaceholder } from '#/components/profile/AvatarPlaceholder';
 import { AvatarWithDelete } from '#/components/profile/AvatarWithDelete';
 import { useAvatar } from '#/providers/AvatarProvider';
 import { deleteAvatar, hasAvatarQueryOptions, uploadAvatar } from '#/services/api/userApi';
-import { showSnackbar } from '#/services/state/snackbar';
+import { showSnackbar } from '#/services/stores/snackbar';
 
 export function AvatarActions() {
   const { refreshAvatar } = useAvatar();

@@ -2,7 +2,7 @@ import { useNavigate } from '@tanstack/react-router';
 import { createContext, useCallback, useContext, useState } from 'react';
 import { useTodoLists } from '#/providers/TodoListsProvider';
 import { deleteTodoList, updateTodoList } from '#/services/api/todoListApi';
-import { showSnackbar } from '#/services/state/snackbar';
+import { showSnackbar } from '#/services/stores/snackbar';
 import type { TodoListDto } from '#/types/todoList';
 
 interface TodoListContextValue {

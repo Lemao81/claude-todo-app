@@ -6,7 +6,7 @@ import {
   updateTodo,
   updateTodoDone,
 } from '#/services/api/todoApi';
-import { showSnackbar } from '#/services/state/snackbar';
+import { showSnackbar } from '#/services/stores/snackbar';
 import type { TodoDto } from '#/types/todo';
 
 interface TodosContextValue {
