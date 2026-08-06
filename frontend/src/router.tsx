@@ -2,7 +2,7 @@ import { QueryCache, QueryClient } from '@tanstack/react-query';
 import { createRouter, isRedirect } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
 import { showSnackbar } from './services/stores/snackbar';
-import { UnauthorizedError } from './utils/errors';
+import { UnauthorizedError } from './types/errors';
 
 export type RouterContext = {
   queryClient: QueryClient;
