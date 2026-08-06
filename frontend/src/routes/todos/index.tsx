@@ -1,5 +1,5 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { TodosPage } from '#/components/pages/TodosPage';
+import { TodosPage } from '#/pages/TodosPage';
 import { todoListsQueryOptions } from '#/services/api/todoListApi';
 import type { TodoListDto } from '#/types/todoList';
 

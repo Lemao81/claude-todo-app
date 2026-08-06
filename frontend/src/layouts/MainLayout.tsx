@@ -4,9 +4,9 @@ import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import type { ReactNode } from 'react';
 import { SearchResults } from '#/components/search/SearchResults';
-import { Sidebar } from '#/components/sidebar/Sidebar';
-import { ToolbarActions } from '#/components/toolbar/ToolbarActions';
-import { ToolbarTitle } from '#/components/toolbar/ToolbarTitle';
+import { Sidebar } from '#/layouts/sidebar/Sidebar';
+import { ToolbarActions } from '#/layouts/toolbar/ToolbarActions';
+import { ToolbarTitle } from '#/layouts/toolbar/ToolbarTitle';
 import { useSearch } from '#/providers/SearchProvider';
 
 const DRAWER_WIDTH = 240;

@@ -1,10 +1,10 @@
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
 import { useEffect, useState } from 'react';
-import { SidebarAboutItem } from '#/components/sidebar/SidebarAboutItem';
-import { SidebarSearch } from '#/components/sidebar/SidebarSearch';
-import { SidebarTodoLists } from '#/components/sidebar/SidebarTodoLists';
-import { SidebarTodosItem } from '#/components/sidebar/SidebarTodosItem';
+import { SidebarAboutItem } from '#/layouts/sidebar/SidebarAboutItem';
+import { SidebarSearch } from '#/layouts/sidebar/SidebarSearch';
+import { SidebarTodoLists } from '#/layouts/sidebar/SidebarTodoLists';
+import { SidebarTodosItem } from '#/layouts/sidebar/SidebarTodosItem';
 import { useTodoLists } from '#/providers/TodoListsProvider';
 import { useUserInfo } from '#/providers/UserInfoProvider';
 

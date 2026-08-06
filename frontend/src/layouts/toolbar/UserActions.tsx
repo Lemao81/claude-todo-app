@@ -2,7 +2,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import { Link } from '@tanstack/react-router';
-import { UserAvatar } from '#/components/toolbar/UserAvatar';
+import { UserAvatar } from '#/layouts/toolbar/UserAvatar';
 import { useUserInfo } from '#/providers/UserInfoProvider';
 
 export function UserActions() {

@@ -1,7 +1,7 @@
 import { QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider } from '@tanstack/react-router';
 import ReactDOM from 'react-dom/client';
-import { SnackbarHost } from './components/SnackbarHost';
+import { SnackbarHost } from './layouts/SnackbarHost';
 import { AppThemeProvider } from './providers/AppThemeProvider';
 import { AvatarProvider } from './providers/AvatarProvider';
 import { SearchProvider } from './providers/SearchProvider';

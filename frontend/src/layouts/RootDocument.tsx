@@ -3,7 +3,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { TanStackDevtools } from '@tanstack/react-devtools';
 import { Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
-import { MainLayout } from '#/components/layouts/MainLayout';
+import { MainLayout } from '#/layouts/MainLayout';
 
 export function RootDocument() {
   return (

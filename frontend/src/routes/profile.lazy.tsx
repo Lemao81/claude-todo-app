@@ -1,6 +1,6 @@
 import { createLazyFileRoute, useNavigate } from '@tanstack/react-router';
 import { useEffect } from 'react';
-import { ProfilePage } from '#/components/pages/ProfilePage';
+import { ProfilePage } from '#/pages/ProfilePage';
 import { useUserInfo } from '#/providers/UserInfoProvider';
 
 export const Route = createLazyFileRoute('/profile')({
