@@ -1,5 +1,5 @@
 import { createRootRouteWithContext } from '@tanstack/react-router';
-import { RootDocument } from '#/components/layout/RootDocument.tsx';
+import { RootDocument } from '#/components/layouts/RootDocument.tsx';
 import type { RouterContext } from '#/router';
 
 export const Route = createRootRouteWithContext<RouterContext>()({
