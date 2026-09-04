@@ -1,9 +1,23 @@
+import type { PaletteOptions } from '@mui/material/styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { createContext, useContext, useMemo, useState } from 'react';
 import { useLocalStorage } from '#/hooks/useLocalStorage';
 import { COLOR_MODE_STORAGE_KEY } from '#/utils/constants';
 
 type ColorMode = 'light' | 'dark';
+
+const paletteByMode: Record<ColorMode, PaletteOptions> = {
+  light: {
+    primary: { main: '#8a7526' },
+    secondary: { main: '#2f6b1e' },
+    background: { default: '#f3f1e7', paper: '#ffffff' },
+  },
+  dark: {
+    primary: { main: '#ba9d36' },
+    secondary: { main: '#41922a' },
+    background: { default: '#272a42', paper: '#1a1c2e' },
+  },
+};
 
 interface ColorModeContextValue {
   mode: ColorMode;
@@ -37,10 +51,8 @@ export function AppThemeProvider({ children }: { children: React.ReactNode }) {
     () =>
       createTheme({
         palette: {
-          primary: { main: '#ba9d36' },
-          secondary: { main: '#41922a' },
           mode,
-          background: { default: '#272a42', paper: '#1a1c2e' },
+          ...paletteByMode[mode],
         },
         typography: {
           fontFamily: 'Comic Sans MS',
