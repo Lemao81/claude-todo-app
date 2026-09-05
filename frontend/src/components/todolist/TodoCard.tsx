@@ -11,7 +11,7 @@ import CardContent from '@mui/material/CardContent';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import Typography from '@mui/material/Typography';
+import { TodoText } from '#/components/shared/TodoText';
 import { useTodos } from '#/providers/TodosProvider';
 import type { TodoDto } from '#/types/todo';
 
@@ -81,29 +81,19 @@ export function TodoCard({ todo, index }: TodoCardProps) {
             slotProps={{ input: { 'data-cy': 'todo-card-checkbox' } }}
           />
           <div>
-            <Typography
-              variant="body1"
-              data-cy="todo-card-text"
-              sx={{
-                textDecoration: todo.done ? 'line-through' : 'none',
-                opacity: todo.done ? 0.5 : 1,
-              }}
-            >
+            <TodoText variant="body1" done={todo.done} data-cy="todo-card-text">
               {todo.text}
-            </Typography>
+            </TodoText>
             {todo.description && (
-              <Typography
+              <TodoText
                 variant="body2"
                 color="text.secondary"
+                done={todo.done}
+                sx={{ mt: 0.5 }}
                 data-cy="todo-card-description"
-                sx={{
-                  mt: 0.5,
-                  textDecoration: todo.done ? 'line-through' : 'none',
-                  opacity: todo.done ? 0.5 : 1,
-                }}
               >
                 {todo.description}
-              </Typography>
+              </TodoText>
             )}
           </div>
         </CardContent>

@@ -1,6 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlined';
-import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
@@ -9,6 +8,8 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { ConfirmationDialog } from '#/components/shared/ConfirmationDialog';
+import { EditPanelCard } from '#/components/todolist/EditPanelCard';
+import { PanelHeaderRow } from '#/components/todolist/PanelHeaderRow';
 import { useDebounce } from '#/hooks/useDebounce';
 import { useTodoList } from '#/providers/TodoListProvider';
 
@@ -39,12 +40,9 @@ export function EditTodoListPanel() {
   }, [stopEditingList, deleteDialogOpen]);
 
   return (
-    <Card variant="outlined" sx={{ width: 520, flexShrink: 0 }}>
+    <EditPanelCard variant="outlined">
       <CardContent>
-        <Stack
-          direction="row"
-          sx={{ alignItems: 'center', justifyContent: 'space-between', mb: 1 }}
-        >
+        <PanelHeaderRow>
           <Typography variant="h6">Edit Todo List</Typography>
           <Stack direction="row" sx={{ alignItems: 'center' }}>
             <Tooltip title="Delete Todo List">
@@ -62,7 +60,7 @@ export function EditTodoListPanel() {
               </IconButton>
             </Tooltip>
           </Stack>
-        </Stack>
+        </PanelHeaderRow>
         <TextField
           required
           margin="dense"
@@ -80,6 +78,6 @@ export function EditTodoListPanel() {
         onClose={() => setDeleteDialogOpen(false)}
         onConfirm={deleteList}
       />
-    </Card>
+    </EditPanelCard>
   );
 }

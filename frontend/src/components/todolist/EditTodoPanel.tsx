@@ -1,12 +1,12 @@
 import CloseIcon from '@mui/icons-material/Close';
-import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
+import { EditPanelCard } from '#/components/todolist/EditPanelCard';
+import { PanelHeaderRow } from '#/components/todolist/PanelHeaderRow';
 import { useDebounce } from '#/hooks/useDebounce';
 import { useTodos } from '#/providers/TodosProvider';
 import type { TodoDto } from '#/types/todo';
@@ -43,12 +43,9 @@ export function EditTodoPanel({ todo }: EditTodoPanelProps) {
   }, [stopEditingTodo]);
 
   return (
-    <Card variant="outlined" sx={{ width: 520, flexShrink: 0 }} data-cy="edit-todo-panel">
+    <EditPanelCard variant="outlined" data-cy="edit-todo-panel">
       <CardContent>
-        <Stack
-          direction="row"
-          sx={{ alignItems: 'center', justifyContent: 'space-between', mb: 1 }}
-        >
+        <PanelHeaderRow>
           <Typography variant="h6" data-cy="edit-todo-panel-title">
             Edit ToDo
           </Typography>
@@ -57,7 +54,7 @@ export function EditTodoPanel({ todo }: EditTodoPanelProps) {
               <CloseIcon fontSize="small" />
             </IconButton>
           </Tooltip>
-        </Stack>
+        </PanelHeaderRow>
         <TextField
           required
           margin="dense"
@@ -79,6 +76,6 @@ export function EditTodoPanel({ todo }: EditTodoPanelProps) {
           slotProps={{ htmlInput: { 'data-cy': 'edit-todo-description-input' } }}
         />
       </CardContent>
-    </Card>
+    </EditPanelCard>
   );
 }

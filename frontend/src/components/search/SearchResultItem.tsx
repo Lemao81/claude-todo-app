@@ -1,5 +1,6 @@
 import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
+import { TodoText } from '#/components/shared/TodoText';
 import type { TodoDto } from '#/types/todo';
 
 type SearchResultItemProps = {
@@ -13,15 +14,9 @@ export function SearchResultItem({ todo, listName }: SearchResultItemProps) {
       <Typography variant="caption" color="text.secondary">
         {listName}
       </Typography>
-      <Typography
-        data-cy="search-result-text"
-        sx={{
-          textDecoration: todo.done ? 'line-through' : 'none',
-          opacity: todo.done ? 0.5 : 1,
-        }}
-      >
+      <TodoText done={todo.done} data-cy="search-result-text">
         {todo.text}
-      </Typography>
+      </TodoText>
     </ListItem>
   );
 }
