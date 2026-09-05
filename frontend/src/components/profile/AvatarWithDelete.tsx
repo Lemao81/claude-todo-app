@@ -32,8 +32,8 @@ export function AvatarWithDelete({ onDelete }: AvatarWithDeleteProps) {
           data-cy="avatar-delete-button"
           sx={{
             position: 'absolute',
-            right: -1.5,
-            bottom: -1.5,
+            right: '-1.5px',
+            bottom: '-1.5px',
             bgcolor: 'grey.300',
             boxShadow: 1,
             '&:hover': { bgcolor: 'grey.400' },

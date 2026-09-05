@@ -31,7 +31,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Comic Sans MS',
+    fontFamily: '"Comic Sans MS", "Comic Sans", cursive',
     fontSize: 15,
     fontWeightLight: 100,
     fontWeightRegular: 200,
