@@ -1,9 +1,12 @@
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
 export function HomePage() {
   return (
-    <div className="p-8">
-      <h1 className="text-4xl font-bold" data-cy="home-heading">
+    <Box sx={{ p: 4 }}>
+      <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold' }} data-cy="home-heading">
         Welcome to Claude ToDo App
-      </h1>
-    </div>
+      </Typography>
+    </Box>
   );
 }
