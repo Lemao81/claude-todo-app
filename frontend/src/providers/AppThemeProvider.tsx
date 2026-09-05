@@ -1,4 +1,10 @@
-import { createTheme, ThemeProvider, useColorScheme } from '@mui/material/styles';
+import {
+  alpha,
+  createTheme,
+  type Theme,
+  ThemeProvider,
+  useColorScheme,
+} from '@mui/material/styles';
 
 type ColorMode = 'light' | 'dark';
 
@@ -35,6 +41,37 @@ const theme = createTheme({
   spacing: 7,
   shape: {
     borderRadius: 14,
+  },
+  components: {
+    MuiTooltip: {
+      defaultProps: {
+        enterDelay: 500,
+        enterNextDelay: 500,
+      },
+    },
+    MuiButton: {
+      variants: [
+        {
+          props: { variant: 'contained', color: 'inherit' },
+          style: ({ theme }: { theme: Theme }) => ({
+            backgroundColor: alpha(theme.palette.common.white, 0.15),
+            '&:hover': {
+              backgroundColor: alpha(theme.palette.common.white, 0.25),
+            },
+          }),
+        },
+        {
+          props: { variant: 'outlined', color: 'inherit' },
+          style: ({ theme }: { theme: Theme }) => ({
+            borderColor: alpha(theme.palette.common.white, 0.4),
+            '&:hover': {
+              borderColor: alpha(theme.palette.common.white, 0.7),
+              backgroundColor: alpha(theme.palette.common.white, 0.1),
+            },
+          }),
+        },
+      ],
+    },
   },
 });
 

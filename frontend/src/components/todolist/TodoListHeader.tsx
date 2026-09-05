@@ -23,7 +23,7 @@ export function TodoListHeader({ showDone, onShowDoneChange, onAddClick }: TodoL
         <Typography variant="h5" data-cy="todo-list-heading">
           My Todos - {listName}
         </Typography>
-        <Tooltip title="Edit Todo List" enterDelay={500} enterNextDelay={500}>
+        <Tooltip title="Edit Todo List">
           <IconButton aria-label="Edit todo list" size="small" onClick={startEditingList}>
             <EditOutlineIcon fontSize="small" />
           </IconButton>

@@ -47,7 +47,7 @@ export function EditTodoListPanel() {
         >
           <Typography variant="h6">Edit Todo List</Typography>
           <Stack direction="row" sx={{ alignItems: 'center' }}>
-            <Tooltip title="Delete Todo List" enterDelay={500} enterNextDelay={500}>
+            <Tooltip title="Delete Todo List">
               <IconButton
                 aria-label="Delete todo list"
                 size="small"
@@ -56,7 +56,7 @@ export function EditTodoListPanel() {
                 <DeleteOutlineIcon fontSize="small" />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Close" enterDelay={500} enterNextDelay={500}>
+            <Tooltip title="Close">
               <IconButton aria-label="Close edit panel" size="small" onClick={stopEditingList}>
                 <CloseIcon fontSize="small" />
               </IconButton>

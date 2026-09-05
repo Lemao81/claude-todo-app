@@ -52,7 +52,7 @@ export function EditTodoPanel({ todo }: EditTodoPanelProps) {
           <Typography variant="h6" data-cy="edit-todo-panel-title">
             Edit ToDo
           </Typography>
-          <Tooltip title="Close" enterDelay={500} enterNextDelay={500}>
+          <Tooltip title="Close">
             <IconButton aria-label="Close edit panel" size="small" onClick={stopEditingTodo}>
               <CloseIcon fontSize="small" />
             </IconButton>

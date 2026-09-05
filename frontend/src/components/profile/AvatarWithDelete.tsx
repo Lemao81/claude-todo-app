@@ -23,7 +23,7 @@ export function AvatarWithDelete({ onDelete }: AvatarWithDeleteProps) {
         sx={{ width: 160, height: 160 }}
         data-cy="avatar-image"
       />
-      <Tooltip title="Delete Avatar" enterDelay={500} enterNextDelay={500}>
+      <Tooltip title="Delete Avatar">
         <IconButton
           aria-label="Delete avatar"
           size="small"

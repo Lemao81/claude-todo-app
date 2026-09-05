@@ -17,26 +17,10 @@ export function UserActions() {
           component={Link}
           to="/login"
           data-cy="sign-in-link"
-          sx={{
-            bgcolor: 'rgba(255, 255, 255, 0.15)',
-            '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.25)' },
-          }}
         >
           Sign in
         </Button>
-        <Button
-          color="inherit"
-          variant="outlined"
-          component={Link}
-          to="/register"
-          sx={{
-            borderColor: 'rgba(255, 255, 255, 0.4)',
-            '&:hover': {
-              borderColor: 'rgba(255, 255, 255, 0.7)',
-              bgcolor: 'rgba(255, 255, 255, 0.1)',
-            },
-          }}
-        >
+        <Button color="inherit" variant="outlined" component={Link} to="/register">
           Sign up
         </Button>
       </Stack>
