@@ -1,14 +1,10 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { LoginForm } from '#/components/auth/LoginForm';
+import { AuthPageLayout } from '#/layouts/AuthPageLayout';
 
 export function LoginPage() {
   return (
-    <Box sx={{ maxWidth: 360, mx: 'auto', mt: 8 }}>
-      <Typography variant="h5" sx={{ mb: 3 }} data-cy="login-heading">
-        Sign In
-      </Typography>
+    <AuthPageLayout title="Sign In" titleDataCy="login-heading">
       <LoginForm />
-    </Box>
+    </AuthPageLayout>
   );
 }
