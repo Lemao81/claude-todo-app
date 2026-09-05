@@ -30,17 +30,19 @@ export function TodoCard({ todo, index }: TodoCardProps) {
       ref={ref}
       variant="outlined"
       data-cy="todo-card"
-      sx={{
-        display: 'flex',
-        alignItems: 'stretch',
-        mb: 1.5,
-        opacity: isDragging ? 0.4 : 1,
-        ...(isEditing && {
+      sx={[
+        {
+          display: 'flex',
+          alignItems: 'stretch',
+          mb: 1.5,
+          opacity: isDragging ? 0.4 : 1,
+        },
+        isEditing && {
           borderColor: 'primary.main',
           outline: '1px solid',
           outlineColor: 'primary.main',
-        }),
-      }}
+        },
+      ]}
     >
       <Box
         ref={handleRef}
@@ -80,7 +82,7 @@ export function TodoCard({ todo, index }: TodoCardProps) {
             sx={{ p: 0, mt: 0.25 }}
             slotProps={{ input: { 'data-cy': 'todo-card-checkbox' } }}
           />
-          <div>
+          <Box>
             <TodoText variant="body1" done={todo.done} data-cy="todo-card-text">
               {todo.text}
             </TodoText>
@@ -95,7 +97,7 @@ export function TodoCard({ todo, index }: TodoCardProps) {
                 {todo.description}
               </TodoText>
             )}
-          </div>
+          </Box>
         </CardContent>
       </CardActionArea>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 1 }}>

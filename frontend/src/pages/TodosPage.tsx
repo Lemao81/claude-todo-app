@@ -1,3 +1,5 @@
+import Box from '@mui/material/Box';
+
 export function TodosPage() {
-  return <div style={{ maxWidth: 640 }}>No todo lists yet.</div>;
+  return <Box sx={{ maxWidth: 640 }}>No todo lists yet.</Box>;
 }

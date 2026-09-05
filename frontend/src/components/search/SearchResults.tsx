@@ -1,9 +1,11 @@
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useQuery } from '@tanstack/react-query';
 import { SearchResultList } from '#/components/search/SearchResultList';
 import { useSearch } from '#/providers/SearchProvider';
 import { useTodoLists } from '#/providers/TodoListsProvider';
 import { allTodosQueryOptions } from '#/services/api/todoApi';
+import { CONTENT_MAX_WIDTH } from '#/utils/constants';
 
 export function SearchResults() {
   const { activeSearchTerm } = useSearch();
@@ -20,7 +22,7 @@ export function SearchResults() {
   const listNames = new Map(todoLists.map((list) => [list.id, list.name]));
 
   return (
-    <div style={{ maxWidth: 800 }}>
+    <Box sx={{ maxWidth: CONTENT_MAX_WIDTH }}>
       <Typography variant="h6" sx={{ mb: 1 }}>
         Search Results
       </Typography>
@@ -29,6 +31,6 @@ export function SearchResults() {
       ) : (
         <SearchResultList todos={results} listNames={listNames} />
       )}
-    </div>
+    </Box>
   );
 }

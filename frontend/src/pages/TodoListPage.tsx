@@ -1,3 +1,4 @@
+import Box from '@mui/material/Box';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Stack from '@mui/material/Stack';
 import { useEffect, useState } from 'react';
@@ -8,6 +9,7 @@ import { TodoList } from '#/components/todolist/TodoList';
 import { TodoListHeader } from '#/components/todolist/TodoListHeader';
 import { useTodoList } from '#/providers/TodoListProvider';
 import { useTodos } from '#/providers/TodosProvider';
+import { CONTENT_MAX_WIDTH } from '#/utils/constants';
 
 export function TodoListPage() {
   const { editingTodo, stopEditingTodo } = useTodos();
@@ -43,17 +45,17 @@ export function TodoListPage() {
       {/* biome-ignore lint/a11y/noStaticElementInteractions: presentational background dismiss area */}
       {/* biome-ignore lint/a11y/useKeyWithClickEvents: keyboard dismissal handled via Escape in edit panels */}
       <div onClick={handleAreaClick}>
-        <div style={{ maxWidth: 800 }}>
+        <Box sx={{ maxWidth: CONTENT_MAX_WIDTH }}>
           <TodoListHeader
             showDone={showDone}
             onShowDoneChange={setShowDone}
             onAddClick={() => setAddDialogOpen(true)}
           />
-        </div>
+        </Box>
         <Stack direction="row" sx={{ gap: 3, alignItems: 'flex-start' }} onClick={handleAreaClick}>
-          <div style={{ maxWidth: 800, flex: 1 }}>
+          <Box sx={{ maxWidth: CONTENT_MAX_WIDTH, flex: 1 }}>
             <TodoList showDone={showDone} />
-          </div>
+          </Box>
           {editingTodo && <EditTodoPanel key={editingTodo.id} todo={editingTodo} />}
           {editingList && <EditTodoListPanel />}
         </Stack>
