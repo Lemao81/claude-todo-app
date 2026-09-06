@@ -13,6 +13,8 @@ import { useTodos } from '#/providers/TodosProvider';
 import type { TodoDto } from '#/types/todo';
 import { CONTENT_MAX_WIDTH } from '#/utils/constants';
 
+const PANEL_FADE_TIMEOUT = 130;
+
 export function TodoListPage() {
   const { editingTodo, stopEditingTodo } = useTodos();
   const { editingList, stopEditingList } = useTodoList();
@@ -65,12 +67,16 @@ export function TodoListPage() {
           <Box sx={{ maxWidth: CONTENT_MAX_WIDTH, flex: 1 }}>
             <TodoList showDone={showDone} />
           </Box>
-          <Fade in={Boolean(editingTodo)} timeout={130} unmountOnExit>
+          <Fade in={Boolean(editingTodo)} timeout={PANEL_FADE_TIMEOUT} unmountOnExit>
             <Box sx={{ flexShrink: 0 }}>
               {panelTodo && <EditTodoPanel key={panelTodo.id} todo={panelTodo} />}
             </Box>
           </Fade>
-          {editingList && <EditTodoListPanel />}
+          <Fade in={editingList} timeout={PANEL_FADE_TIMEOUT} unmountOnExit>
+            <Box sx={{ flexShrink: 0 }}>
+              <EditTodoListPanel />
+            </Box>
+          </Fade>
         </Stack>
         <AddTodoDialog open={addDialogOpen} onClose={() => setAddDialogOpen(false)} />
       </div>
