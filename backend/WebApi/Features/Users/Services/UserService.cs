@@ -44,6 +44,20 @@ public class UserService(AppDbContext db)
         return true;
     }
 
+    public async Task<bool> DeleteAsync(Guid id)
+    {
+        var user = await db.Users.FindAsync(id);
+        if (user is null)
+        {
+            return false;
+        }
+
+        db.Users.Remove(user);
+        await db.SaveChangesAsync();
+
+        return true;
+    }
+
     public async Task<User?> CreateAsync(User user)
     {
         var exists = await db.Users.AnyAsync(u =>

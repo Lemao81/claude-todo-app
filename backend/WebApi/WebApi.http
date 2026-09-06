@@ -127,3 +127,7 @@ Content-Type: image/png
 DELETE {{baseUrl}}/api/users/avatar
 
 ###
+
+DELETE {{baseUrl}}/api/users/me
+
+###

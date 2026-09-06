@@ -1,4 +1,6 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using WebApi.Extensions;
 using WebApi.Features.Users.Models.Dtos;
 using WebApi.Features.Users.Services;
@@ -68,6 +70,25 @@ public static class UserEndpoints
                 var deleted = await userService.DeleteAvatarAsync(userId);
 
                 return deleted ? Results.NoContent() : Results.NotFound();
+            });
+
+        group.MapDelete(
+            "/me", async (ClaimsPrincipal user, HttpContext httpContext, UserService userService) =>
+            {
+                if (!user.TryGetUserId(out var userId))
+                {
+                    return Results.Unauthorized();
+                }
+
+                var deleted = await userService.DeleteAsync(userId);
+                if (!deleted)
+                {
+                    return Results.NotFound();
+                }
+
+                await httpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+                return Results.NoContent();
             });
 
         return app;

@@ -26,3 +26,7 @@ export function uploadAvatar(file: File): Promise<boolean> {
     body: formData,
   });
 }
+
+export function deleteAccount(): Promise<boolean> {
+  return apiSend('/api/users/me', 'Failed to delete account', { method: 'DELETE' });
+}
