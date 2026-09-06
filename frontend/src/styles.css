@@ -1,17 +1,11 @@
+@layer theme, base, mui, components, utilities;
 
 @import "tailwindcss";
 
-* {
-  box-sizing: border-box;
+@layer base {
+  html,
+  body,
+  #app {
+    min-height: 100%;
+  }
 }
-
-html,
-body,
-#app {
-  min-height: 100%;
-}
-
-body {
-  margin: 0;
-}
-
