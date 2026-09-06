@@ -5,6 +5,7 @@ import {
   ThemeProvider,
   useColorScheme,
 } from '@mui/material/styles';
+import { colors } from '#/theme/colors';
 
 type ColorMode = 'light' | 'dark';
 
@@ -17,16 +18,16 @@ const theme = createTheme({
   colorSchemes: {
     light: {
       palette: {
-        primary: { main: '#8a7526' },
-        secondary: { main: '#2f6b1e' },
-        background: { default: '#f3f1e7', paper: '#ffffff' },
+        primary: { main: colors.light.primary },
+        secondary: { main: colors.light.secondary },
+        background: colors.light.background,
       },
     },
     dark: {
       palette: {
-        primary: { main: '#ba9d36' },
-        secondary: { main: '#41922a' },
-        background: { default: '#272a42', paper: '#1a1c2e' },
+        primary: { main: colors.dark.primary },
+        secondary: { main: colors.dark.secondary },
+        background: colors.dark.background,
       },
     },
   },
