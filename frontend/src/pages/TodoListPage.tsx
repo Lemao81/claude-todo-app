@@ -1,32 +1,20 @@
 import Box from '@mui/material/Box';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Fade from '@mui/material/Fade';
 import Stack from '@mui/material/Stack';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AddTodoDialog } from '#/components/todolist/AddTodoDialog';
-import { EditTodoListPanel } from '#/components/todolist/EditTodoListPanel';
-import { EditTodoPanel } from '#/components/todolist/EditTodoPanel';
+import { EditPanelSlot } from '#/components/todolist/EditPanelSlot';
 import { TodoList } from '#/components/todolist/TodoList';
 import { TodoListHeader } from '#/components/todolist/TodoListHeader';
 import { useTodoList } from '#/providers/TodoListProvider';
 import { useTodos } from '#/providers/TodosProvider';
-import type { TodoDto } from '#/types/todo';
 import { CONTENT_MAX_WIDTH } from '#/utils/constants';
-
-const PANEL_FADE_TIMEOUT = 130;
 
 export function TodoListPage() {
   const { editingTodo, stopEditingTodo } = useTodos();
   const { editingList, stopEditingList } = useTodoList();
   const [showDone, setShowDone] = useState(true);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
-  const lastEditingTodo = useRef<TodoDto | null>(null);
-
-  if (editingTodo) {
-    lastEditingTodo.current = editingTodo;
-  }
-
-  const panelTodo = editingTodo ?? lastEditingTodo.current;
 
   useEffect(() => {
     if (editingTodo) {
@@ -67,16 +55,7 @@ export function TodoListPage() {
           <Box sx={{ maxWidth: CONTENT_MAX_WIDTH, flex: 1 }}>
             <TodoList showDone={showDone} />
           </Box>
-          <Fade in={Boolean(editingTodo)} timeout={PANEL_FADE_TIMEOUT} unmountOnExit>
-            <Box sx={{ flexShrink: 0 }}>
-              {panelTodo && <EditTodoPanel key={panelTodo.id} todo={panelTodo} />}
-            </Box>
-          </Fade>
-          <Fade in={editingList} timeout={PANEL_FADE_TIMEOUT} unmountOnExit>
-            <Box sx={{ flexShrink: 0 }}>
-              <EditTodoListPanel />
-            </Box>
-          </Fade>
+          <EditPanelSlot />
         </Stack>
         <AddTodoDialog open={addDialogOpen} onClose={() => setAddDialogOpen(false)} />
       </div>
