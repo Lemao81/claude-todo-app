@@ -39,7 +39,11 @@ public static class AuthEndpoints
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);
 
-                await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                await httpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties
+                    {
+                        IsPersistent = true,
+                    });
 
                 return Results.Ok(UserDto.FromUser(user));
             });
