@@ -6,10 +6,14 @@
     "#/*": "./src/*"
   },
   "scripts": {
+    "start:all": "docker compose -f ../compose.yaml up -d && pnpm dev",
     "dev": "vite dev --port 3000",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
+    "be:up": "docker compose -f ../compose.yaml up",
+    "be:db": "docker compose -f ../compose.yaml up postgres",
+    "be:down": "docker compose -f ../compose.yaml down",
     "bm:format": "biome format",
     "bm:format:write": "biome format --write",
     "bm:lint": "biome lint",
