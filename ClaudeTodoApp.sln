@@ -7,6 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Solution Items", ".Solutio
 		compose.yaml = compose.yaml
 		CLAUDE.md = CLAUDE.md
 		.gitignore = .gitignore
+		scripts\postgres_up.sh = scripts\postgres_up.sh
+		scripts\truncate.sh = scripts\truncate.sh
+		notes.txt = notes.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "backend\UnitTests\UnitTests.csproj", "{59808A2A-69DB-4084-9C27-2D690B202D80}"
