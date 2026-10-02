@@ -2,4 +2,4 @@ allowBuilds:
   cypress: true
   esbuild: true
   lightningcss: true
-minimumReleaseAge: 20160
+minimumReleaseAge: 10080
