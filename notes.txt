@@ -1,0 +1,12 @@
+Admin test login (seeded demo user)
+
+Username:
+admin
+
+Email:
+admin@test.com
+
+Password:
+password
+
+Login accepts either the username or the email.
